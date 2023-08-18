@@ -25,7 +25,9 @@
       stripe
       :data="mainContentData"
       style="height: 76vh; width: 80vw"
+      @selection-change="handleSelectionChange"
     >
+      <el-table-column type="selection" width="55" />
       <el-table-column :key="'姓名'" label="姓名" prop="姓名" width="120" fixed>
         <template #default="{ row, $index }">
           <div
@@ -81,7 +83,7 @@
           <el-button
             size="small"
             type="danger"
-            @click="handleRowDelete(scope.row.m_id)"
+            @click="handleRowDelete(scope.row.m_id, currentSelectedDataId)"
             >刪除</el-button
           >
         </template>
@@ -170,12 +172,12 @@ import { onMounted, ref, watch, reactive, Ref, computed } from "vue";
 import { useRightDataStore } from "../store/DataHandleStore";
 import { storeToRefs } from "pinia";
 import { utils, writeFileXLSX } from "xlsx";
-import { DataItem} from "../store/DataHandleStore"
+import { DataItem } from "../store/DataHandleStore";
+// import { ElTable } from 'element-plus'
 interface ContentTitleItem {
   title: string;
   key: string;
 }
-
 
 export default {
   setup() {
@@ -270,27 +272,47 @@ export default {
     const handleNextClick = (val: number) => {
       currentPage.value = val + 1;
     };
-    const handleShowData = (currentPage: number, pageSize: number, data: DataItem[]) => {
-      console.log(data)
+    const handleShowData = (
+      currentPage: number,
+      pageSize: number,
+      data: DataItem[]
+    ) => {
+      console.log(data);
       let pageStartIndex = (currentPage - 1) * pageSize;
       let pageEndIndex = currentPage * pageSize;
       let showData = data.slice(pageStartIndex, pageEndIndex);
       return showData;
     };
     const loading = ref(true);
+    // const multipleTableRef = ref<InstanceType<typeof ElTable>>();
+    const multipleSelection = ref<DataItem[]>([]);
+    // const toggleSelection = (rows?: DataItem[]) => {
+    //   if (rows) {
+    //     rows.forEach((row) => {
+    //       // TODO: improvement typing when refactor table
+    //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //      multipleTableRef.value!.toggleRowSelection(row, undefined);
+    //     });
+    //   } else {
+    //     multipleTableRef.value!.clearSelection();
+    //   }
+    // };
+    const handleSelectionChange = (val: DataItem[]) => {
+      multipleSelection.value = val;
+    };
 
     onMounted(async () => {
-  const mainData = await fetchData();
-  loading.value = false;
-  
-  if (mainData !== undefined) {
-    mainContentData.value = handleShowData(
-      currentPage.value,
-      pageSize.value,
-      mainData
-    );
-  }
-});
+      const mainData = await fetchData();
+      loading.value = false;
+
+      if (mainData !== undefined) {
+        mainContentData.value = handleShowData(
+          currentPage.value,
+          pageSize.value,
+          mainData
+        );
+      }
+    });
 
     const dialogAddFormVisible = ref(false);
     const handleAddDialogVisible = (ifVisible: boolean) => {
@@ -346,6 +368,8 @@ export default {
       updateSelectedData,
       currentSelectedData,
       selectedDataTitle,
+      handleSelectionChange,
+      // toggleSelection
     };
   },
 };

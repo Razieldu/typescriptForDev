@@ -67,7 +67,7 @@ export const useRightDataStore = defineStore("rightData", {
           headers: {
             "Content-Type": "application/json",
           },
-        }); 
+        });
         if (response.ok) {
           const result = await response.json();
           this.data = JSON.parse(JSON.stringify(result.Data));
@@ -92,8 +92,8 @@ export const useRightDataStore = defineStore("rightData", {
           headers: {
             "Content-Type": "application/json",
           },
-        }); 
-         if (response.ok) {
+        });
+        if (response.ok) {
           const result = await response.json();
           console.log(result);
           return result;
@@ -109,7 +109,6 @@ export const useRightDataStore = defineStore("rightData", {
       memberNewData: MemberData
     ): Promise<string | undefined> {
       try {
- 
         //測試用
         const response = await fetch("http://localhost:3000/proxy4", {
           method: "POST",
@@ -190,9 +189,59 @@ export const useRightDataStore = defineStore("rightData", {
       // console.log(this.saveData, "SAVEDATA");
     },
 
-    handleRowDelete(id: string): void {
-      this.data = this.data.filter((one) => one.m_id !== id);
-      this.saveData = this.saveData.filter((one) => one.m_id !== id);
+    handleRowDelete(id: string, currentSelectedDataId: string): void {
+      if (!currentSelectedDataId) {
+        this.data = this.data.filter((one) => one.m_id !== id);
+        this.saveData = this.saveData.filter((one) => one.m_id !== id);
+      } else {
+        if (this.currentSelectedData) {
+          let currentContent = this.currentSelectedData.content.filter(
+            (one) => {
+              if (one.m_id !== id) {
+                return true;
+              } else {
+                return false;
+              }
+            }
+          );
+          this.currentSelectedData.content = currentContent;
+          this.selectedData = this.selectedData.map((each) => {
+            if (each.id == currentSelectedDataId) {
+              return { ...each, content: currentContent };
+            } else {
+              return each;
+            }
+          });
+          console.log(this.selectedData);
+          this.data = currentContent
+        }
+
+        // if(this.currentSelectedData){
+        //   this.currentSelectedData.content = currentContent
+        // }
+
+        //  this.selectedData.map((one) => {
+        //   if (one.id === id) {
+        //     console.log(one);
+        //   } else {
+        //     return one;
+        //   }
+        // });
+        // let newCurrentSelectedData = this.currentSelectedData.content.filter(
+        //   (one) => one.m_id !== id
+        // );
+        // this.currentSelectedData.content = newCurrentSelectedData
+        // console.log(this.currentSelectedData);
+        // console.log(this.selectedData);
+        // this.data = this.currentSelectedData.content;
+        // this.selectedData = this.selectedData.map((each) => {
+        //   if (each.id === id) {
+        //     return { ...each, content: newCurrentSelectedData };
+        //   } else {
+        //     return each;
+        //   }
+        // });
+      }
     },
 
     async handleAddNewData(): Promise<void> {
@@ -210,7 +259,7 @@ export const useRightDataStore = defineStore("rightData", {
           this.data[0].m_id = result;
           this.saveData[0].m_id = result;
         }
-         console.log(this.data[0]);
+        console.log(this.data[0]);
         console.log(this.saveData[0]);
       } catch (error) {
         console.log(error);
@@ -256,6 +305,7 @@ export const useRightDataStore = defineStore("rightData", {
         id: `${newId}_${title}`,
       };
       this.selectedData.push(selectedObject);
+      console.log(this.selectedData);
     },
 
     showSelectedData(id: string): void {
@@ -266,7 +316,7 @@ export const useRightDataStore = defineStore("rightData", {
       );
       this.data = [...readyToShowData[0].content];
       this.currentSelectedData = { ...readyToShowData[0] };
-      // console.log(this.currentSelectedData)
+      console.log(this.currentSelectedData);
       this.currentSelectedDataId = id;
     },
 
