@@ -43,6 +43,25 @@
               :key="titleIndex"
             >
               <template #title>{{ eachObject.name }}</template>
+              <el-menu-item>
+                <el-input
+                  :key="titleIndex"
+                  v-model="inputValue[titleIndex]"
+                  class="addInput"
+                ></el-input>
+                <el-button
+                  @click="
+                    handleAddSearchTitle(
+                      titleIndex,
+                      inputValue[titleIndex]
+                    )
+                  "
+                  class="addButton"
+                  type="danger"
+                  size="small"
+                  >新增</el-button
+                >
+              </el-menu-item>
               <el-menu-item
                 v-for="(eachSearchWordObject, index) in data[titleIndex]"
                 :key="index"
@@ -95,7 +114,7 @@
 <script lang="ts">
 import { Delete } from "@element-plus/icons-vue";
 import { RouterLink } from "vue-router";
-import { ref, watch, Ref } from "vue";
+import { ref, watch, Ref, onMounted } from "vue";
 import { useLeftDataStore } from "../store/LeftDataHandleStore";
 import { useRightDataStore } from "../store/DataHandleStore";
 import { storeToRefs } from "pinia";
@@ -104,6 +123,10 @@ interface Title {
   color: string;
   index: string;
 }
+// interface InputValue {
+//   id: number;
+//   value: string;
+// }
 export default {
   name: "LeftMenu",
   components: {},
@@ -111,7 +134,7 @@ export default {
     const leftDataStore = useLeftDataStore();
     const DataHandleStore = useRightDataStore();
     const { data, open } = storeToRefs(leftDataStore);
-    const { deleteData } = leftDataStore;
+    const { deleteData, handleAddSearchTitle } = leftDataStore;
     const { searchGoalByColumn, showSelectedData } = DataHandleStore;
     const { selectedData, isFirst } = storeToRefs(DataHandleStore);
     const titles: Ref<Title[]> = ref([
@@ -122,6 +145,8 @@ export default {
       { name: "郵遞區號", color: "grey", index: "1-5" },
       { name: "地址", color: "silver", index: "1-6" },
     ]);
+    const inputValueArray: Ref<string[]> = ref([]);
+    const inputValue = inputValueArray.value;
     const titleData = titles.value;
     const handleOpen = (key: string, keyPath: string) => {
       console.log(`Menu with key ${key} Path${keyPath} is opened!`);
@@ -129,7 +154,7 @@ export default {
     const handleClose = (key: string, keyPath: string) => {
       console.log(`Menu with key ${key} Path${keyPath} is opened!`);
     };
-    const myElements = ref({});
+    // const myElements = ref({});
     watch(
       selectedData,
       (newData) => {
@@ -138,6 +163,13 @@ export default {
       },
       { deep: true }
     );
+
+    onMounted(() => {
+      for (let i = 0; i < titleData.length; i++) {
+        inputValue.push("");
+      }
+      console.log(inputValue);
+    });
 
     return {
       handleClose,
@@ -153,7 +185,9 @@ export default {
       showSelectedData,
       isFirst,
       Delete,
-      myElements,
+      inputValue,
+      handleAddSearchTitle,
+      // myElements,
     };
   },
 };
@@ -165,6 +199,19 @@ export default {
 }
 .deleteButton .el-icon {
   margin-right: 0px !important;
+}
+.addButton {
+  height: 24px !important;
+  right: 18px;
+  position: absolute;
+}
+.addInput {
+  height: 24px;
+  width: 150px !important;
+  /* margin-right: 12px; */
+  right: 12px;
+
+  position: absolute;
 }
 </style>
 

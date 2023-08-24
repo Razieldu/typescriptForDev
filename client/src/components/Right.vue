@@ -299,6 +299,7 @@ export default {
     // };
     const handleSelectionChange = (val: DataItem[]) => {
       multipleSelection.value = val;
+      console.log(val)
     };
 
     onMounted(async () => {

@@ -215,32 +215,6 @@ export const useRightDataStore = defineStore("rightData", {
           console.log(this.selectedData);
           this.data = currentContent
         }
-
-        // if(this.currentSelectedData){
-        //   this.currentSelectedData.content = currentContent
-        // }
-
-        //  this.selectedData.map((one) => {
-        //   if (one.id === id) {
-        //     console.log(one);
-        //   } else {
-        //     return one;
-        //   }
-        // });
-        // let newCurrentSelectedData = this.currentSelectedData.content.filter(
-        //   (one) => one.m_id !== id
-        // );
-        // this.currentSelectedData.content = newCurrentSelectedData
-        // console.log(this.currentSelectedData);
-        // console.log(this.selectedData);
-        // this.data = this.currentSelectedData.content;
-        // this.selectedData = this.selectedData.map((each) => {
-        //   if (each.id === id) {
-        //     return { ...each, content: newCurrentSelectedData };
-        //   } else {
-        //     return each;
-        //   }
-        // });
       }
     },
 
