@@ -44,23 +44,33 @@
             >
               <template #title>{{ eachObject.name }}</template>
               <el-menu-item>
-                <el-input
-                  :key="titleIndex"
-                  v-model="inputValue[titleIndex]"
-                  class="addInput"
-                ></el-input>
-                <el-button
-                  @click="
-                    handleAddSearchTitle(
-                      titleIndex,
-                      inputValue[titleIndex]
-                    )
-                  "
-                  class="addButton"
-                  type="danger"
-                  size="small"
-                  >新增</el-button
-                >
+                <div>
+                  <el-input
+                    :key="titleIndex"
+                    v-model="inputValue[titleIndex]"
+                    class="addInput"
+                    v-if="menuButtonStateValue[titleIndex]"
+                  ></el-input>
+                </div>
+                <div>
+                  <el-button
+                    @click="
+                      handleAddSearchTitle(titleIndex, inputValue[titleIndex]);
+                      menuButtonStateValue[titleIndex] =
+                        !menuButtonStateValue[titleIndex];
+
+                      inputValue[titleIndex] = '';
+                    "
+                    class="addButton"
+                    type="danger"
+                    size="small"
+                    >{{
+                      menuButtonStateValue[titleIndex]
+                        ? addButtonContentValue[1]
+                        : addButtonContentValue[0]
+                    }}
+                  </el-button>
+                </div>
               </el-menu-item>
               <el-menu-item
                 v-for="(eachSearchWordObject, index) in data[titleIndex]"
@@ -86,9 +96,7 @@
                       )
                     "
                   >
-                    <p class="text-s">
-                      {{ eachSearchWordObject.name }}
-                    </p>
+                    <p class="text-s">{{ eachSearchWordObject.name }}</p>
                   </div>
                   <div
                     class="deleteButton col-span-1 place-items-center flex justify-center"
@@ -123,10 +131,6 @@ interface Title {
   color: string;
   index: string;
 }
-// interface InputValue {
-//   id: number;
-//   value: string;
-// }
 export default {
   name: "LeftMenu",
   components: {},
@@ -146,8 +150,10 @@ export default {
       { name: "地址", color: "silver", index: "1-6" },
     ]);
     const inputValueArray: Ref<string[]> = ref([]);
+    const menuButtonState: Ref<boolean[]> = ref([]);
     const inputValue = inputValueArray.value;
     const titleData = titles.value;
+    const menuButtonStateValue = menuButtonState.value;
     const handleOpen = (key: string, keyPath: string) => {
       console.log(`Menu with key ${key} Path${keyPath} is opened!`);
     };
@@ -155,6 +161,8 @@ export default {
       console.log(`Menu with key ${key} Path${keyPath} is opened!`);
     };
     // const myElements = ref({});
+    const addButtonContent = ref(["添加", "確認添加"]);
+    const addButtonContentValue = addButtonContent.value;
     watch(
       selectedData,
       (newData) => {
@@ -163,9 +171,9 @@ export default {
       },
       { deep: true }
     );
-
     onMounted(() => {
       for (let i = 0; i < titleData.length; i++) {
+        menuButtonStateValue.push(false);
         inputValue.push("");
       }
       console.log(inputValue);
@@ -187,6 +195,9 @@ export default {
       Delete,
       inputValue,
       handleAddSearchTitle,
+      addButtonContentValue,
+      addButtonContent,
+      menuButtonStateValue,
       // myElements,
     };
   },
@@ -208,9 +219,7 @@ export default {
 .addInput {
   height: 24px;
   width: 150px !important;
-  /* margin-right: 12px; */
   right: 12px;
-
   position: absolute;
 }
 </style>
