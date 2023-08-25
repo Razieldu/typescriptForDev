@@ -43,35 +43,31 @@
               :key="titleIndex"
             >
               <template #title>{{ eachObject.name }}</template>
-              <el-menu-item>
-                <div>
-                  <el-input
-                    :key="titleIndex"
-                    v-model="inputValue[titleIndex]"
-                    class="addInput"
-                    v-if="menuButtonStateValue[titleIndex]"
-                  ></el-input>
-                </div>
-                <div>
-                  <el-button
-                    @click="
-                      handleAddSearchTitle(titleIndex, inputValue[titleIndex]);
-                      menuButtonStateValue[titleIndex] =
-                        !menuButtonStateValue[titleIndex];
+              <div class="flex justify-center items-center h-[56px]">
+                <el-input
+                  :key="titleIndex"
+                  v-model="inputValue[titleIndex]"
+                  class="addInput"
+                  v-if="menuButtonStateValue[titleIndex]"
+                ></el-input>
+                <el-button
+                  @click="
+                    handleAddSearchTitle(titleIndex, inputValue[titleIndex]);
+                    menuButtonStateValue[titleIndex] =
+                      !menuButtonStateValue[titleIndex];
 
-                      inputValue[titleIndex] = '';
-                    "
-                    class="addButton"
-                    type="danger"
-                    size="small"
-                    >{{
-                      menuButtonStateValue[titleIndex]
-                        ? addButtonContentValue[1]
-                        : addButtonContentValue[0]
-                    }}
-                  </el-button>
-                </div>
-              </el-menu-item>
+                    inputValue[titleIndex] = '';
+                  "
+                  class="addButton"
+                  type="danger"
+                  size="small"
+                  >{{
+                    menuButtonStateValue[titleIndex]
+                      ? addButtonContentValue[1]
+                      : addButtonContentValue[0]
+                  }}
+                </el-button>
+              </div>
               <el-menu-item
                 v-for="(eachSearchWordObject, index) in data[titleIndex]"
                 :key="index"
@@ -161,7 +157,7 @@ export default {
       console.log(`Menu with key ${key} Path${keyPath} is opened!`);
     };
     // const myElements = ref({});
-    const addButtonContent = ref(["添加", "確認添加"]);
+    const addButtonContent = ref(["添加", "確認"]);
     const addButtonContentValue = addButtonContent.value;
     watch(
       selectedData,
