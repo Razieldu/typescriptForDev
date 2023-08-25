@@ -1,5 +1,5 @@
 <template>
-  <div class="relative bg-red-200 h-screen">
+  <div class=" bg-red-100 h-screen w-[22vw] ">
     <el-aside
       style="
         height: 70vh;

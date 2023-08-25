@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-red-100 ">
+  <div class="bg-red-100 h-[100vh] w-[100vw] ">
     <Top />
     <Middle />
   </div>

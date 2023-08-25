@@ -1,8 +1,8 @@
 <template>
-    <div class=" relative flex mt-mt18">
+    <div class=" fixed flex bg-red-100 top-[64px] z-50">
    
       <!-- <router-view/>  -->
-      <LeftMenu></LeftMenu>
+      <LeftMenu/>
       <Right/>
     </div>
   </template>

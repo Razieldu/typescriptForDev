@@ -89,7 +89,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="flex justify-center pt-5 pb-1">
+    <div class="flex justify-center pt-3 pb-2">
       <el-pagination
         class="bg-transparent"
         @size-change="handlePageSizeChange"
