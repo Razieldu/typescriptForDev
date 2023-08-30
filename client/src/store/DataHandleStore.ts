@@ -9,6 +9,7 @@ export interface RightDataStore {
   currentSelectedDataId: string;
   currentSelectedData: SelectedData | null;
   selectedData: SelectedData[];
+  dataUpdateToSelectPage: ApiResponse;
 }
 
 export interface DataItem {
@@ -56,6 +57,7 @@ export const useRightDataStore = defineStore("rightData", {
     currentSelectedDataId: "",
     currentSelectedData: null,
     selectedData: [],
+    dataUpdateToSelectPage: [],
   }),
 
   actions: {
@@ -213,7 +215,7 @@ export const useRightDataStore = defineStore("rightData", {
             }
           });
           console.log(this.selectedData);
-          this.data = currentContent
+          this.data = currentContent;
         }
       }
     },
@@ -336,6 +338,36 @@ export const useRightDataStore = defineStore("rightData", {
       const result = fuse.search(value);
       let useData = result.map((one) => one.item);
       this.data = [...useData];
+    },
+    setDataToUpdateSelectDataPage(data: ApiResponse): void {
+      this.dataUpdateToSelectPage = [...data];
+    },
+    updateToSelectedPageData(
+      title: string[],
+      data: ApiResponse,
+      isDialogVisible: (visible: boolean) => void
+    ): void {
+      isDialogVisible(false);
+      let targetPage = this.selectedData.filter(
+        (one) => one.title === title[0]
+      );
+      let prevData = targetPage[0].content;
+      let prevDataId = prevData.map((one) => one.m_id);
+      data.forEach((eachData) => {
+        if (prevDataId.indexOf(eachData.m_id) === -1) {
+          prevData.push(eachData);
+        }
+      });
+      // console.log(prevData,"prev")
+      // console.log(this.selectedData,"prev")
+      this.selectedData = this.selectedData.map((eachSelectedData) => {
+        if (eachSelectedData.title === title[0]) {
+          // 返回更新后的对象，保持响应性
+          return { ...eachSelectedData, content: prevData };
+        } else {
+          return eachSelectedData;
+        }
+      });
     },
   },
 });

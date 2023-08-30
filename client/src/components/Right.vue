@@ -6,9 +6,14 @@
           >主資料頁面</el-button
         >
         <el-button @click="handleAddNewData()" type="primary">新增</el-button>
-        <el-button @click="exportFile()" type="primary">Export</el-button>
+        <el-button @click="exportFile()" type="primary">Excel</el-button>
         <el-button @click="dialogAddFormVisible = true" type="primary"
           >建立資料分頁</el-button
+        >
+        <el-button
+          @click="handleUpdateToSelectedPageDialogVisible"
+          type="primary"
+          >添加至指定分頁</el-button
         >
         <el-button
           v-if="currentSelectedDataId !== ''"
@@ -164,6 +169,50 @@
         </span>
       </template>
     </el-dialog>
+
+    <el-dialog
+      class="fixed top-20"
+      v-model="dialogUpdateToSelectedPageFormVisible"
+      title="添加至指定分頁"
+    >
+      <el-form :model="form">
+        <el-form-item label="分頁名稱" :label-width="formLabelWidth">
+          <el-select
+            v-model="updateToSelectedFormValue"
+            filterable
+            allow-create
+            default-first-option
+            :reserve-keyword="false"
+            placeholder="搜尋分頁標題"
+          >
+            <el-option
+              v-for="item in selectedData"
+              :key="item.id"
+              :label="item.title"
+              :value="item.title"
+            />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="handleUpdateToSelectedPageDialogVisible(false)"
+            >取消</el-button
+          >
+          <el-button
+            @click="
+              updateToSelectedPageData(
+                updateToSelectedFormValue,
+                dataUpdateToSelectPage,
+                handleUpdateToSelectedPageDialogVisible
+              )
+            "
+          >
+            確認
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -218,10 +267,16 @@ export default {
       handleUpdateData,
       handleSelectedData,
       updateSelectedData,
+      setDataToUpdateSelectDataPage,
+      updateToSelectedPageData,
     } = useRightDataStore();
-    const { data, currentSelectedDataId, currentSelectedData } = storeToRefs(
-      useRightDataStore()
-    );
+    const {
+      data,
+      currentSelectedDataId,
+      currentSelectedData,
+      dataUpdateToSelectPage,
+      selectedData,
+    } = storeToRefs(useRightDataStore());
     const handleCellEdit = (colKey: string, rowIndex: number) => {
       if (!editMode.value) return;
       currentEditCell.value = [colKey, rowIndex];
@@ -299,7 +354,9 @@ export default {
     // };
     const handleSelectionChange = (val: DataItem[]) => {
       multipleSelection.value = val;
-      console.log(val)
+      setDataToUpdateSelectDataPage(multipleSelection.value);
+      // console.log(val);
+      // console.log(dataUpdateToSelectPage);
     };
 
     onMounted(async () => {
@@ -323,6 +380,21 @@ export default {
     const handleUpdateDialogVisible = (ifVisible: boolean) => {
       dialogUpdateFormVisible.value = ifVisible;
     };
+    const dialogUpdateToSelectedPageFormVisible = ref(false);
+    const handleUpdateToSelectedPageDialogVisible = (ifVisible: boolean) => {
+      dialogUpdateToSelectedPageFormVisible.value = ifVisible;
+    };
+    const updateToSelectedFormValue = ref<string[]>([]);
+    // const handleReadyToUpdateDataId = (updateToSelectedFormValue)=>{
+    // return this.selectedData.map((one)=>{
+    //   updateToSelectedFormValue.find(one=>one.)
+
+
+    // })
+
+
+    // }
+    // const targetSelectedDataId = ref<string[]>([])
     const resetTitleInput = () => {
       form.title = "";
     };
@@ -369,7 +441,14 @@ export default {
       updateSelectedData,
       currentSelectedData,
       selectedDataTitle,
+      selectedData,
       handleSelectionChange,
+      setDataToUpdateSelectDataPage,
+      dataUpdateToSelectPage,
+      dialogUpdateToSelectedPageFormVisible,
+      handleUpdateToSelectedPageDialogVisible,
+      updateToSelectedFormValue,
+      updateToSelectedPageData,
       // toggleSelection
     };
   },
