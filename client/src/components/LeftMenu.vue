@@ -172,7 +172,7 @@ export default {
         menuButtonStateValue.push(false);
         inputValue.push("");
       }
-      console.log(inputValue);
+      // console.log(inputValue);
     });
 
     return {

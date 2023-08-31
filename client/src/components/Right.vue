@@ -11,7 +11,7 @@
           >建立資料分頁</el-button
         >
         <el-button
-          @click="handleUpdateToSelectedPageDialogVisible"
+          @click="handleUpdateToSelectedPageDialogVisible(true)"
           type="primary"
           >添加至指定分頁</el-button
         >
@@ -231,13 +231,14 @@ interface ContentTitleItem {
 export default {
   setup() {
     const selectedDataTitle = computed({
-      get: () => currentSelectedData.value?.title || "",
+      get: () => currentSelectedData?.value?.[0]?.title || "",
       set: (value) => {
         if (currentSelectedData.value) {
-          currentSelectedData.value.title = value;
+          currentSelectedData.value[0].title = value;
         }
       },
     });
+
     const contentTitle: Ref<ContentTitleItem[]> = ref([
       { title: "Email", key: "Email" },
       { title: "服務單位", key: "服務單位" },
@@ -332,7 +333,6 @@ export default {
       pageSize: number,
       data: DataItem[]
     ) => {
-      console.log(data);
       let pageStartIndex = (currentPage - 1) * pageSize;
       let pageEndIndex = currentPage * pageSize;
       let showData = data.slice(pageStartIndex, pageEndIndex);
@@ -384,14 +384,12 @@ export default {
     const handleUpdateToSelectedPageDialogVisible = (ifVisible: boolean) => {
       dialogUpdateToSelectedPageFormVisible.value = ifVisible;
     };
-    const updateToSelectedFormValue = ref<string[]>([]);
+    const updateToSelectedFormValue = ref<string>("");
     // const handleReadyToUpdateDataId = (updateToSelectedFormValue)=>{
     // return this.selectedData.map((one)=>{
     //   updateToSelectedFormValue.find(one=>one.)
 
-
     // })
-
 
     // }
     // const targetSelectedDataId = ref<string[]>([])

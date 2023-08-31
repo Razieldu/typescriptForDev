@@ -7,7 +7,7 @@ export interface RightDataStore {
   saveData: ApiResponse;
   isFirst: boolean;
   currentSelectedDataId: string;
-  currentSelectedData: SelectedData | null;
+  currentSelectedData: SelectedData[] | [];
   selectedData: SelectedData[];
   dataUpdateToSelectPage: ApiResponse;
 }
@@ -55,7 +55,7 @@ export const useRightDataStore = defineStore("rightData", {
     saveData: [],
     isFirst: true,
     currentSelectedDataId: "",
-    currentSelectedData: null,
+    currentSelectedData: [],
     selectedData: [],
     dataUpdateToSelectPage: [],
   }),
@@ -197,7 +197,7 @@ export const useRightDataStore = defineStore("rightData", {
         this.saveData = this.saveData.filter((one) => one.m_id !== id);
       } else {
         if (this.currentSelectedData) {
-          let currentContent = this.currentSelectedData.content.filter(
+          let currentContent = this.currentSelectedData[0].content.filter(
             (one) => {
               if (one.m_id !== id) {
                 return true;
@@ -206,7 +206,7 @@ export const useRightDataStore = defineStore("rightData", {
               }
             }
           );
-          this.currentSelectedData.content = currentContent;
+          this.currentSelectedData[0].content = currentContent;
           this.selectedData = this.selectedData.map((each) => {
             if (each.id == currentSelectedDataId) {
               return { ...each, content: currentContent };
@@ -248,7 +248,7 @@ export const useRightDataStore = defineStore("rightData", {
       this.data = this.data.map((one) => {
         if (one.m_id === row.m_id) {
           let updateObj = { ...one, ...row };
-          console.log(updateObj);
+          // console.log(updateObj);
           return updateObj;
         }
         return one;
@@ -272,8 +272,6 @@ export const useRightDataStore = defineStore("rightData", {
       resetInput: () => void
     ): void {
       if (title === "") return;
-      isDialogVisible(false);
-      resetInput();
       let newId = Math.floor(100000 * Math.random());
       let selectedObject = {
         title,
@@ -281,7 +279,10 @@ export const useRightDataStore = defineStore("rightData", {
         id: `${newId}_${title}`,
       };
       this.selectedData.push(selectedObject);
-      console.log(this.selectedData);
+      isDialogVisible(false);
+      resetInput();
+      // console.log(this.selectedData);
+      // console.log(this.currentSelectedData)
     },
 
     showSelectedData(id: string): void {
@@ -291,7 +292,7 @@ export const useRightDataStore = defineStore("rightData", {
         (eachSelectedData) => eachSelectedData.id === id
       );
       this.data = [...readyToShowData[0].content];
-      this.currentSelectedData = { ...readyToShowData[0] };
+      this.currentSelectedData = [{ ...readyToShowData[0] }];
       console.log(this.currentSelectedData);
       this.currentSelectedDataId = id;
     },
@@ -341,18 +342,24 @@ export const useRightDataStore = defineStore("rightData", {
     },
     setDataToUpdateSelectDataPage(data: ApiResponse): void {
       this.dataUpdateToSelectPage = [...data];
+      console.log(this.selectedData);
     },
     updateToSelectedPageData(
-      title: string[],
+      title: string,
       data: ApiResponse,
       isDialogVisible: (visible: boolean) => void
     ): void {
+      console.log(title);
       isDialogVisible(false);
       let targetPage = this.selectedData.filter(
-        (one) => one.title === title[0]
+        (one) => one.title === title
       );
+
+      // console.log(targetPage,"targetPage")
+      // console.log(this.selectedData)
       let prevData = targetPage[0].content;
       let prevDataId = prevData.map((one) => one.m_id);
+
       data.forEach((eachData) => {
         if (prevDataId.indexOf(eachData.m_id) === -1) {
           prevData.push(eachData);
@@ -361,7 +368,7 @@ export const useRightDataStore = defineStore("rightData", {
       // console.log(prevData,"prev")
       // console.log(this.selectedData,"prev")
       this.selectedData = this.selectedData.map((eachSelectedData) => {
-        if (eachSelectedData.title === title[0]) {
+        if (eachSelectedData.title === title) {
           // 返回更新后的对象，保持响应性
           return { ...eachSelectedData, content: prevData };
         } else {
