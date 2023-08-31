@@ -345,14 +345,14 @@ export const useRightDataStore = defineStore("rightData", {
       console.log(this.selectedData);
     },
     updateToSelectedPageData(
-      title: string,
+      id: string,
       data: ApiResponse,
       isDialogVisible: (visible: boolean) => void
     ): void {
-      console.log(title);
+      console.log(id);
       isDialogVisible(false);
       let targetPage = this.selectedData.filter(
-        (one) => one.title === title
+        (one) => one.id === id
       );
 
       // console.log(targetPage,"targetPage")
@@ -368,7 +368,7 @@ export const useRightDataStore = defineStore("rightData", {
       // console.log(prevData,"prev")
       // console.log(this.selectedData,"prev")
       this.selectedData = this.selectedData.map((eachSelectedData) => {
-        if (eachSelectedData.title === title) {
+        if (eachSelectedData.id === id) {
           // 返回更新后的对象，保持响应性
           return { ...eachSelectedData, content: prevData };
         } else {

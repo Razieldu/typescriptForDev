@@ -202,7 +202,7 @@
           <el-button
             @click="
               updateToSelectedPageData(
-                updateToSelectedFormValue,
+                findId(updateToSelectedFormValue),
                 dataUpdateToSelectPage,
                 handleUpdateToSelectedPageDialogVisible
               )
@@ -385,11 +385,21 @@ export default {
       dialogUpdateToSelectedPageFormVisible.value = ifVisible;
     };
     const updateToSelectedFormValue = ref<string>("");
+    const targetUpdateDataId = ref<string>("");
     // const handleReadyToUpdateDataId = (updateToSelectedFormValue)=>{
     // return this.selectedData.map((one)=>{
     //   updateToSelectedFormValue.find(one=>one.)
 
     // })
+    const findId = (value:string) => {
+      if (value !== "") {
+        let temp = selectedData.value.filter(
+          (one) => one.title === value
+        );
+        targetUpdateDataId.value = temp[0].id;
+      }
+      return targetUpdateDataId.value
+    };
 
     // }
     // const targetSelectedDataId = ref<string[]>([])
@@ -447,6 +457,8 @@ export default {
       handleUpdateToSelectedPageDialogVisible,
       updateToSelectedFormValue,
       updateToSelectedPageData,
+      targetUpdateDataId,
+      findId
       // toggleSelection
     };
   },
