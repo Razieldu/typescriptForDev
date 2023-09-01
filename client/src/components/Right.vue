@@ -16,6 +16,7 @@
           :disabled="shouldDisableButton"
           >添加至指定分頁</el-button
         >
+        <el-button type="primary" @click="batchDelete(currentSelectedDataId,dataUpdateToSelectPage)"> 批次刪除 </el-button>
         <el-button
           v-if="currentSelectedDataId !== ''"
           @click="dialogUpdateFormVisible = true"
@@ -274,6 +275,7 @@ export default {
       updateSelectedData,
       setDataToUpdateSelectDataPage,
       updateToSelectedPageData,
+      batchDelete,
     } = useRightDataStore();
     const {
       data,
@@ -395,14 +397,12 @@ export default {
     //   updateToSelectedFormValue.find(one=>one.)
 
     // })
-    const findId = (value:string) => {
+    const findId = (value: string) => {
       if (value !== "") {
-        let temp = selectedData.value.filter(
-          (one) => one.title === value
-        );
+        let temp = selectedData.value.filter((one) => one.title === value);
         targetUpdateDataId.value = temp[0].id;
       }
-      return targetUpdateDataId.value
+      return targetUpdateDataId.value;
     };
 
     // }
@@ -415,8 +415,6 @@ export default {
     const form = reactive({
       title: "",
     });
-   
-
 
     watch(data, (newData) => (mainContentData.value = newData));
     watch([currentPage, pageSize, data], ([curPage, size, newData]) => {
@@ -465,7 +463,8 @@ export default {
       updateToSelectedPageData,
       targetUpdateDataId,
       findId,
-      shouldDisableButton
+      shouldDisableButton,
+      batchDelete,
       // toggleSelection
     };
   },

@@ -220,6 +220,36 @@ export const useRightDataStore = defineStore("rightData", {
       }
     },
 
+    batchDelete(currentId: string, data: DataItem[]): void {
+      if (currentId !== "") {
+        let updateObj;
+        this.selectedData = this.selectedData.map((eachData) => {
+          if (eachData.id === currentId) {
+            let tempArray = eachData.content;
+            let checkIdArray = data.map((one) => one.m_id);
+            let updatedContent = tempArray.filter(
+              (one) => checkIdArray.indexOf(one.m_id) === -1
+            );
+            updateObj = {
+              ...eachData,
+              content: updatedContent,
+            };
+            this.currentSelectedData = [updateObj];
+            this.data = updateObj.content;
+            return updateObj;
+          } else {
+            return eachData;
+          }
+        });
+        console.log("批次刪除", this.currentSelectedData);
+        console.log("批次刪除selectedData", this.selectedData);
+      } else {
+        let checkIdArray = data.map((one) => one.m_id);
+        this.data = this.data.filter((eachOne) => {
+          return checkIdArray.indexOf(eachOne.m_id) === -1;
+        });
+      }
+    },
     async handleAddNewData(): Promise<void> {
       console.log("添加");
       const newObj = {} as DataItem; // 创建一个空对象
@@ -351,9 +381,7 @@ export const useRightDataStore = defineStore("rightData", {
     ): void {
       console.log(id);
       isDialogVisible(false);
-      let targetPage = this.selectedData.filter(
-        (one) => one.id === id
-      );
+      let targetPage = this.selectedData.filter((one) => one.id === id);
 
       // console.log(targetPage,"targetPage")
       // console.log(this.selectedData)
