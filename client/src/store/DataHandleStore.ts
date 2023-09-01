@@ -244,10 +244,15 @@ export const useRightDataStore = defineStore("rightData", {
         console.log("批次刪除", this.currentSelectedData);
         console.log("批次刪除selectedData", this.selectedData);
       } else {
+      
         let checkIdArray = data.map((one) => one.m_id);
+        this.saveData = this.saveData.filter((eachOne) => {
+          return checkIdArray.indexOf(eachOne.m_id) === -1;
+        });
         this.data = this.data.filter((eachOne) => {
           return checkIdArray.indexOf(eachOne.m_id) === -1;
         });
+        
       }
     },
     async handleAddNewData(): Promise<void> {
