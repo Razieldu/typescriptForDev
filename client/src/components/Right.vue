@@ -13,6 +13,7 @@
         <el-button
           @click="handleUpdateToSelectedPageDialogVisible(true)"
           type="primary"
+          :disabled="shouldDisableButton"
           >添加至指定分頁</el-button
         >
         <el-button
@@ -238,6 +239,9 @@ export default {
         }
       },
     });
+    const shouldDisableButton = computed(() => {
+      return selectedData.value.length === 0; // 如果選中數據為空，返回 true，否則返回 false
+    });
 
     const contentTitle: Ref<ContentTitleItem[]> = ref([
       { title: "Email", key: "Email" },
@@ -411,6 +415,8 @@ export default {
     const form = reactive({
       title: "",
     });
+   
+
 
     watch(data, (newData) => (mainContentData.value = newData));
     watch([currentPage, pageSize, data], ([curPage, size, newData]) => {
@@ -458,7 +464,8 @@ export default {
       updateToSelectedFormValue,
       updateToSelectedPageData,
       targetUpdateDataId,
-      findId
+      findId,
+      shouldDisableButton
       // toggleSelection
     };
   },
