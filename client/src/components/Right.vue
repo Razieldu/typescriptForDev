@@ -6,7 +6,7 @@
           >主資料頁面</el-button
         >
         <el-button @click="handleAddNewData()" type="primary">新增</el-button>
-        <el-button @click="exportFile()" type="primary">Excel</el-button>
+        <el-button @click="handleExportFile" type="primary">Excel</el-button>
         <el-button @click="dialogAddFormVisible = true" type="primary"
           >建立資料分頁</el-button
         >
@@ -14,18 +14,24 @@
           @click="handleUpdateToSelectedPageDialogVisible(true)"
           type="primary"
           :disabled="shouldDisableButton"
-          >添加至指定分頁</el-button
         >
-        <el-button type="primary" @click="batchDelete(currentSelectedDataId,dataUpdateToSelectPage)"> 批次刪除 </el-button>
+          添加至指定分頁
+        </el-button>
+        <el-button
+          type="primary"
+          @click="batchDelete(currentSelectedDataId, dataUpdateToSelectPage)"
+        >
+          批次刪除
+        </el-button>
         <el-button
           v-if="currentSelectedDataId !== ''"
           @click="dialogUpdateFormVisible = true"
           type="primary"
-          >更新資料分頁</el-button
         >
+          更新資料分頁
+        </el-button>
       </div>
     </div>
-
     <el-table
       v-loading="loading"
       highlight-current-row
@@ -99,10 +105,10 @@
     <div class="flex justify-center pt-3 pb-2">
       <el-pagination
         class="bg-transparent"
-        @size-change="handlePageSizeChange"
-        @current-change="handleCurrentChange"
-        @prev-click="handlePrevClick"
-        @next-click="handleNextClick"
+        @size-change="pageSize = $event"
+        @current-change="currentPage = $event"
+        @prev-click="currentPage -= 1"
+        @next-click="currentPage += 1"
         :page-sizes="[10, 20, 30, 40]"
         small
         layout="sizes, prev, pager, next, jumper"
@@ -204,7 +210,7 @@
           <el-button
             @click="
               updateToSelectedPageData(
-                findId(updateToSelectedFormValue),
+                findId(updateToSelectedFormValue, selectedData),
                 dataUpdateToSelectPage,
                 handleUpdateToSelectedPageDialogVisible
               )
@@ -222,9 +228,12 @@
 import { onMounted, ref, watch, reactive, Ref, computed } from "vue";
 import { useRightDataStore } from "../store/DataHandleStore";
 import { storeToRefs } from "pinia";
-import { utils, writeFileXLSX } from "xlsx";
+import { exportFile } from "../utils/exportExcel";
 import { DataItem } from "../store/DataHandleStore";
-// import { ElTable } from 'element-plus'
+import { createDialogVisibility } from "../utils/handleDialogueWindow";
+import { targetUpdateDataId, findId } from "../utils/targetUpdateDataId";
+import { rowEditFunction } from "../utils/tableEdit";
+import { handlePagination } from "../utils/pagination";
 interface ContentTitleItem {
   title: string;
   key: string;
@@ -262,9 +271,17 @@ export default {
       { title: "傳真2", key: "傳真2" },
     ]);
     const mainContentData: Ref<DataItem[]> = ref([]);
-    const editMode: Ref<boolean> = ref(false);
-    const currentEditCell: Ref<(string | number)[]> = ref([]);
-    const buttonContent: Ref<string> = ref("修改");
+    const loading = ref(true);
+
+    let {
+      currentEditCell,
+      editMode,
+      buttonContent,
+      handleEditMode,
+      handleCellEdit,
+      handleSelectionChange,
+    } = rowEditFunction();
+    let { currentPage, pageSize, handleShowData } = handlePagination();
     const {
       fetchData,
       resetSearchResult,
@@ -284,129 +301,25 @@ export default {
       dataUpdateToSelectPage,
       selectedData,
     } = storeToRefs(useRightDataStore());
-    const handleCellEdit = (colKey: string, rowIndex: number) => {
-      if (!editMode.value) return;
-      currentEditCell.value = [colKey, rowIndex];
-      // console.log(currentEditCell.value);
-    };
-    const handleEditMode = () => {
-      let oldValue = editMode.value;
-      editMode.value = !oldValue;
-      if (editMode.value === false) {
-        currentEditCell.value = [];
-        buttonContent.value = "修改";
-      } else {
-        buttonContent.value = "儲存";
-      }
-      // console.log(editMode.value);
-    };
-    const exportFile = () => {
-      // console.log(mainContentData.value);
-      let deleteM_idData = mainContentData.value.map(
-        ({ m_id, ...rest }) => rest
-      );
-      const ws = utils.json_to_sheet(deleteM_idData);
-      const wb = utils.book_new();
-      utils.book_append_sheet(wb, ws, "Data");
-      const sheetData: any[] = utils.sheet_to_json(ws, { header: 1 });
-      const columnCount: number = sheetData[0].length;
 
-      for (let col = 0; col < columnCount; col++) {
-        // const columnName = utils.encode_col(col);
-        const columnWidth = 30;
-        ws["!cols"] = ws["!cols"] || [];
-        ws["!cols"][col] = { wch: columnWidth };
-      }
-
-      writeFileXLSX(wb, `會員資料_${new Date().toLocaleString()}.xlsx`);
-    };
-    const currentPage = ref(1);
-    const pageSize = ref(10);
-    const handlePageSizeChange = (val: number) => {
-      pageSize.value = val;
-    };
-    const handleCurrentChange = (val: number) => {
-      currentPage.value = val;
-    };
-    const handlePrevClick = (val: number) => {
-      currentPage.value = val - 1;
-    };
-    const handleNextClick = (val: number) => {
-      currentPage.value = val + 1;
-    };
-    const handleShowData = (
-      currentPage: number,
-      pageSize: number,
-      data: DataItem[]
-    ) => {
-      let pageStartIndex = (currentPage - 1) * pageSize;
-      let pageEndIndex = currentPage * pageSize;
-      let showData = data.slice(pageStartIndex, pageEndIndex);
-      return showData;
-    };
-    const loading = ref(true);
-    // const multipleTableRef = ref<InstanceType<typeof ElTable>>();
-    const multipleSelection = ref<DataItem[]>([]);
-    // const toggleSelection = (rows?: DataItem[]) => {
-    //   if (rows) {
-    //     rows.forEach((row) => {
-    //       // TODO: improvement typing when refactor table
-    //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //      multipleTableRef.value!.toggleRowSelection(row, undefined);
-    //     });
-    //   } else {
-    //     multipleTableRef.value!.clearSelection();
-    //   }
-    // };
-    const handleSelectionChange = (val: DataItem[]) => {
-      multipleSelection.value = val;
-      setDataToUpdateSelectDataPage(multipleSelection.value);
-      // console.log(val);
-      // console.log(dataUpdateToSelectPage);
+    const handleExportFile = () => {
+      exportFile(mainContentData);
     };
 
-    onMounted(async () => {
-      const mainData = await fetchData();
-      loading.value = false;
+    const {
+      dialogVisible: dialogAddFormVisible,
+      setDialogVisible: handleAddDialogVisible,
+    } = createDialogVisibility();
+    const {
+      dialogVisible: dialogUpdateFormVisible,
+      setDialogVisible: handleUpdateDialogVisible,
+    } = createDialogVisibility();
+    const {
+      dialogVisible: dialogUpdateToSelectedPageFormVisible,
+      setDialogVisible: handleUpdateToSelectedPageDialogVisible,
+    } = createDialogVisibility();
 
-      if (mainData !== undefined) {
-        mainContentData.value = handleShowData(
-          currentPage.value,
-          pageSize.value,
-          mainData
-        );
-      }
-    });
-
-    const dialogAddFormVisible = ref(false);
-    const handleAddDialogVisible = (ifVisible: boolean) => {
-      dialogAddFormVisible.value = ifVisible;
-    };
-    const dialogUpdateFormVisible = ref(false);
-    const handleUpdateDialogVisible = (ifVisible: boolean) => {
-      dialogUpdateFormVisible.value = ifVisible;
-    };
-    const dialogUpdateToSelectedPageFormVisible = ref(false);
-    const handleUpdateToSelectedPageDialogVisible = (ifVisible: boolean) => {
-      dialogUpdateToSelectedPageFormVisible.value = ifVisible;
-    };
     const updateToSelectedFormValue = ref<string>("");
-    const targetUpdateDataId = ref<string>("");
-    // const handleReadyToUpdateDataId = (updateToSelectedFormValue)=>{
-    // return this.selectedData.map((one)=>{
-    //   updateToSelectedFormValue.find(one=>one.)
-
-    // })
-    const findId = (value: string) => {
-      if (value !== "") {
-        let temp = selectedData.value.filter((one) => one.title === value);
-        targetUpdateDataId.value = temp[0].id;
-      }
-      return targetUpdateDataId.value;
-    };
-
-    // }
-    // const targetSelectedDataId = ref<string[]>([])
     const resetTitleInput = () => {
       form.title = "";
     };
@@ -419,6 +332,18 @@ export default {
     watch(data, (newData) => (mainContentData.value = newData));
     watch([currentPage, pageSize, data], ([curPage, size, newData]) => {
       mainContentData.value = handleShowData(curPage, size, newData);
+    });
+    onMounted(async () => {
+      const mainData = await fetchData();
+      loading.value = false;
+
+      if (mainData !== undefined) {
+        mainContentData.value = handleShowData(
+          currentPage.value,
+          pageSize.value,
+          mainData
+        );
+      }
     });
     return {
       mainContentData,
@@ -433,10 +358,6 @@ export default {
       handleUpdateData,
       currentEditCell,
       buttonContent,
-      handlePageSizeChange,
-      handleCurrentChange,
-      handlePrevClick,
-      handleNextClick,
       handleShowData,
       currentPage,
       pageSize,
@@ -465,6 +386,7 @@ export default {
       findId,
       shouldDisableButton,
       batchDelete,
+      handleExportFile,
       // toggleSelection
     };
   },
