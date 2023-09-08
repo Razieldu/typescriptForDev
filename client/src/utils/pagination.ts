@@ -1,10 +1,10 @@
 import { ref } from "vue";
 import { DataItem } from "../store/DataHandleStore";
 
-export const handlePagination = () => {
-  const currentPage = ref(1);
-  const pageSize = ref(10);
-  
+export const handlePagination = (current:number,size:number) => {
+  const currentPage = ref(current);
+  const pageSize = ref(size);
+
   const handleShowData = (
     currentPage: number,
     pageSize: number,

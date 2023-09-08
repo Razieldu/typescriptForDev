@@ -281,7 +281,7 @@ export default {
       handleCellEdit,
       handleSelectionChange,
     } = rowEditFunction();
-    let { currentPage, pageSize, handleShowData } = handlePagination();
+    let { currentPage, pageSize, handleShowData } = handlePagination(1,10);
     const {
       fetchData,
       resetSearchResult,
