@@ -225,7 +225,7 @@
 </template>
 
 <script lang="ts">
-import { onMounted, ref, watch, reactive, Ref, computed } from "vue";
+import { onMounted, ref, watch, reactive, Ref } from "vue";
 import { useRightDataStore } from "../store/DataHandleStore";
 import { storeToRefs } from "pinia";
 import { exportFile } from "../utils/exportExcel";
@@ -234,6 +234,7 @@ import { createDialogVisibility } from "../utils/handleDialogueWindow";
 import { targetUpdateDataId, findId } from "../utils/targetUpdateDataId";
 import { rowEditFunction } from "../utils/tableEdit";
 import { handlePagination } from "../utils/pagination";
+import { computeFn } from "../utils/compute";
 interface ContentTitleItem {
   title: string;
   key: string;
@@ -241,18 +242,6 @@ interface ContentTitleItem {
 
 export default {
   setup() {
-    const selectedDataTitle = computed({
-      get: () => currentSelectedData?.value?.[0]?.title || "",
-      set: (value) => {
-        if (currentSelectedData.value) {
-          currentSelectedData.value[0].title = value;
-        }
-      },
-    });
-    const shouldDisableButton = computed(() => {
-      return selectedData.value.length === 0; // 如果選中數據為空，返回 true，否則返回 false
-    });
-
     const contentTitle: Ref<ContentTitleItem[]> = ref([
       { title: "Email", key: "Email" },
       { title: "服務單位", key: "服務單位" },
@@ -281,7 +270,8 @@ export default {
       handleCellEdit,
       handleSelectionChange,
     } = rowEditFunction();
-    let { currentPage, pageSize, handleShowData } = handlePagination(1,10);
+    let { currentPage, pageSize, handleShowData } = handlePagination(1, 10);
+    let { selectedDataTitle, shouldDisableButton } = computeFn();
     const {
       fetchData,
       resetSearchResult,
@@ -387,7 +377,6 @@ export default {
       shouldDisableButton,
       batchDelete,
       handleExportFile,
-      // toggleSelection
     };
   },
 };
