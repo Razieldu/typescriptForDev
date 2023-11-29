@@ -138,48 +138,31 @@ export const useRightDataStore = defineStore("rightData", {
       value: string,
       ifRelated: boolean
     ): void {
+      let searchResult = [];
+      let keyWord = new RegExp(value);
       if (!ifRelated) {
-        let searchResult = [];
+        // console.log(value, titleValue); ///劉 姓名
         let useData = this.isFirst ? this.saveData : this.data;
-        // console.log(useData["0"])
-        let keyWord = new RegExp(value);
-        for (let indexNum in useData) {
-          for (let key in useData[indexNum]) {
-            if (key !== titleValue) continue;
-            let target = useData[indexNum][key];
-            if (keyWord.test(target) === true) {
-              searchResult.push(useData[indexNum]);
-            }
+        for (let eachData of useData) {
+          if (keyWord.test(eachData[titleValue])) {
+            searchResult.push(eachData);
           }
         }
-        // console.log(searchResult);
         searchResult.length > 0 ? (this.data = searchResult) : [];
-        // console.log(this.data);
-        this.isFirst = false;
-        // console.log(this.isFirst);
+        
       } else if (ifRelated && !this.isFirst) {
-        let searchResult = [];
         let useData = [...this.saveData];
-        let keyWord = new RegExp(value);
-        for (let indexNum in useData) {
-          for (let key in useData[indexNum]) {
-            if (key !== titleValue) continue;
-            let target = useData[indexNum][key];
-            if (keyWord.test(target) === true) {
-              if (
-                !this.data.some((one) => one.m_id === useData[indexNum].m_id)
-              ) {
-                // console.log(one)
-                searchResult.push(useData[indexNum]);
-                // console.log(searchResult)
-              }
+        for (let eachData of useData) {
+          if (keyWord.test(eachData[titleValue])) {
+            if (!this.data.some((one) => one.m_id === eachData.m_id)) {
+              searchResult.push(eachData);
             }
           }
         }
         this.data = [...this.data, ...searchResult];
-        this.isFirst = false;
-        console.log(this.isFirst);
+        // console.log(this.isFirst);
       }
+      this.isFirst = false;
     },
 
     resetSearchResult(): void {
@@ -351,6 +334,7 @@ export const useRightDataStore = defineStore("rightData", {
     },
 
     fuzzySearch(value: string): void {
+      if (value === "") return;
       let searchResult: DataItem[] = [];
       let keyWord = new RegExp(value);
       this.data.forEach((element) => {
