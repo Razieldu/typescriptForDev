@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { useLeftDataStore } from "./LeftDataHandleStore";
-import Fuse from "fuse.js";
 
 export interface RightDataStore {
   data: ApiResponse;
@@ -85,6 +84,7 @@ export const useRightDataStore = defineStore("rightData", {
       }
     },
 
+    ///更新資料庫會員資料
     async updateMemberData(memberNewData: MemberData | null) {
       try {
         ///測試用
@@ -107,6 +107,7 @@ export const useRightDataStore = defineStore("rightData", {
       }
     },
 
+    ///添加新會員資料到資料庫
     async addMemberData(
       memberNewData: MemberData
     ): Promise<string | undefined> {
@@ -131,8 +132,9 @@ export const useRightDataStore = defineStore("rightData", {
       }
     },
 
+    ///處理左方特定字詞,對特定欄位進行搜尋
     searchGoalByColumn(
-      titieValue: string,
+      titleValue: string,
       value: string,
       ifRelated: boolean
     ): void {
@@ -143,7 +145,7 @@ export const useRightDataStore = defineStore("rightData", {
         let keyWord = new RegExp(value);
         for (let indexNum in useData) {
           for (let key in useData[indexNum]) {
-            if (key !== titieValue) continue;
+            if (key !== titleValue) continue;
             let target = useData[indexNum][key];
             if (keyWord.test(target) === true) {
               searchResult.push(useData[indexNum]);
@@ -151,7 +153,7 @@ export const useRightDataStore = defineStore("rightData", {
           }
         }
         // console.log(searchResult);
-        searchResult.length > 0 ? (this.data = searchResult) : null;
+        searchResult.length > 0 ? (this.data = searchResult) : [];
         // console.log(this.data);
         this.isFirst = false;
         // console.log(this.isFirst);
@@ -161,7 +163,7 @@ export const useRightDataStore = defineStore("rightData", {
         let keyWord = new RegExp(value);
         for (let indexNum in useData) {
           for (let key in useData[indexNum]) {
-            if (key !== titieValue) continue;
+            if (key !== titleValue) continue;
             let target = useData[indexNum][key];
             if (keyWord.test(target) === true) {
               if (
@@ -191,6 +193,7 @@ export const useRightDataStore = defineStore("rightData", {
       // console.log(this.saveData, "SAVEDATA");
     },
 
+    ///資料刪除,確認是否位於頁面分頁資料,進行不同處理
     handleRowDelete(id: string, currentSelectedDataId: string): void {
       if (!currentSelectedDataId) {
         this.data = this.data.filter((one) => one.m_id !== id);
@@ -220,6 +223,7 @@ export const useRightDataStore = defineStore("rightData", {
       }
     },
 
+    ///批次刪除,確認使否位於分頁資料,進行不同操作
     batchDelete(currentId: string, data: DataItem[]): void {
       if (currentId !== "") {
         let updateObj;
@@ -244,7 +248,6 @@ export const useRightDataStore = defineStore("rightData", {
         console.log("批次刪除", this.currentSelectedData);
         console.log("批次刪除selectedData", this.selectedData);
       } else {
-      
         let checkIdArray = data.map((one) => one.m_id);
         this.saveData = this.saveData.filter((eachOne) => {
           return checkIdArray.indexOf(eachOne.m_id) === -1;
@@ -252,7 +255,6 @@ export const useRightDataStore = defineStore("rightData", {
         this.data = this.data.filter((eachOne) => {
           return checkIdArray.indexOf(eachOne.m_id) === -1;
         });
-        
       }
     },
     async handleAddNewData(): Promise<void> {
@@ -349,36 +351,22 @@ export const useRightDataStore = defineStore("rightData", {
     },
 
     fuzzySearch(value: string): void {
-      const options = {
-        keys: [
-          "姓名",
-          "Email",
-          "服務單位",
-          "職稱",
-          "郵遞區號",
-          "地址",
-          "郵遞區號2",
-          "地址2",
-          "連絡電話_公司",
-          "連絡電話_秘書",
-          "連絡電話_住宅",
-          "連絡電話_手機",
-          "連絡電話1",
-          "連絡電話2",
-          "傳真電話",
-          "傳真2",
-        ],
-      };
-      const products = [...this.data];
-      const fuse = new Fuse(products, options);
-      const result = fuse.search(value);
-      let useData = result.map((one) => one.item);
-      this.data = [...useData];
+      let searchResult: DataItem[] = [];
+      let keyWord = new RegExp(value);
+      this.data.forEach((element) => {
+        let jsonData = JSON.stringify(element);
+        if (keyWord.test(jsonData)) {
+          searchResult.push(element);
+        }
+      });
+      this.data = [...searchResult];
     },
+
     setDataToUpdateSelectDataPage(data: ApiResponse): void {
       this.dataUpdateToSelectPage = [...data];
       console.log(this.selectedData);
     },
+
     updateToSelectedPageData(
       id: string,
       data: ApiResponse,
