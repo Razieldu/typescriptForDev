@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { DataItem } from "../store/DataHandleStore";
+import { DataItem } from "../typescriptDefine/type";
 
 export const handlePagination = (current:number,size:number) => {
   const currentPage = ref(current);

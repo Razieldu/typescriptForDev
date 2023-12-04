@@ -1,15 +1,5 @@
 import { defineStore } from "pinia";
-
-interface Item {
-  id: string;
-  name: string;
-  select: boolean;
-}
-
-interface LeftDataState {
-  data: Item[][];
-  open: boolean[];
-}
+import { Item, LeftDataState } from "../typescriptDefine/type";
 
 export const useLeftDataStore = defineStore("leftData", {
   state: (): LeftDataState => ({

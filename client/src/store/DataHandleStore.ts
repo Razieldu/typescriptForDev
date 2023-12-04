@@ -1,52 +1,11 @@
 import { defineStore } from "pinia";
 import { useLeftDataStore } from "./LeftDataHandleStore";
-
-export interface RightDataStore {
-  data: ApiResponse;
-  saveData: ApiResponse;
-  isFirst: boolean;
-  currentSelectedDataId: string;
-  currentSelectedData: SelectedData[] | [];
-  selectedData: SelectedData[];
-  dataUpdateToSelectPage: ApiResponse;
-}
-
-export interface DataItem {
-  m_id: string;
-  姓名: string;
-  Email: string;
-  服務單位: string;
-  職稱: string;
-  郵遞區號: string;
-  地址: string;
-  郵遞區號2: string;
-  地址2: string;
-  連絡電話_公司: string;
-  連絡電話_秘書: string;
-  連絡電話_住宅: string;
-  連絡電話_手機: string;
-  連絡電話1: string;
-  連絡電話2: string;
-  傳真電話: string;
-  傳真2: string;
-  [key: string]: string;
-}
-
-type ApiResponse = DataItem[];
-
-interface MemberData {
-  [key: string]: any;
-}
-
-// interface AddMemberResponse {
-//   m_id: string;
-// }
-
-export interface SelectedData {
-  title: string;
-  content: ApiResponse;
-  id: string;
-}
+import {
+  RightDataStore,
+  ApiResponse,
+  MemberData,
+  DataItem,
+} from "../typescriptDefine/type";
 
 export const useRightDataStore = defineStore("rightData", {
   state: (): RightDataStore => ({
@@ -149,7 +108,6 @@ export const useRightDataStore = defineStore("rightData", {
           }
         }
         searchResult.length > 0 ? (this.data = searchResult) : [];
-        
       } else if (ifRelated && !this.isFirst) {
         let useData = [...this.saveData];
         for (let eachData of useData) {
