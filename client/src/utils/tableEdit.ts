@@ -1,5 +1,5 @@
 import { ref, Ref } from "vue";
-import { DataItem } from "../typescriptDefine/type";
+import { DataItem } from "../store/DataHandleStore";
 import { useRightDataStore } from "../store/DataHandleStore";
 
 export const rowEditFunction = () => {

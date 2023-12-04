@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-red-100 h-screen w-[22vw]">
+  <div class=" bg-red-100 h-screen w-[22vw] ">
     <el-aside
       style="
         height: 70vh;
@@ -122,7 +122,11 @@ import { ref, watch, Ref, onMounted } from "vue";
 import { useLeftDataStore } from "../store/LeftDataHandleStore";
 import { useRightDataStore } from "../store/DataHandleStore";
 import { storeToRefs } from "pinia";
-import { Title } from "../typescriptDefine/type";
+interface Title {
+  name: string;
+  color: string;
+  index: string;
+}
 export default {
   name: "LeftMenu",
   components: {},
