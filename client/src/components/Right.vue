@@ -229,16 +229,13 @@ import { onMounted, ref, watch, reactive, Ref } from "vue";
 import { useRightDataStore } from "../store/DataHandleStore";
 import { storeToRefs } from "pinia";
 import { exportFile } from "../utils/exportExcel";
-import { DataItem } from "../store/DataHandleStore";
+import { DataItem } from "../typescriptDefine/type";
 import { createDialogVisibility } from "../utils/handleDialogueWindow";
 import { targetUpdateDataId, findId } from "../utils/targetUpdateDataId";
 import { rowEditFunction } from "../utils/tableEdit";
 import { handlePagination } from "../utils/pagination";
 import { computeFn } from "../utils/compute";
-interface ContentTitleItem {
-  title: string;
-  key: string;
-}
+import { ContentTitleItem } from "../typescriptDefine/type";
 
 export default {
   setup() {
