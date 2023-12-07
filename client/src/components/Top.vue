@@ -3,14 +3,14 @@
     class="flex items-center py-6 px-0 fixed top-0 w-full h-16 bg-sky-600 z-50"
   >
     <div v-if="isLogin === true" class="ml-10 flex items-center gap-0">
-      <el-input v-model="inputValue" placeholder="請輸入..." />
+      <el-input v-model="inputValue" :placeholder="$t('basic.top.placeholder')" />
       <el-button @click="fuzzySearch(inputValue)" class="ml-3" type="primary"
-        >搜尋</el-button
+        >{{ $t("basic.top.search") }}</el-button
       >
       <div class="absolute right-5">
         <router-link to="/login"
           ><el-button @click="logOut" type="primary"
-            >登出</el-button
+            >{{ $t("basic.top.logout") }}</el-button
           ></router-link
         >
       </div>

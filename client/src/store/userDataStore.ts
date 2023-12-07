@@ -6,7 +6,7 @@ interface userDataState {
 
 export const useUserDataStore = defineStore("userData", {
   state: (): userDataState => ({
-    isLogin: false,
+    isLogin: true,
   }),
   actions: {
     login(account: string, password: string) {

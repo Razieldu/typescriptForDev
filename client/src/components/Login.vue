@@ -4,18 +4,25 @@
       <div
         class="flex flex-col justify-center items-center h-[400px] w-[400px] gap-4 bg-white rounded-lg"
       >
-        <h1 class="text-2xl font-bold mb-5">請進行身分驗證</h1>
+        <h1 class="text-2xl font-bold mb-5">
+          {{ $t("basic.login.formtitle") }}
+        </h1>
         <div class="flex w-[80%] h-[50px]">
-          <el-input v-model="userAccount" placeholder="請輸入帳號" type="email"
-            >帳號</el-input
+          <el-input
+            v-model="userAccount"
+            :placeholder="$t('basic.login.accountPlaceholder')"
+            type="email"
+          >
+            {{ $t("basic.login.account") }}</el-input
           >
         </div>
         <div class="flex w-[80%] h-[50px]">
           <el-input
             v-model="userPassword"
-            placeholder="請輸入密碼"
+            :placeholder="$t('basic.login.passwordPlaceholder')"
             type="password"
-            >密碼</el-input
+          >
+            {{ $t("basic.login.password") }}</el-input
           >
         </div>
         <router-link to="/"
@@ -23,7 +30,7 @@
             @click="handleLogin(userAccount, userPassword)"
             size="large"
             type="primary"
-            >登入</el-button
+            >{{ $t("basic.login.button") }}</el-button
           ></router-link
         >
       </div>
@@ -43,7 +50,7 @@ export default {
     const userPassword = ref<string>("");
     const { login } = useUserDataStore();
     const { isLogin } = storeToRefs(useUserDataStore());
-    
+
     type MessageType = "success" | "warning" | "error" | "info";
 
     interface MessageParams {

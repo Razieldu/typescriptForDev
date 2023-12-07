@@ -2,33 +2,35 @@
   <div class="ml-custom text-base bg-red-100 py-0 fixed">
     <div>
       <div class="pl-1 py-2 flex">
-        <el-button @click="resetSearchResult()" type="primary"
-          >主資料頁面</el-button
-        >
-        <el-button @click="handleAddNewData()" type="primary">新增</el-button>
+        <el-button @click="resetSearchResult()" type="primary">
+          {{ $t("basic.right.mainPage") }}
+        </el-button>
+        <el-button @click="handleAddNewData()" type="primary">{{
+          $t("basic.right.addNewData")
+        }}</el-button>
         <el-button @click="handleExportFile" type="primary">Excel</el-button>
-        <el-button @click="dialogAddFormVisible = true" type="primary"
-          >建立資料分頁</el-button
-        >
+        <el-button @click="dialogAddFormVisible = true" type="primary">{{
+          $t("basic.right.buildPage")
+        }}</el-button>
         <el-button
           @click="handleUpdateToSelectedPageDialogVisible(true)"
           type="primary"
           :disabled="shouldDisableButton"
         >
-          添加至指定分頁
+          {{ $t("basic.right.addToPage") }}
         </el-button>
         <el-button
           type="primary"
           @click="batchDelete(currentSelectedDataId, dataUpdateToSelectPage)"
         >
-          批次刪除
+          {{ $t("basic.right.deleteMany") }}
         </el-button>
         <el-button
           v-if="currentSelectedDataId !== ''"
           @click="dialogUpdateFormVisible = true"
           type="primary"
         >
-          更新資料分頁
+          {{ $t("basic.right.updatePage") }}
         </el-button>
       </div>
     </div>
@@ -120,20 +122,25 @@
     <el-dialog
       class="fixed top-20"
       v-model="dialogAddFormVisible"
-      title="建立新分頁標題名稱"
+      :title="$t('basic.right.newPageTitle')"
     >
       <el-form :model="form">
-        <el-form-item label="標題名稱" :label-width="formLabelWidth">
+        <el-form-item
+          :label="$t('basic.right.newPageLabel')"
+          :label-width="formLabelWidth"
+        >
           <el-input
             v-model="form.title"
             autocomplete="off"
-            placeholder="請輸入..."
+            :placeholder="$t('basic.right.enterNewPageTitlePlaceholer')"
           />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="handleAddDialogVisible(false)">取消</el-button>
+          <el-button @click="handleAddDialogVisible(false)">
+            {{ $t("basic.right.cancel") }}</el-button
+          >
           <el-button
             type="primary"
             @click="
@@ -144,7 +151,7 @@
               )
             "
           >
-            確認
+            {{ $t("basic.right.confirm") }}
           </el-button>
         </span>
       </template>
@@ -153,16 +160,16 @@
       v-if="currentSelectedDataId !== ''"
       class="fixed top-20"
       v-model="dialogUpdateFormVisible"
-      title="更新目前分頁"
+      :title="$t('basic.right.updateCurrentPageTitle')"
     >
       <el-form :model="form">
-        <el-form-item label="標題名稱" :label-width="formLabelWidth">
+        <el-form-item :label="$t('basic.right.updateCurrentPageLabel')" :label-width="formLabelWidth">
           <el-input v-model="selectedDataTitle" autocomplete="off" />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="handleUpdateDialogVisible(false)">取消</el-button>
+          <el-button @click="handleUpdateDialogVisible(false)"> {{ $t("basic.right.cancel") }}</el-button>
           <el-button
             @click="
               updateSelectedData(
@@ -172,7 +179,7 @@
               )
             "
           >
-            確認
+          {{ $t("basic.right.confirm") }}
           </el-button>
         </span>
       </template>
@@ -181,17 +188,17 @@
     <el-dialog
       class="fixed top-20"
       v-model="dialogUpdateToSelectedPageFormVisible"
-      title="添加至指定分頁"
+      :title="$t('basic.right.addToTargetPageTitle')"
     >
       <el-form :model="form">
-        <el-form-item label="分頁名稱" :label-width="formLabelWidth">
+        <el-form-item :label="$t('basic.right.addToTargetPageLabel')" :label-width="formLabelWidth">
           <el-select
             v-model="updateToSelectedFormValue"
             filterable
             allow-create
             default-first-option
             :reserve-keyword="false"
-            placeholder="搜尋分頁標題"
+            :placeholder="$t('basic.right.selectTargetPageTitle')"
           >
             <el-option
               v-for="item in selectedData"
@@ -205,7 +212,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="handleUpdateToSelectedPageDialogVisible(false)"
-            >取消</el-button
+            > {{ $t("basic.right.cancel") }}</el-button
           >
           <el-button
             @click="
@@ -216,7 +223,7 @@
               )
             "
           >
-            確認
+          {{ $t("basic.right.confirm") }}
           </el-button>
         </span>
       </template>
