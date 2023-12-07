@@ -9,10 +9,8 @@
   <script lang="ts">
   import LeftMenu from "./LeftMenu.vue";
   import Right from "./Right.vue";
-  import { RouterView } from "vue-router";
   export default {
     components: {
-      RouterView,
       Right,
       LeftMenu
     },
