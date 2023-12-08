@@ -35,6 +35,9 @@ export default {
 
     deleteMode:"Del",
     saveMode:"Save",
-    editMode:"Edit"
+    editMode:"Edit",
+
+
+    
   },
 };

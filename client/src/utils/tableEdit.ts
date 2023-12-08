@@ -6,7 +6,7 @@ export const rowEditFunction = () => {
   const { setDataToUpdateSelectDataPage } = useRightDataStore();
   const currentEditCell: Ref<(string | number)[]> = ref([]);
   const editMode: Ref<boolean> = ref(false);
-  const buttonContent: Ref<string> = ref("修改");
+  const buttonContent: Ref<string> = ref("basic.right.editMode");
 
   const handleCellEdit = (colKey: string, rowIndex: number) => {
     if (!editMode.value) return;
@@ -18,9 +18,9 @@ export const rowEditFunction = () => {
     editMode.value = !oldValue;
     if (editMode.value === false) {
       currentEditCell.value = [];
-      buttonContent.value = "修改";
+      buttonContent.value = "basic.right.editMode";
     } else {
-      buttonContent.value = "儲存";
+      buttonContent.value = "basic.right.saveMode";
     }
   };
 

@@ -14,7 +14,7 @@ export default {
   },
   right: {
     mainPage: "主資料頁面",
-    addNewData:"新增",
+    addNewData: "新增",
     buildPage: "建立資料分頁",
     addToPage: "添加至指定分頁",
     deleteMany: "批次刪除",
@@ -33,8 +33,26 @@ export default {
     addToTargetPageLabel: "分頁名稱",
     selectTargetPageTitle: "搜尋分頁標題",
 
-    deleteMode:"刪除",
-    saveMode:"儲存",
-    editMode:"修改"
+    deleteMode: "刪除",
+    saveMode: "儲存",
+    editMode: "修改",
+
+    title: [
+      { title: "Email", key: "Email" },
+      { title: "服務單位", key: "服務單位" },
+      { title: "職稱", key: "job" },
+      { title: "郵遞區號", key: "郵遞區號" },
+      { title: "地址", key: "地址" },
+      { title: "郵遞區號2", key: "郵遞區號2" },
+      { title: "地址2", key: "地址2" },
+      { title: "連絡電話_公司", key: "連絡電話_公司" },
+      { title: "連絡電話_秘書", key: "連絡電話_秘書" },
+      { title: "連絡電話_住宅", key: "連絡電話_住宅" },
+      { title: "連絡電話_手機", key: "連絡電話_手機" },
+      { title: "連絡電話1", key: "連絡電話1" },
+      { title: "連絡電話2", key: "連絡電話2" },
+      { title: "傳真電話", key: "傳真電話" },
+      { title: "傳真2", key: "傳真2" },
+    ],
   },
 };

@@ -92,14 +92,13 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="150">
         <template #default="scope">
-          <el-button size="small" @click="handleEditMode">{{
-            buttonContent
+          <el-button size="small" @click="handleEditMode">{{$t(buttonContent)
           }}</el-button>
           <el-button
             size="small"
             type="danger"
             @click="handleRowDelete(scope.row.m_id, currentSelectedDataId)"
-            >刪除</el-button
+            > {{ $t("basic.right.deleteMode") }}</el-button
           >
         </template>
       </el-table-column>
