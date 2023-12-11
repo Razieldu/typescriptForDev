@@ -44,7 +44,7 @@
     >
       <el-table-column type="selection" width="55" />
       <el-table-column
-        :key="$t('basic.right.title.name')"
+        :key="'姓名'"
         :label="$t('basic.right.title.name')"
         :prop="$t('basic.right.title.name')"
         width="120"
@@ -71,7 +71,7 @@
       </el-table-column>
       <el-table-column
         v-for="eachObj in contentTitle"
-        :key="$t(eachObj.title)"
+        :key="(eachObj.key)"
         :label="$t(eachObj.title)"
         :prop="$t(eachObj.title)"
         :width="eachObj.title === 'basic.right.title.email' ? 250 : 150"
@@ -265,7 +265,6 @@ import { ContentTitleItem } from "../typescriptDefine/type";
 
 export default {
   setup() {
-    const contentTitleName: Ref<String> = ref("basic.right.title.name");
     const contentTitle: Ref<ContentTitleItem[]> = ref([
       { title: "basic.right.title.email", key: "Email" },
       { title: "basic.right.title.company", key: "服務單位" },
@@ -360,7 +359,6 @@ export default {
       }
     });
     return {
-      contentTitleName,
       mainContentData,
       contentTitle,
       resetSearchResult,

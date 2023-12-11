@@ -20,7 +20,7 @@
           <el-sub-menu index="2">
             <template #title>
               <el-icon><document /></el-icon>
-              <span>已儲存的分類資料</span>
+              <span>{{ $t("basic.left.title.savedPage") }}</span>
             </template>
             <el-menu-item
               v-for="(eachSelectedData, index) in selectedData"
@@ -35,14 +35,14 @@
           <el-sub-menu index="1">
             <template #title>
               <el-icon><Search /></el-icon>
-              <span>標題搜尋</span>
+              <span>{{ $t("basic.left.title.titleSearch") }}</span>
             </template>
             <el-sub-menu
               v-for="(eachObject, titleIndex) in titles"
               :index="eachObject.index"
               :key="titleIndex"
             >
-              <template #title>{{ eachObject.name }}</template>
+              <template #title>{{ $t(eachObject.name) }}</template>
               <div class="flex justify-center items-center h-[56px]">
                 <el-input
                   :key="titleIndex"
@@ -63,8 +63,8 @@
                   size="small"
                   >{{
                     menuButtonStateValue[titleIndex]
-                      ? addButtonContentValue[1]
-                      : addButtonContentValue[0]
+                      ? $t(addButtonContentValue[1])
+                      : $t(addButtonContentValue[0])
                   }}
                 </el-button>
               </div>
@@ -134,12 +134,12 @@ export default {
     const { searchGoalByColumn, showSelectedData } = DataHandleStore;
     const { selectedData, isFirst } = storeToRefs(DataHandleStore);
     const titles: Ref<Title[]> = ref([
-      { name: "姓名", color: "grey", index: "1-1" },
-      { name: "Email", color: "silver", index: "1-2" },
-      { name: "服務單位", color: "grey", index: "1-3" },
-      { name: "職稱", color: "silver", index: "1-4" },
-      { name: "郵遞區號", color: "grey", index: "1-5" },
-      { name: "地址", color: "silver", index: "1-6" },
+      { name: "basic.left.menu.name", color: "grey", index: "1-1" },
+      { name: "basic.left.menu.email", color: "silver", index: "1-2" },
+      { name: "basic.left.menu.company", color: "grey", index: "1-3" },
+      { name: "basic.left.menu.jobTitle", color: "silver", index: "1-4" },
+      { name: "basic.left.menu.zip", color: "grey", index: "1-5" },
+      { name: "basic.left.menu.address", color: "silver", index: "1-6" },
     ]);
     const inputValueArray: Ref<string[]> = ref([]);
     const menuButtonState: Ref<boolean[]> = ref([]);
@@ -153,7 +153,10 @@ export default {
       console.log(`Menu with key ${key} Path${keyPath} is opened!`);
     };
     // const myElements = ref({});
-    const addButtonContent = ref(["添加", "確認"]);
+    const addButtonContent = ref([
+      "basic.left.menu.addButton",
+      "basic.left.menu.confirmAddButton",
+    ]);
     const addButtonContentValue = addButtonContent.value;
     watch(
       selectedData,

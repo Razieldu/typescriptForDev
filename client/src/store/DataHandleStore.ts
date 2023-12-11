@@ -239,7 +239,7 @@ export const useRightDataStore = defineStore("rightData", {
         }
         return one;
       });
-      console.log(objToServer, "給後端");
+      // console.log(objToServer, "給後端");
       let result = await this.updateMemberData(objToServer);
       console.log(result);
     },

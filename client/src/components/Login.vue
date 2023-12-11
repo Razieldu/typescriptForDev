@@ -44,13 +44,14 @@ import { useUserDataStore } from "../store/userDataStore";
 import { storeToRefs } from "pinia";
 import { ElMessage } from "element-plus";
 import router from "../router";
+import { useI18n } from 'vue-i18n'
 export default {
   setup() {
     const userAccount = ref<string>("");
     const userPassword = ref<string>("");
     const { login } = useUserDataStore();
     const { isLogin } = storeToRefs(useUserDataStore());
-
+    const i18n = useI18n();
     type MessageType = "success" | "warning" | "error" | "info";
 
     interface MessageParams {
@@ -64,14 +65,14 @@ export default {
     const handleLogin = (account: string, password: string) => {
       let loginStatus = login(account, password);
       if (loginStatus === true) {
-        openMessage({ type: "success", message: "登入成功", showClose: true });
+        openMessage({ type: "success", message: i18n.t("basic.login.successLogin"), showClose: true });
         setTimeout(() => {
           router.push("/");
         }, 1000);
       } else if (loginStatus === "請確認帳號密碼訊息") {
         openMessage({
           type: "error",
-          message: "請確認帳號密碼訊息",
+          message: i18n.t("basic.login.failToLogin"),
           showClose: true,
         });
       }

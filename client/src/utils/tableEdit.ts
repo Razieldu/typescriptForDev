@@ -9,6 +9,7 @@ export const rowEditFunction = () => {
   const buttonContent: Ref<string> = ref("basic.right.editMode");
 
   const handleCellEdit = (colKey: string, rowIndex: number) => {
+    console.log(colKey)
     if (!editMode.value) return;
     currentEditCell.value = [colKey, rowIndex];
   };
