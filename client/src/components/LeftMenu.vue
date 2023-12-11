@@ -43,7 +43,7 @@
               :key="titleIndex"
             >
               <template #title>{{ $t(eachObject.name) }}</template>
-              <div class="flex justify-center items-center h-[56px]">
+              <div class=" flex justify-center items-center  h-[56px]">
                 <el-input
                   :key="titleIndex"
                   v-model="inputValue[titleIndex]"
@@ -86,7 +86,7 @@
                     class="col-span-6 flex justify-center overflow-hidden min-w-[60%] max-w-[60%] hover:bg-red-100"
                     @click="
                       searchGoalByColumn(
-                        titleData[titleIndex].name,
+                        titleData[titleIndex].searchKey,
                         eachSearchWordObject.name,
                         eachSearchWordObject.select
                       )
@@ -134,12 +134,12 @@ export default {
     const { searchGoalByColumn, showSelectedData } = DataHandleStore;
     const { selectedData, isFirst } = storeToRefs(DataHandleStore);
     const titles: Ref<Title[]> = ref([
-      { name: "basic.left.menu.name", color: "grey", index: "1-1" },
-      { name: "basic.left.menu.email", color: "silver", index: "1-2" },
-      { name: "basic.left.menu.company", color: "grey", index: "1-3" },
-      { name: "basic.left.menu.jobTitle", color: "silver", index: "1-4" },
-      { name: "basic.left.menu.zip", color: "grey", index: "1-5" },
-      { name: "basic.left.menu.address", color: "silver", index: "1-6" },
+      { name: "basic.left.menu.name", color: "grey", index: "1-1" , searchKey:"姓名"},
+      { name: "basic.left.menu.email", color: "silver", index: "1-2",searchKey:"Email"},
+      { name: "basic.left.menu.company", color: "grey", index: "1-3" ,searchKey:"服務單位"},
+      { name: "basic.left.menu.jobTitle", color: "silver", index: "1-4" ,searchKey:"職位" },
+      { name: "basic.left.menu.zip", color: "grey", index: "1-5"  ,searchKey:"郵遞區號"},
+      { name: "basic.left.menu.address", color: "silver", index: "1-6"  ,searchKey:"地址"},
     ]);
     const inputValueArray: Ref<string[]> = ref([]);
     const menuButtonState: Ref<boolean[]> = ref([]);
@@ -214,7 +214,7 @@ export default {
 .addInput {
   height: 24px;
   width: 150px !important;
-  right: 12px;
+  right: 70px;
   position: absolute;
 }
 </style>

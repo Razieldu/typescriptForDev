@@ -98,6 +98,7 @@ export const useRightDataStore = defineStore("rightData", {
       ifRelated: boolean
     ): void {
       let searchResult = [];
+      console.log(titleValue,value)
       let keyWord = new RegExp(value);
       if (!ifRelated) {
         // console.log(value, titleValue); ///劉 姓名

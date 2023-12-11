@@ -56,6 +56,7 @@ export const useLeftDataStore = defineStore("leftData", {
         id: `${index}${targetLength + 1}`,
         name: inputValue,
         select: false,
+        searchKey:inputValue,
       };
       console.log(newSearchItem);
       this.data[index].push(newSearchItem);
