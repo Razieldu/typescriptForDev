@@ -43,7 +43,13 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" />
-      <el-table-column :key="'姓名'" label="姓名" prop="姓名" width="120" fixed>
+      <el-table-column
+        :key="$t('basic.right.title.name')"
+        :label="$t('basic.right.title.name')"
+        :prop="$t('basic.right.title.name')"
+        width="120"
+        fixed
+      >
         <template #default="{ row, $index }">
           <div
             v-if="
@@ -53,22 +59,22 @@
             <el-input
               ref="cellInput"
               v-model="row['姓名']"
-              :placeholder="`请输入${'姓名'}`"
+              :placeholder="`${$t('basic.right.title.pleaseEnter')} ${$t('basic.right.title.name')}`"
               @blur="currentEditCell = []"
               @change="handleUpdateData(row)"
             />
           </div>
           <div v-else @click="handleCellEdit('姓名', $index)">
-            {{ row["姓名"] || "無" }}
+            {{ row["姓名"] || $t("basic.right.title.noName") }}
           </div>
         </template>
       </el-table-column>
       <el-table-column
         v-for="eachObj in contentTitle"
-        :key="eachObj.key"
-        :label="eachObj.title"
-        :prop="eachObj.title"
-        :width="eachObj.title === 'Email' ? 250 : 150"
+        :key="$t(eachObj.title)"
+        :label="$t(eachObj.title)"
+        :prop="$t(eachObj.title)"
+        :width="eachObj.title === 'basic.right.title.email' ? 250 : 150"
       >
         <template #default="{ row, $index }">
           <div
@@ -80,25 +86,31 @@
             <el-input
               ref="cellInput"
               v-model="row[eachObj.key]"
-              :placeholder="`请输入${eachObj.title}`"
+              :placeholder="`${$t('basic.right.title.pleaseEnter')} ${$t(eachObj.title)}`"
               @blur="currentEditCell = []"
               @change="handleUpdateData(row)"
             />
           </div>
           <div v-else @click="handleCellEdit(eachObj.key, $index)">
-            {{ row[eachObj.key] || "無" }}
+            {{ row[eachObj.key] || $t("basic.right.title.noName") }}
           </div>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="150">
+      <el-table-column
+        fixed="right"
+        :label="$t('basic.right.title.operation')"
+        width="150"
+      >
         <template #default="scope">
-          <el-button size="small" @click="handleEditMode">{{$t(buttonContent)
+          <el-button size="small" @click="handleEditMode">{{
+            $t(buttonContent)
           }}</el-button>
           <el-button
             size="small"
             type="danger"
             @click="handleRowDelete(scope.row.m_id, currentSelectedDataId)"
-            > {{ $t("basic.right.deleteMode") }}</el-button
+          >
+            {{ $t("basic.right.deleteMode") }}</el-button
           >
         </template>
       </el-table-column>
@@ -162,13 +174,18 @@
       :title="$t('basic.right.updateCurrentPageTitle')"
     >
       <el-form :model="form">
-        <el-form-item :label="$t('basic.right.updateCurrentPageLabel')" :label-width="formLabelWidth">
+        <el-form-item
+          :label="$t('basic.right.updateCurrentPageLabel')"
+          :label-width="formLabelWidth"
+        >
           <el-input v-model="selectedDataTitle" autocomplete="off" />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="handleUpdateDialogVisible(false)"> {{ $t("basic.right.cancel") }}</el-button>
+          <el-button @click="handleUpdateDialogVisible(false)">
+            {{ $t("basic.right.cancel") }}</el-button
+          >
           <el-button
             @click="
               updateSelectedData(
@@ -178,7 +195,7 @@
               )
             "
           >
-          {{ $t("basic.right.confirm") }}
+            {{ $t("basic.right.confirm") }}
           </el-button>
         </span>
       </template>
@@ -190,7 +207,10 @@
       :title="$t('basic.right.addToTargetPageTitle')"
     >
       <el-form :model="form">
-        <el-form-item :label="$t('basic.right.addToTargetPageLabel')" :label-width="formLabelWidth">
+        <el-form-item
+          :label="$t('basic.right.addToTargetPageLabel')"
+          :label-width="formLabelWidth"
+        >
           <el-select
             v-model="updateToSelectedFormValue"
             filterable
@@ -210,8 +230,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="handleUpdateToSelectedPageDialogVisible(false)"
-            > {{ $t("basic.right.cancel") }}</el-button
+          <el-button @click="handleUpdateToSelectedPageDialogVisible(false)">
+            {{ $t("basic.right.cancel") }}</el-button
           >
           <el-button
             @click="
@@ -222,7 +242,7 @@
               )
             "
           >
-          {{ $t("basic.right.confirm") }}
+            {{ $t("basic.right.confirm") }}
           </el-button>
         </span>
       </template>
@@ -245,22 +265,23 @@ import { ContentTitleItem } from "../typescriptDefine/type";
 
 export default {
   setup() {
+    const contentTitleName: Ref<String> = ref("basic.right.title.name");
     const contentTitle: Ref<ContentTitleItem[]> = ref([
-      { title: "Email", key: "Email" },
-      { title: "服務單位", key: "服務單位" },
-      { title: "職稱", key: "職稱" },
-      { title: "郵遞區號", key: "郵遞區號" },
-      { title: "地址", key: "地址" },
-      { title: "郵遞區號2", key: "郵遞區號2" },
-      { title: "地址2", key: "地址2" },
-      { title: "連絡電話_公司", key: "連絡電話_公司" },
-      { title: "連絡電話_秘書", key: "連絡電話_秘書" },
-      { title: "連絡電話_住宅", key: "連絡電話_住宅" },
-      { title: "連絡電話_手機", key: "連絡電話_手機" },
-      { title: "連絡電話1", key: "連絡電話1" },
-      { title: "連絡電話2", key: "連絡電話2" },
-      { title: "傳真電話", key: "傳真電話" },
-      { title: "傳真2", key: "傳真2" },
+      { title: "basic.right.title.email", key: "Email" },
+      { title: "basic.right.title.company", key: "服務單位" },
+      { title: "basic.right.title.jobTitle", key: "職稱" },
+      { title: "basic.right.title.zip", key: "郵遞區號" },
+      { title: "basic.right.title.address", key: "地址" },
+      { title: "basic.right.title.zip2", key: "郵遞區號2" },
+      { title: "basic.right.title.address2", key: "地址2" },
+      { title: "basic.right.title.tel_company", key: "連絡電話_公司" },
+      { title: "basic.right.title.tel_secretary", key: "連絡電話_秘書" },
+      { title: "basic.right.title.tel_home", key: "連絡電話_住宅" },
+      { title: "basic.right.title.phone", key: "連絡電話_手機" },
+      { title: "basic.right.title.tel1", key: "連絡電話1" },
+      { title: "basic.right.title.tel2", key: "連絡電話2" },
+      { title: "basic.right.title.fax", key: "傳真電話" },
+      { title: "basic.right.title.fax2", key: "傳真2" },
     ]);
     const mainContentData: Ref<DataItem[]> = ref([]);
     const loading = ref(true);
@@ -339,6 +360,7 @@ export default {
       }
     });
     return {
+      contentTitleName,
       mainContentData,
       contentTitle,
       resetSearchResult,

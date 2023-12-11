@@ -14,7 +14,7 @@ export default {
   },
   right: {
     mainPage: "Main Page",
-    addNewData:"Add New Data",
+    addNewData: "Add New Data",
     buildPage: "Build Page",
     addToPage: "Add to target page",
     deleteMany: "Delete Many",
@@ -33,11 +33,29 @@ export default {
     addToTargetPageLabel: "Target Page Title",
     selectTargetPageTitle: "Target Page Title",
 
-    deleteMode:"Del",
-    saveMode:"Save",
-    editMode:"Edit",
-
-
-    
+    deleteMode: "Del",
+    saveMode: "Save",
+    editMode: "Edit",
+    title: {
+      name:"Name",
+      noName:"none",
+      pleaseEnter:"key",
+      email:"Email",
+      company:"Company",
+      jobTitle: "Job Title ",
+      zip:"Zip",
+      address:"Address",
+      zip2:"Zip2",
+      address2:"Address2",
+      tel_company:"Tel Company" ,
+      tel_secretary:"Tel Secratary",
+      tel_home:"Tel Home",
+      phone:"Phone",
+      tel1:"Tel1",
+      tel2:"Tel2",
+      fax:"Fax",
+      fax2:"Fax2",
+      operation:"Operation"
+    },
   },
 };
