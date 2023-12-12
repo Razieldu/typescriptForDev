@@ -20,7 +20,9 @@ router.beforeEach((to, from, next) => {
   if (!userDataStore.isLogin && to.name !== "Login") {
     // 如果未登录且不是前往登录页面，则导航到登录页面
     next("/login");
-  } else {
+  }else if (userDataStore.isLogin&& to.name==="Login"){
+    next("/")
+  }else {
     // 已登录或前往登录页面，允许导航
     next();
   }

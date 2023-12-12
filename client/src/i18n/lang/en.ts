@@ -5,14 +5,19 @@ export default {
     placeholder: "enter keyword...",
   },
   login: {
-    successLogin:"Successful Login",
-    failToLogin:"Please check account information",
+    successLogin: "Successful Login",
+    failToLogin: "Please check account information",
     formtitle: "Please login",
     accountPlaceholder: "account",
     account: "enter account",
     passwordPlaceholder: "password",
     password: "enter password",
     button: "Log In",
+
+    option1: "Chinese",
+    option2: "English",
+    option3: "Korean",
+    placeholder:"lang"
   },
   right: {
     mainPage: "Main Page",

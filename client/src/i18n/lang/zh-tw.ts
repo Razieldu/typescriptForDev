@@ -13,6 +13,11 @@ export default {
     passwordPlaceholder: "請輸入密碼",
     password: "密碼",
     button: "登入",
+
+    option1: "中文",
+    option2: "英文",
+    option3: "韓文",
+    placeholder:"語言"
   },
   right: {
     mainPage: "主資料頁面",

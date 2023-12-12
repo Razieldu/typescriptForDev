@@ -11,13 +11,14 @@
 <script lang="ts">
 // import Middle from "./Middle.vue";
 import Top from "./Top.vue";
-import { defineComponent, watch,ref} from "vue";
+import { defineComponent, computed, onMounted } from "vue";
 import { ElConfigProvider } from "element-plus";
 import ElementZhTWS from "element-plus/lib/locale/lang/zh-tw";
 import ElementEn from "element-plus/lib/locale/lang/en";
 import ElementKo from "element-plus/lib/locale/lang/ko";
 import { storeToRefs } from "pinia";
 import { useSettingStore } from "../store/settingStore";
+import { useUserDataStore } from "../store/userDataStore";
 // export default { name: "App", components: { Middle, Top } };
 export default defineComponent({
   components: {
@@ -26,21 +27,39 @@ export default defineComponent({
   },
   setup() {
     const { language } = storeToRefs(useSettingStore());
-    const setLanguage = (language: string) => {
-      switch (language) {
+    const { setLogin } = useUserDataStore();
+    // const setLanguage = (language: string) => {
+    //   switch (language) {
+    //     case "en":
+    //       return ElementEn;
+    //     case "zh-tw":
+    //       return ElementZhTWS;
+    //     case "ko":
+    //       return ElementKo;
+    //   }
+    // };
+    // watch(language, (newLang) => {
+    //   locale.value = setLanguage(newLang);
+    // });
+    const languageState = computed(() => language.value);
+    const locale = computed(() => {
+      switch (languageState.value) {
         case "en":
           return ElementEn;
         case "zh-tw":
           return ElementZhTWS;
         case "ko":
           return ElementKo;
+        default:
+          return ElementZhTWS;
       }
-    };
-    watch(language, (newLang) => {
-      locale.value = setLanguage(newLang);
     });
-    const locale = ref(setLanguage(language.value));
-    
+    onMounted(() => {
+      let isLogin = localStorage.getItem("login");
+      if (isLogin) {
+        setLogin();
+      }
+    });
     return {
       language,
       locale,
@@ -48,3 +67,4 @@ export default defineComponent({
   },
 });
 </script>
+
