@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-start items-center py-6 px-0 fixed top-0 w-full h-16 bg-sky-600 z-50">
-    <div class="flex justify-start items-center w-[270px] px-6 h-16">
+    <div class="flex justify-start items-center w-[275px] px-6 h-16">
       <el-select v-model="selectValue" clearable :placeholder="$t('basic.login.placeholder')" class="select"
         @change="handleLanguage(selectValue)" effect="light" filterable>
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />

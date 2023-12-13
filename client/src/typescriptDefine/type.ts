@@ -1,8 +1,10 @@
+///Right
 export interface ContentTitleItem {
   title: string;
   key: string;
 }
 
+///Left
 export interface Title {
   name: string;
   color: string;
