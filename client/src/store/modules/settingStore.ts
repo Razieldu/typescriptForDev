@@ -1,8 +1,5 @@
 import { defineStore } from "pinia";
-
-interface settingState {
-  language: string;
-}
+import { settingState } from "@/types"
 
 export const useSettingStore = defineStore("setting", {
   state: (): settingState => ({

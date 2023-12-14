@@ -6,7 +6,7 @@
   </template>
   
   <script lang="ts" setup>
-  import LeftMenu from "./LeftMenu.vue";
-  import Right from "./Right.vue";
+  import LeftMenu from "@/views/LeftMenu.vue";
+  import Right from "@/views/Right.vue";
   </script>
   

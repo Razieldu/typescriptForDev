@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
-import { useLeftDataStore } from "./LeftDataHandleStore";
+import { useLeftDataStore } from "@/store";
 import {
   RightDataStore,
   ApiResponse,
   MemberData,
   DataItem,
-} from "../type/type";
+} from "@/types";
 
 export const useRightDataStore = defineStore("rightData", {
   state: (): RightDataStore => ({

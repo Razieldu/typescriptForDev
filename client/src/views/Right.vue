@@ -150,16 +150,16 @@
 <script lang="ts" setup>
 
 import { onMounted, ref, watch, reactive, Ref } from "vue";
-import { useRightDataStore } from "../store/DataHandleStore";
+import { useRightDataStore } from "@/store";
 import { storeToRefs } from "pinia";
-import { exportFile } from "../utils/exportExcel";
-import { DataItem } from "../type/type";
-import { createDialogVisibility } from "../utils/handleDialogueWindow";
-import { findId } from "../utils/targetUpdateDataId";
-import { rowEditFunction } from "../utils/tableEdit";
-import { handlePagination } from "../utils/pagination";
-import { computeFn } from "../utils/compute";
-import { ContentTitleItem } from "../type/type";
+import { exportFile } from "@/utils";
+import { DataItem } from "@/types";
+import { createDialogVisibility } from "@/utils";
+import { findId } from "@/utils";
+import { rowEditFunction } from "@/utils";
+import { handlePagination } from "@/utils";
+import { computeFn } from "@/utils";
+import { ContentTitleItem } from "@/types";
 
 const contentTitle: Ref<ContentTitleItem[]> = ref([
   { title: "basic.right.title.email", key: "Email" },

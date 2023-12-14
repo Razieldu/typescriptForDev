@@ -24,9 +24,9 @@
 <script lang="ts" setup>
 
 import { ref, computed } from "vue";
-import { useRightDataStore } from "../store/DataHandleStore";
-import { useUserDataStore } from "../store/userDataStore";
-import { useSettingStore } from "../store/settingStore";
+import { useRightDataStore } from "@/store";
+import { useUserDataStore } from "@/store";
+import { useSettingStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 

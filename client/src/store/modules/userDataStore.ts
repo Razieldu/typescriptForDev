@@ -1,16 +1,13 @@
 import { defineStore } from "pinia";
-
-interface userDataState {
-  isLogin: Boolean;
-}
+import { userDataState } from "@/types"
 
 export const useUserDataStore = defineStore("userData", {
   state: (): userDataState => ({
     isLogin: false,
   }),
   actions: {
-    setLogin(){
-      this.isLogin =true
+    setLogin() {
+      this.isLogin = true
     },
     login(account: string, password: string) {
       if (account === "" || password === "") {

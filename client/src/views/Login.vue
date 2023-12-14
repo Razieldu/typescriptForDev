@@ -24,9 +24,9 @@
 <script lang="ts" setup>
 
 import { ref } from "vue";
-import { useUserDataStore } from "../store/userDataStore";
+import { useUserDataStore } from "@/store";
 import { ElMessage } from "element-plus";
-import router from "../router/router";
+import router from "@/router/router";
 import { useI18n } from 'vue-i18n'
 
 const userAccount = ref<string>("");

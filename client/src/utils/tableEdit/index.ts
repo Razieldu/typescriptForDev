@@ -1,6 +1,6 @@
 import { ref, Ref } from "vue";
-import { DataItem } from "../type/type";
-import { useRightDataStore } from "../store/DataHandleStore";
+import { DataItem } from "@/types";
+import { useRightDataStore } from "@/store";
 
 export const rowEditFunction = () => {
   const { setDataToUpdateSelectDataPage } = useRightDataStore();
