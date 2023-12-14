@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { Item, LeftDataState } from "../typescriptDefine/type";
+import { Item, LeftDataState } from "../type/type";
 
 export const useLeftDataStore = defineStore("leftData", {
   state: (): LeftDataState => ({

@@ -153,13 +153,13 @@ import { onMounted, ref, watch, reactive, Ref } from "vue";
 import { useRightDataStore } from "../store/DataHandleStore";
 import { storeToRefs } from "pinia";
 import { exportFile } from "../utils/exportExcel";
-import { DataItem } from "../typescriptDefine/type";
+import { DataItem } from "../type/type";
 import { createDialogVisibility } from "../utils/handleDialogueWindow";
 import { findId } from "../utils/targetUpdateDataId";
 import { rowEditFunction } from "../utils/tableEdit";
 import { handlePagination } from "../utils/pagination";
 import { computeFn } from "../utils/compute";
-import { ContentTitleItem } from "../typescriptDefine/type";
+import { ContentTitleItem } from "../type/type";
 
 const contentTitle: Ref<ContentTitleItem[]> = ref([
   { title: "basic.right.title.email", key: "Email" },

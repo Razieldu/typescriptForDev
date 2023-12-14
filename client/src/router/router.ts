@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Login from "./components/Login.vue";
-import Middle from "./components/Middle.vue";
-import { useUserDataStore } from "./store/userDataStore";
+import Login from "../views/Login.vue";
+import Middle from "../views/Middle.vue";
+import { useUserDataStore } from "../store/userDataStore";
 
 const routes = [
   { path: "/login", name: "Login", component: Login },

@@ -79,10 +79,10 @@
 
 import { Delete } from "@element-plus/icons-vue";
 import { ref, watch, Ref, onMounted} from "vue";
-import { useLeftDataStore } from "../store/LeftDataHandleStore";
+import { useLeftDataStore } from "../store/LeftDataHandleStore.ts";
 import { useRightDataStore } from "../store/DataHandleStore";
 import { storeToRefs } from "pinia";
-import { Title } from "../typescriptDefine/type";
+import { Title } from "../type/type";
 
 const leftDataStore = useLeftDataStore();
 const DataHandleStore = useRightDataStore();

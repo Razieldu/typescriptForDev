@@ -10,16 +10,15 @@
 
 <script lang="ts" setup>
 
-import Top from "./Top.vue";
+import Top from "./views/Top.vue";
 import { computed, onMounted } from "vue";
 import { ElConfigProvider } from "element-plus";
 import ElementZhTWS from "element-plus/lib/locale/lang/zh-tw";
 import ElementEn from "element-plus/lib/locale/lang/en";
 import ElementKo from "element-plus/lib/locale/lang/ko";
 import { storeToRefs } from "pinia";
-import { useSettingStore } from "../store/settingStore";
-import { useUserDataStore } from "../store/userDataStore";
-
+import { useSettingStore } from "../src/store/settingStore";
+import { useUserDataStore } from "../src/store/userDataStore";
 
 const { language } = storeToRefs(useSettingStore());
 const { setLogin } = useUserDataStore();

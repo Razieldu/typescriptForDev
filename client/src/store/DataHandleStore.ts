@@ -5,7 +5,7 @@ import {
   ApiResponse,
   MemberData,
   DataItem,
-} from "../typescriptDefine/type";
+} from "../type/type";
 
 export const useRightDataStore = defineStore("rightData", {
   state: (): RightDataStore => ({

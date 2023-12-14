@@ -1,7 +1,7 @@
 // dataUtils.ts
 
 import { ref } from "vue";
-import { SelectedData } from "../typescriptDefine/type";
+import { SelectedData } from "../type/type";
 
 export const targetUpdateDataId = ref<string>("");
 
