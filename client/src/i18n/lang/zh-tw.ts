@@ -5,8 +5,8 @@ export default {
     placeholder: "請輸入...",
   },
   login: {
-    successLogin:"登入成功",
-    failToLogin:"請確認帳號密碼訊息",
+    successLogin: "登入成功",
+    failToLogin: "請確認帳號密碼訊息",
     formtitle: "請進行身分驗證",
     accountPlaceholder: "請輸入帳號",
     account: "帳號",
@@ -14,10 +14,11 @@ export default {
     password: "密碼",
     button: "登入",
 
-    option1: "中文",
+    option1: "繁體中文",
     option2: "英文",
-    option3: "韓文",
-    placeholder:"語言"
+    option3: "簡體中文",
+    option4: "日文",
+    placeholder: "語言"
   },
   right: {
     mainPage: "主資料頁面",

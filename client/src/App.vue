@@ -15,7 +15,8 @@ import { computed, onMounted } from "vue";
 import { ElConfigProvider } from "element-plus";
 import ElementZhTWS from "element-plus/lib/locale/lang/zh-tw";
 import ElementEn from "element-plus/lib/locale/lang/en";
-import ElementKo from "element-plus/lib/locale/lang/ko";
+import ElementZhCN from "element-plus/lib/locale/lang/zh-cn";
+import ElementZhJA from "element-plus/lib/locale/lang/zh-cn";
 import { storeToRefs } from "pinia";
 import { useSettingStore } from "@/store";
 import { useUserDataStore } from "@/store";
@@ -29,8 +30,10 @@ const locale = computed(() => {
       return ElementEn;
     case "zh-tw":
       return ElementZhTWS;
-    case "ko":
-      return ElementKo;
+    case "zh-cn":
+      return ElementZhCN;  
+    case　"ja":
+      return ElementZhJA 
     default:
       return ElementZhTWS;
   }

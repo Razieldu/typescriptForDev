@@ -49,9 +49,14 @@ const options = computed(() => [
     label: i18n.t("basic.login.option2"),
   },
   {
-    value: "ko",
+    value: "zh-cn",
     label: i18n.t("basic.login.option3"),
   },
+  {
+    value: "ja",
+    label: i18n.t("basic.login.option4"),
+  },
+
 ]);
 
 const switchToEnglish = function () {
@@ -60,26 +65,36 @@ const switchToEnglish = function () {
   locale.value = "en";
 };
 
-const switchToChinese = function () {
+const switchToTwChinese = function () {
   // @ts-ignore
   changeElementPlusLanguage("zh-tw");
   locale.value = "zh-tw";
 };
 
-const switchToKorean = function () {
-  changeElementPlusLanguage("ko");
+const switchToChinaChinese = function () {
+  changeElementPlusLanguage("zh-cn");
+  locale.value = "zh-cn"
 };
+
+const switchToJapanese = function () {
+  changeElementPlusLanguage("ja");
+  locale.value = "ja"
+};
+
 const handleLanguage = (language: string) => {
   switch (language) {
     case "zh-tw":
-      switchToChinese();
+      switchToTwChinese();
       break;
     case "en":
       switchToEnglish();
       break;
-    case "ko":
-      switchToKorean();
+    case "zh-cn":
+      switchToChinaChinese();
       break;
+    case "ja":
+      switchToJapanese()
+      break
   }
 };
 </script>

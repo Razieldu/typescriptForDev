@@ -14,8 +14,11 @@ export const useSettingStore = defineStore("setting", {
         case "zh-tw":
           this.language = "zh-tw";
           break;
-        case "ko":
-          this.language = "ko";
+        case "zh-cn":
+          this.language = "zh-cn";
+          break;
+        case "ja":
+          this.language = "ja";
           break;
         default:
           return;

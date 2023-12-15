@@ -9,13 +9,11 @@ const routes = [
 ];
 
 const router = createRouter({
-  // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
   history: createWebHistory(),
-  routes, // short for `routes: routes`
+  routes,
 });
 
 router.beforeEach((to, _, next) => {
-  // 在每次路由导航之前检查登录状态
   const userDataStore = useUserDataStore();
   if (!userDataStore.isLogin && to.name !== "Login") {
     // 如果未登录且不是前往登录页面，则导航到登录页面
