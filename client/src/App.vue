@@ -16,7 +16,7 @@ import { ElConfigProvider } from "element-plus";
 import ElementZhTWS from "element-plus/lib/locale/lang/zh-tw";
 import ElementEn from "element-plus/lib/locale/lang/en";
 import ElementZhCN from "element-plus/lib/locale/lang/zh-cn";
-import ElementZhJA from "element-plus/lib/locale/lang/zh-cn";
+import ElementZhJA from "element-plus/lib/locale/lang/ja";
 import { storeToRefs } from "pinia";
 import { useSettingStore } from "@/store";
 import { useUserDataStore } from "@/store";
