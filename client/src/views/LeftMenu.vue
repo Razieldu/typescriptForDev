@@ -151,7 +151,7 @@ onMounted(() => {
 .addInput {
   height: 24px;
   width: 150px !important;
-  right: 70px;
+  right: 100px;
   position: absolute;
 }
 </style>
