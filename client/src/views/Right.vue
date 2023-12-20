@@ -112,7 +112,7 @@ const openDialog = (target: string) => {
   if (targetItem) {
     addDialog({
       title: targetItem?.title,
-      width: "600px",
+      width: "700px",
       props: {
         id: targetItem.id
       },

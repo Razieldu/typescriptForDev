@@ -25,24 +25,14 @@
 
 import { ref } from "vue";
 import { useUserDataStore } from "@/store";
-import { ElMessage } from "element-plus";
 import router from "@/router/router";
 import { useI18n } from 'vue-i18n'
-
+import { openMessage } from "@/utils"
 const userAccount = ref<string>("");
 const userPassword = ref<string>("");
 const { login } = useUserDataStore();
 const i18n = useI18n();
-type MessageType = "success" | "warning" | "error" | "info";
 
-interface MessageParams {
-  showClose: boolean;
-  message: string;
-  type: MessageType;
-}
-function openMessage(param: MessageParams) {
-  ElMessage(param);
-}
 const handleLogin = (account: string, password: string) => {
   let loginStatus = login(account, password);
   if (loginStatus === true) {

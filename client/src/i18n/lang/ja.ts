@@ -33,6 +33,9 @@ export default {
         enterNewPageTitlePlaceholer: "入力してください... ...",
         confirm: "確認する",
         cancel: "キャンセル",
+        emptyTitle:"タイトルを空にすることはできません",
+        duplicateTitle:"タイトルが重複しています",
+        successBuild:"正常に確立されました",
 
         updateCurrentPageTitle: "現在のページを更新",
         updateCurrentPageLabel: "タイトル名",

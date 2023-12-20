@@ -10,12 +10,7 @@
             <span class="dialog-footer">
                 <el-button @click="closeDialog()">
                     {{ $t("basic.right.cancel") }}</el-button>
-                <el-button type="primary" @click="
-                    handleSelectedData(
-                        form.title,
-                        closeDialog,
-                        resetTitleInput
-                    )
+                <el-button type="primary" @click="handleSelectedDataWithMsg
                     ">
                     {{ $t("basic.right.confirm") }}
                 </el-button>
@@ -27,6 +22,9 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { useRightDataStore } from "@/store";
+import { openMessage } from "@/utils"
+import { useI18n } from 'vue-i18n'
+const i18n = useI18n();
 
 const { handleSelectedData,
 } = useRightDataStore();
@@ -37,13 +35,23 @@ const form = ref({
 const resetTitleInput = () => {
     form.value.title = "";
 };
-const formLabelWidth = "100px";
+const formLabelWidth = "180px";
 const props = defineProps(["id"])
 console.log(props.id, "props")
 const emit = defineEmits(["close"])
 const closeDialog = () => {
     emit("close", 0)
 }
+
+
+const handleSelectedDataWithMsg = () => {
+    const result = handleSelectedData(form.value.title, closeDialog, resetTitleInput);
+    if (result.includes("success")) {
+        openMessage({ message: i18n.t(result), type: "success", showClose: true });
+    } else {
+        openMessage({ message: i18n.t(result), type: "error", showClose: true });
+    }
+};
 </script>
   
  

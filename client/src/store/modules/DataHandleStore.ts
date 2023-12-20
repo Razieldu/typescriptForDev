@@ -98,7 +98,7 @@ export const useRightDataStore = defineStore("rightData", {
       ifRelated: boolean
     ): void {
       let searchResult = [];
-      console.log(titleValue,value)
+      console.log(titleValue, value)
       let keyWord = new RegExp(value);
       if (!ifRelated) {
         // console.log(value, titleValue); ///劉 姓名
@@ -249,21 +249,24 @@ export const useRightDataStore = defineStore("rightData", {
       title: string,
       isDialogVisible: () => void,
       resetInput: () => void
-    ): void {
-      if (title === "") return;
-
+    ): string {
+      if (title === "") return "basic.right.emptyTitle";
+      if (this.selectedData.some(one => one.title === title)) {
+        return "basic.right.duplicateTitle"
+      }
       let newId = Math.floor(100000 * Math.random());
       let selectedObject = {
         title,
         content: [...this.data],
         id: `${newId}_${title}`,
       };
-     
+
       this.selectedData.push(selectedObject);
       isDialogVisible();
       resetInput();
       // console.log(this.selectedData);
       // console.log(this.currentSelectedData)
+      return "basic.right.successBuild"
     },
 
     showSelectedData(id: string): void {

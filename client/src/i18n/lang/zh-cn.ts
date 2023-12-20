@@ -33,6 +33,9 @@ export default {
         enterNewPageTitlePlaceholer: "请输入...",
         confirm: "确认",
         cancel: "取消",
+        emptyTitle:"标题不得为空",
+        duplicateTitle:"重复标题",
+        successBuild:"建立成功",
 
         updateCurrentPageTitle: "更新目前分页",
         updateCurrentPageLabel: "标题名称",

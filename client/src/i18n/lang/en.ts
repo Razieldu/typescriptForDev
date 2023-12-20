@@ -33,6 +33,9 @@ export default {
     enterNewPageTitlePlaceholer: "please enter",
     confirm: "Confirm",
     cancel: "Cancel",
+    emptyTitle:"Empty Title",
+    duplicateTitle:"Duplicate Title",
+    successBuild:"Success Build",
 
     updateCurrentPageTitle: "Update Current Page",
     updateCurrentPageLabel: "New Title",
