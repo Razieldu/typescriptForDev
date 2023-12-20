@@ -14,9 +14,9 @@ export default {
     password: "enter password",
     button: "Log In",
 
-    option1: "Simplified Chinese",
+    option1: "Traditional Chinese",
     option2: "English",
-    option3: "Traditional Chinese",
+    option3: "Simplified Chinese",
     option4: "Japanese",
     placeholder:"lang"
   },
