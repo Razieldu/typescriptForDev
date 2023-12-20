@@ -9,16 +9,16 @@
           $t("basic.right.addNewData")
         }}</el-button>
         <el-button @click="handleExportFile" type="primary">Excel</el-button>
-        <el-button @click="dialogAddFormVisible = true" type="primary">{{
+        <el-button @click="openDialog('AddNewPage')" type="primary">{{
           $t("basic.right.buildPage")
         }}</el-button>
-        <el-button @click="handleUpdateToSelectedPageDialogVisible(true)" type="primary" :disabled="shouldDisableButton">
+        <el-button @click="openDialog('AddTargetPage')" type="primary" :disabled="shouldDisableButton">
           {{ $t("basic.right.addToPage") }}
         </el-button>
         <el-button type="primary" @click="batchDelete(currentSelectedDataId, dataUpdateToSelectPage)">
           {{ $t("basic.right.deleteMany") }}
         </el-button>
-        <el-button v-if="currentSelectedDataId !== ''" @click="dialogUpdateFormVisible = true" type="primary">
+        <el-button v-if="currentSelectedDataId !== ''" @click="openDialog('UpdateToCurrentPage')" type="primary">
           {{ $t("basic.right.updatePage") }}
         </el-button>
       </div>
@@ -71,95 +71,64 @@
         layout="sizes, prev, pager, next, jumper" :total="100" v-model:current-page="currentPage"
         v-model:page-size="pageSize" />
     </div>
-    <el-dialog class="fixed top-20" v-model="dialogAddFormVisible" :title="$t('basic.right.newPageTitle')">
-      <el-form :model="form">
-        <el-form-item :label="$t('basic.right.newPageLabel')" :label-width="formLabelWidth">
-          <el-input v-model="form.title" autocomplete="off"
-            :placeholder="$t('basic.right.enterNewPageTitlePlaceholer')" />
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="handleAddDialogVisible(false)">
-            {{ $t("basic.right.cancel") }}</el-button>
-          <el-button type="primary" @click="
-            handleSelectedData(
-              form.title,
-              handleAddDialogVisible,
-              resetTitleInput
-            )
-            ">
-            {{ $t("basic.right.confirm") }}
-          </el-button>
-        </span>
-      </template>
-    </el-dialog>
-    <el-dialog v-if="currentSelectedDataId !== ''" class="fixed top-20" v-model="dialogUpdateFormVisible"
-      :title="$t('basic.right.updateCurrentPageTitle')">
-      <el-form :model="form">
-        <el-form-item :label="$t('basic.right.updateCurrentPageLabel')" :label-width="formLabelWidth">
-          <el-input v-model="selectedDataTitle" autocomplete="off" />
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="handleUpdateDialogVisible(false)">
-            {{ $t("basic.right.cancel") }}</el-button>
-          <el-button @click="
-            updateSelectedData(
-              currentSelectedDataId,
-              handleUpdateDialogVisible,
-              selectedDataTitle
-            )
-            ">
-            {{ $t("basic.right.confirm") }}
-          </el-button>
-        </span>
-      </template>
-    </el-dialog>
-
-    <el-dialog class="fixed top-20" v-model="dialogUpdateToSelectedPageFormVisible"
-      :title="$t('basic.right.addToTargetPageTitle')">
-      <el-form :model="form">
-        <el-form-item :label="$t('basic.right.addToTargetPageLabel')" :label-width="formLabelWidth">
-          <el-select v-model="updateToSelectedFormValue" filterable allow-create default-first-option
-            :reserve-keyword="false" :placeholder="$t('basic.right.selectTargetPageTitle')">
-            <el-option v-for="item in selectedData" :key="item.id" :label="item.title" :value="item.title" />
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="handleUpdateToSelectedPageDialogVisible(false)">
-            {{ $t("basic.right.cancel") }}</el-button>
-          <el-button @click="
-            updateToSelectedPageData(
-              findId(updateToSelectedFormValue, selectedData),
-              dataUpdateToSelectPage,
-              handleUpdateToSelectedPageDialogVisible
-            )
-            ">
-            {{ $t("basic.right.confirm") }}
-          </el-button>
-        </span>
-      </template>
-    </el-dialog>
+    <Mydialogue />
   </div>
 </template>
 
 <script lang="ts" setup>
 
-import { onMounted, ref, watch, reactive, Ref } from "vue";
+import { onMounted, ref, watch, Ref } from "vue";
 import { useRightDataStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { exportFile } from "@/utils";
 import { DataItem } from "@/types";
-import { createDialogVisibility } from "@/utils";
-import { findId } from "@/utils";
 import { rowEditFunction } from "@/utils";
 import { handlePagination } from "@/utils";
 import { computeFn } from "@/utils";
 import { ContentTitleItem } from "@/types";
+import Mydialogue from "@/component/dialogue/index.vue"
+import { addDialog } from "@/component/dialogue/index"
+import addNewPage from "@/component/dialogue/dialogues/addNewPage.vue"
+import updateToCurrentPage from "@/component/dialogue/dialogues/updateToCurrentPage.vue";
+import addToTargetPage from "@/component/dialogue/dialogues/addToTargetPage.vue";
+import { markRaw } from "vue";
+import { useI18n } from "vue-i18n";
+
+const i18n = useI18n()
+const openDialog = (target: string) => {
+  const componentSwitch = (target: string) => {
+    switch (target) {
+      case "AddNewPage":
+        return { content: addNewPage, title: i18n.t('basic.right.newPageTitle'), id: target + '1' }
+      case "AddTargetPage":
+        return { content: addToTargetPage, title: i18n.t('basic.right.addToTargetPageTitle'), id: target + "2" }
+      case "UpdateToCurrentPage":
+        return { content: updateToCurrentPage, title: i18n.t('basic.right.updateCurrentPageTitle'), id: target + "3" }
+      default:
+        return null
+    }
+  }
+  let targetItem = componentSwitch(target)
+  if (targetItem) {
+    addDialog({
+      title: targetItem?.title,
+      width: "600px",
+      props: {
+        id: targetItem.id
+      },
+      component: markRaw(targetItem?.content),
+      callBack: (data: any) => {
+        //当弹窗任务结束后，调用父页面的回掉函数。（比如我新增完成了需要刷新列表页面）
+        console.log("回调函数", data)
+      }
+    })
+  }
+}
+
+
+
+
+
 
 const contentTitle: Ref<ContentTitleItem[]> = ref([
   { title: "basic.right.title.email", key: "Email" },
@@ -189,51 +158,24 @@ let {
   handleSelectionChange,
 } = rowEditFunction();
 let { currentPage, pageSize, handleShowData } = handlePagination(1, 10);
-let { selectedDataTitle, shouldDisableButton } = computeFn();
+let { shouldDisableButton } = computeFn();
 const {
   fetchData,
   resetSearchResult,
   handleRowDelete,
   handleAddNewData,
   handleUpdateData,
-  handleSelectedData,
-  updateSelectedData,
-  updateToSelectedPageData,
   batchDelete,
 } = useRightDataStore();
 const {
   data,
   currentSelectedDataId,
   dataUpdateToSelectPage,
-  selectedData,
 } = storeToRefs(useRightDataStore());
 
 const handleExportFile = () => {
   exportFile(mainContentData);
 };
-
-const {
-  dialogVisible: dialogAddFormVisible,
-  setDialogVisible: handleAddDialogVisible,
-} = createDialogVisibility();
-const {
-  dialogVisible: dialogUpdateFormVisible,
-  setDialogVisible: handleUpdateDialogVisible,
-} = createDialogVisibility();
-const {
-  dialogVisible: dialogUpdateToSelectedPageFormVisible,
-  setDialogVisible: handleUpdateToSelectedPageDialogVisible,
-} = createDialogVisibility();
-
-const updateToSelectedFormValue = ref<string>("");
-const resetTitleInput = () => {
-  form.title = "";
-};
-
-const formLabelWidth = "140px";
-const form = reactive({
-  title: "",
-});
 
 watch(data, (newData) => (mainContentData.value = newData));
 watch([currentPage, pageSize, data], ([curPage, size, newData]) => {

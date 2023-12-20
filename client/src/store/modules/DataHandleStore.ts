@@ -251,12 +251,14 @@ export const useRightDataStore = defineStore("rightData", {
       resetInput: () => void
     ): void {
       if (title === "") return;
+
       let newId = Math.floor(100000 * Math.random());
       let selectedObject = {
         title,
         content: [...this.data],
         id: `${newId}_${title}`,
       };
+     
       this.selectedData.push(selectedObject);
       isDialogVisible(false);
       resetInput();
@@ -278,7 +280,7 @@ export const useRightDataStore = defineStore("rightData", {
 
     updateSelectedData(
       id: string,
-      isDialogVisible: (isVisible: boolean) => void,
+      closeDialog: () => void,
       newTitle: string
     ): void {
       this.selectedData = this.selectedData.map((eachSelectedData) => {
@@ -289,7 +291,7 @@ export const useRightDataStore = defineStore("rightData", {
           return eachSelectedData;
         }
       });
-      isDialogVisible(false);
+      closeDialog();
     },
 
     fuzzySearch(value: string): void {
