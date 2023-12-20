@@ -247,7 +247,7 @@ export const useRightDataStore = defineStore("rightData", {
 
     handleSelectedData(
       title: string,
-      isDialogVisible: (isVisible: boolean) => void,
+      isDialogVisible: () => void,
       resetInput: () => void
     ): void {
       if (title === "") return;
@@ -260,7 +260,7 @@ export const useRightDataStore = defineStore("rightData", {
       };
      
       this.selectedData.push(selectedObject);
-      isDialogVisible(false);
+      isDialogVisible();
       resetInput();
       // console.log(this.selectedData);
       // console.log(this.currentSelectedData)
