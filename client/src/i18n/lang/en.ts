@@ -39,10 +39,13 @@ export default {
 
     updateCurrentPageTitle: "Update Current Page",
     updateCurrentPageLabel: "New Title",
+    successUpdate:"Update Success",
 
     addToTargetPageTitle: "Add To Target Page",
     addToTargetPageLabel: "Target Page Title",
     selectTargetPageTitle: "Target Page Title",
+    successAddToTargetPage:"Success Add To Target Page",
+
 
     deleteMode: "Del",
     saveMode: "Save",

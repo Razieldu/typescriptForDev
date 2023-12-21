@@ -39,10 +39,12 @@ export default {
 
         updateCurrentPageTitle: "現在のページを更新",
         updateCurrentPageLabel: "タイトル名",
+        successUpdate:"アップデートが完了しました",
 
         addToTargetPageTitle: "指定したページに追加",
         addToTargetPageLabel: "ページ名 ",
         selectTargetPageTitle: "ページタイトルの検索",
+        successAddToTargetPage:"成功ターゲットページに追加", 
 
         deleteMode: "削除",
         saveMode: "保存",

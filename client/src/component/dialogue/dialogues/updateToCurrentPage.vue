@@ -9,13 +9,7 @@
             <span class="dialog-footer">
                 <el-button @click="closeDialog">
                     {{ $t("basic.right.cancel") }}</el-button>
-                <el-button @click="
-                    updateSelectedData(
-                        currentSelectedDataId,
-                        closeDialog,
-                        selectedDataTitle
-                    )
-                    ">
+                <el-button @click="successUpdateCurrentPageMsg">
                     {{ $t("basic.right.confirm") }}
                 </el-button>
             </span>
@@ -27,9 +21,12 @@ import { ref } from "vue"
 import { storeToRefs } from "pinia";
 import { computeFn } from "@/utils";
 import { useRightDataStore } from "@/store";
+import { openMessage } from "@/utils"
+import { useI18n } from 'vue-i18n'
+const i18n = useI18n();
 let { selectedDataTitle } = computeFn();
 
-const formLabelWidth = "100px";
+const formLabelWidth = "180px";
 const form = ref({
     title: "",
 });
@@ -45,4 +42,12 @@ const closeDialog = () => {
     emit("close", 0)
 }
 
+const successUpdateCurrentPageMsg = () => {
+    let result = updateSelectedData(
+        currentSelectedDataId.value,
+        closeDialog,
+        selectedDataTitle.value
+    )
+    openMessage({ message: i18n.t(result), type: 'success', showClose: true })
+}
 </script>

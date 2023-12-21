@@ -39,10 +39,12 @@ export default {
 
         updateCurrentPageTitle: "更新目前分页",
         updateCurrentPageLabel: "标题名称",
+        successUpdate:"更新成功",
 
         addToTargetPageTitle: "添加至指定分页",
         addToTargetPageLabel: "分页名称",
         selectTargetPageTitle: "搜寻分页标题",
+        successAddToTargetPage:"成功添加至分页",
 
         deleteMode: "删除",
         saveMode: "储存",

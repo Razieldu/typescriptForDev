@@ -285,7 +285,7 @@ export const useRightDataStore = defineStore("rightData", {
       id: string,
       closeDialog: () => void,
       newTitle: string
-    ): void {
+    ): string {
       this.selectedData = this.selectedData.map((eachSelectedData) => {
         if (eachSelectedData.id === id) {
           let newData = [...this.data];
@@ -295,6 +295,7 @@ export const useRightDataStore = defineStore("rightData", {
         }
       });
       closeDialog();
+      return "basic.right.successUpdate"
     },
 
     fuzzySearch(value: string): void {
@@ -319,7 +320,7 @@ export const useRightDataStore = defineStore("rightData", {
       id: string,
       data: ApiResponse,
       isDialogVisible: (visible: boolean) => void
-    ): void {
+    ): string {
       console.log(id);
       isDialogVisible(false);
       let targetPage = this.selectedData.filter((one) => one.id === id);
@@ -344,6 +345,7 @@ export const useRightDataStore = defineStore("rightData", {
           return eachSelectedData;
         }
       });
+      return "basic.right.successAddToTargetPage"
     },
   },
 });
