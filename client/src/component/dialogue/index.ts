@@ -1,4 +1,4 @@
-import { reactive } from "vue"
+
 type dialogOptions = {
   title: string
   component: any

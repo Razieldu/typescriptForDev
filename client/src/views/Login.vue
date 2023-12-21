@@ -23,27 +23,26 @@
 
 <script lang="ts" setup>
 
-import { ref } from "vue";
 import { useUserDataStore } from "@/store";
 import router from "@/router/router";
-import { useI18n } from 'vue-i18n'
 import { openMessage } from "@/utils"
+
 const userAccount = ref<string>("");
 const userPassword = ref<string>("");
 const { login } = useUserDataStore();
-const i18n = useI18n();
+const {t} = useI18n();
 
 const handleLogin = (account: string, password: string) => {
   let loginStatus = login(account, password);
   if (loginStatus === true) {
-    openMessage({ type: "success", message: i18n.t("basic.login.successLogin"), showClose: true });
+    openMessage({ type: "success", message: t("basic.login.successLogin"), showClose: true });
     setTimeout(() => {
       router.push("/");
     }, 1000);
   } else if (loginStatus === "請確認帳號密碼訊息") {
     openMessage({
       type: "error",
-      message: i18n.t("basic.login.failToLogin"),
+      message: t("basic.login.failToLogin"),
       showClose: true,
     });
   }

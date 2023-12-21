@@ -1,4 +1,3 @@
-import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/views/Login.vue";
 import Middle from "@/views/Middle.vue";
 import { useUserDataStore } from "@/store";

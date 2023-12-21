@@ -20,11 +20,9 @@
 </template>
   
 <script setup lang="ts">
-import { ref } from "vue"
 import { useRightDataStore } from "@/store";
 import { openMessage } from "@/utils"
-import { useI18n } from 'vue-i18n'
-const i18n = useI18n();
+const { t } = useI18n();
 
 const { handleSelectedData,
 } = useRightDataStore();
@@ -47,9 +45,9 @@ const closeDialog = () => {
 const handleSelectedDataWithMsg = () => {
     const result = handleSelectedData(form.value.title, closeDialog, resetTitleInput);
     if (result.includes("success")) {
-        openMessage({ message: i18n.t(result), type: "success", showClose: true });
+        openMessage({ message: t(result), type: "success", showClose: true });
     } else {
-        openMessage({ message: i18n.t(result), type: "error", showClose: true });
+        openMessage({ message: t(result), type: "error", showClose: true });
     }
 };
 </script>

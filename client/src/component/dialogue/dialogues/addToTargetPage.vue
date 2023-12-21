@@ -20,13 +20,12 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue"
-import { useRightDataStore } from "@/store";
-import { storeToRefs } from "pinia";
-import { findId, openMessage } from "@/utils";
-import { useI18n } from 'vue-i18n'
 
-const i18n = useI18n();
+import { useRightDataStore } from "@/store";
+import { findId, openMessage } from "@/utils";
+
+
+const { t } = useI18n();
 const form = ref({
     title: "",
 });
@@ -50,7 +49,7 @@ const successAddToTargetPageMsg = () => {
         dataUpdateToSelectPage.value,
         closeDialog
     )
-    openMessage({ message: i18n.t(result), type: 'success', showClose: true })
+    openMessage({ message: t(result), type: 'success', showClose: true })
 }
 
 </script>

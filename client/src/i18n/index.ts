@@ -1,4 +1,4 @@
-import { createI18n } from "vue-i18n";
+
 import LocalZhTw from "../i18n/lang/zh-tw";
 import LocalEn from "../i18n/lang/en";
 import LocalZhCn from "../i18n/lang/zh-cn";

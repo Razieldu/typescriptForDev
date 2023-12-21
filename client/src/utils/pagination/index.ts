@@ -1,4 +1,3 @@
-import { ref } from "vue";
 import { DataItem } from "@/types";
 
 export const handlePagination = (current:number,size:number) => {

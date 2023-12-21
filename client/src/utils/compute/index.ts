@@ -1,5 +1,3 @@
-import { computed } from "vue";
-import { storeToRefs } from "pinia";
 import { useRightDataStore } from "@/store";
 
 export const computeFn = () => {

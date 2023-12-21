@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 import { settingState } from "@/types"
 
 export const useSettingStore = defineStore("setting", {

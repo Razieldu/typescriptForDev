@@ -23,12 +23,9 @@
 
 <script lang="ts" setup>
 
-import { ref, computed } from "vue";
 import { useRightDataStore } from "@/store";
 import { useUserDataStore } from "@/store";
 import { useSettingStore } from "@/store";
-import { storeToRefs } from "pinia";
-import { useI18n } from "vue-i18n";
 
 const { changeElementPlusLanguage } = useSettingStore();
 const inputValue = ref("");
@@ -36,25 +33,25 @@ const rightDataStore = useRightDataStore();
 const { logOut } = useUserDataStore();
 const { isLogin } = storeToRefs(useUserDataStore());
 const { fuzzySearch } = rightDataStore;
-const i18n = useI18n();
-const { locale } = i18n;
+const { t, locale } = useI18n();
+
 const selectValue = ref("");
 const options = computed(() => [
   {
     value: "zh-tw",
-    label: i18n.t("basic.login.option1"),
+    label: t("basic.login.option1"),
   },
   {
     value: "en",
-    label: i18n.t("basic.login.option2"),
+    label: t("basic.login.option2"),
   },
   {
     value: "zh-cn",
-    label: i18n.t("basic.login.option3"),
+    label: t("basic.login.option3"),
   },
   {
     value: "ja",
-    label: i18n.t("basic.login.option4"),
+    label: t("basic.login.option4"),
   },
 
 ]);

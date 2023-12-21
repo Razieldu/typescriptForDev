@@ -17,13 +17,13 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue"
-import { storeToRefs } from "pinia";
+
 import { computeFn } from "@/utils";
 import { useRightDataStore } from "@/store";
 import { openMessage } from "@/utils"
-import { useI18n } from 'vue-i18n'
-const i18n = useI18n();
+
+
+const {t} = useI18n();
 let { selectedDataTitle } = computeFn();
 
 const formLabelWidth = "180px";
@@ -48,6 +48,6 @@ const successUpdateCurrentPageMsg = () => {
         closeDialog,
         selectedDataTitle.value
     )
-    openMessage({ message: i18n.t(result), type: 'success', showClose: true })
+    openMessage({ message: t(result), type: 'success', showClose: true })
 }
 </script>

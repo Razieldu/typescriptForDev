@@ -1,4 +1,3 @@
-import { ref } from 'vue';
 
 export function createDialogVisibility() {
   const dialogVisible = ref(false);

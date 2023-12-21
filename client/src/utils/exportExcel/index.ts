@@ -1,5 +1,4 @@
 ////right.vue
-import { utils, writeFileXLSX } from "xlsx";
 
 export const exportFile = (mainContentData: any) => {
   let deleteM_idData = mainContentData.value.map(({ m_id, ...rest }: any) => rest);

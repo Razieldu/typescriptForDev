@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 import { useLeftDataStore } from "@/store";
 import {
   RightDataStore,

@@ -77,9 +77,7 @@
 
 <script lang="ts" setup>
 
-import { onMounted, ref, watch, Ref } from "vue";
 import { useRightDataStore } from "@/store";
-import { storeToRefs } from "pinia";
 import { exportFile } from "@/utils";
 import { DataItem } from "@/types";
 import { rowEditFunction } from "@/utils";
@@ -91,19 +89,18 @@ import { addDialog } from "@/component/dialogue/index"
 import addNewPage from "@/component/dialogue/dialogues/addNewPage.vue"
 import updateToCurrentPage from "@/component/dialogue/dialogues/updateToCurrentPage.vue";
 import addToTargetPage from "@/component/dialogue/dialogues/addToTargetPage.vue";
-import { markRaw } from "vue";
-import { useI18n } from "vue-i18n";
 
-const i18n = useI18n()
+const { t } = useI18n()
+
 const openDialog = (target: string) => {
   const componentSwitch = (target: string) => {
     switch (target) {
       case "AddNewPage":
-        return { content: addNewPage, title: i18n.t('basic.right.newPageTitle'), id: target + '1' }
+        return { content: addNewPage, title: t('basic.right.newPageTitle'), id: target + '1' }
       case "AddTargetPage":
-        return { content: addToTargetPage, title: i18n.t('basic.right.addToTargetPageTitle'), id: target + "2" }
+        return { content: addToTargetPage, title: t('basic.right.addToTargetPageTitle'), id: target + "2" }
       case "UpdateToCurrentPage":
-        return { content: updateToCurrentPage, title: i18n.t('basic.right.updateCurrentPageTitle'), id: target + "3" }
+        return { content: updateToCurrentPage, title: t('basic.right.updateCurrentPageTitle'), id: target + "3" }
       default:
         return null
     }
