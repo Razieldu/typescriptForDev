@@ -320,7 +320,8 @@ export const useRightDataStore = defineStore("rightData", {
       data: ApiResponse,
       isDialogVisible: (visible: boolean) => void
     ): string {
-      console.log(id);
+      // console.log(id);
+      if(!id) return "basic.right.emptyTarget"
       isDialogVisible(false);
       let targetPage = this.selectedData.filter((one) => one.id === id);
 

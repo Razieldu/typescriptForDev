@@ -45,6 +45,7 @@ export default {
         addToTargetPageLabel: "分页名称",
         selectTargetPageTitle: "搜寻分页标题",
         successAddToTargetPage:"成功添加至分页",
+        emptyTarget:"您应该选择一个页面来添加数据",
 
         deleteMode: "删除",
         saveMode: "储存",

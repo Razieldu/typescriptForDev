@@ -45,6 +45,7 @@ export default {
         addToTargetPageLabel: "ページ名 ",
         selectTargetPageTitle: "ページタイトルの検索",
         successAddToTargetPage:"成功ターゲットページに追加", 
+        emptyTarget:"データを追加するページを選択する必要があります",
 
         deleteMode: "削除",
         saveMode: "保存",

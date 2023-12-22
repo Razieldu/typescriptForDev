@@ -27,25 +27,26 @@ export default {
     addToPage: "添加至指定分頁",
     deleteMany: "批次刪除",
     updatePage: " 更新資料分頁",
-    
+
 
     newPageTitle: "建立新分頁標題名稱",
     newPageLabel: "標題名稱",
     enterNewPageTitlePlaceholer: "請輸入...",
     confirm: "確認",
     cancel: "取消",
-    emptyTitle:"標題不得為空",
-    duplicateTitle:"標題已存在",
-    successBuild:"建立成功",
+    emptyTitle: "標題不得為空",
+    duplicateTitle: "標題已存在",
+    successBuild: "建立成功",
 
     updateCurrentPageTitle: "更新目前分頁",
     updateCurrentPageLabel: "標題名稱",
-    successUpdate:"更新成功",
+    successUpdate: "更新成功",
 
     addToTargetPageTitle: "添加至指定分頁",
     addToTargetPageLabel: "分頁名稱",
     selectTargetPageTitle: "搜尋分頁標題",
-    successAddToTargetPage:"成功添加至分頁",
+    successAddToTargetPage: "成功添加至分頁",
+    emptyTarget: "請選擇一個頁面來添加資料",
 
     deleteMode: "刪除",
     saveMode: "儲存",

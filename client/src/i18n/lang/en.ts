@@ -45,6 +45,7 @@ export default {
     addToTargetPageLabel: "Target Page Title",
     selectTargetPageTitle: "Target Page Title",
     successAddToTargetPage:"Success Add To Target Page",
+    emptyTarget:"You should choose a page to add data",
 
 
     deleteMode: "Del",
