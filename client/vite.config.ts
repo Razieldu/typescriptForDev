@@ -2,17 +2,45 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from "path";
 import AutoImport from 'unplugin-auto-import/vite'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), AutoImport({
+    // dts: true,
+    // include: [
+    //   /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+    //   /\.vue$/,
+    //   /\.vue\?vue/, // .vue
+    //   /\.md$/, // .md
+    // ],
+    // dirs: [
+    //   // './hooks',
+    //   './composables', // only root modules
+    //   './composables/**', // all nested modules
+    //   // ...
+    // ],
     imports: [
       // 需要自动导入的插件，自定义导入的API
       'vue',
-      'vue-router',
+      {
+        'vue-router': [
+          'useLink',
+          'useRoute',
+          'useRouter',
+          'onBeforeRouteLeave',
+          'onBeforeRouteUpdate',
+          'createRouter',
+          'createWebHistory',
+        ],
+      },
+      {
+        'xlsx': [
+          'utils',
+          'writeFileXLSX'
+        ]
+      },
       'pinia',
       'vue-i18n',
-    
-      
     ]
   })],
   resolve: {

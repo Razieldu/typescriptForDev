@@ -1,5 +1,4 @@
 ////right.vue
-
 export const exportFile = (mainContentData: any) => {
   let deleteM_idData = mainContentData.value.map(({ m_id, ...rest }: any) => rest);
   const ws = utils.json_to_sheet(deleteM_idData);

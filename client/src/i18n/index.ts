@@ -3,6 +3,7 @@ import LocalZhTw from "../i18n/lang/zh-tw";
 import LocalEn from "../i18n/lang/en";
 import LocalZhCn from "../i18n/lang/zh-cn";
 import LocalZhJa from "../i18n/lang/ja";
+import { createI18n } from "vue-i18n";
 const messages = {
   ["zh-tw"]: {
     basic: LocalZhTw,
