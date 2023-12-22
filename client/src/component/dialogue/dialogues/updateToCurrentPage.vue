@@ -9,7 +9,8 @@
             <span class="dialog-footer">
                 <el-button @click="closeDialog">
                     {{ $t("basic.right.cancel") }}</el-button>
-                <el-button @click="successUpdateCurrentPageMsg">
+                <el-button
+                    @click="processMsg(updateSelectedData, t, currentSelectedDataId, closeDialog, selectedDataTitle)">
                     {{ $t("basic.right.confirm") }}
                 </el-button>
             </span>
@@ -20,10 +21,10 @@
 
 import { computeFn } from "@/utils";
 import { useRightDataStore } from "@/store";
-import { openMessage } from "@/utils"
+import { processMsg } from "@/utils"
 
 
-const {t} = useI18n();
+const { t } = useI18n();
 let { selectedDataTitle } = computeFn();
 
 const formLabelWidth = "180px";
@@ -42,12 +43,4 @@ const closeDialog = () => {
     emit("close", 0)
 }
 
-const successUpdateCurrentPageMsg = () => {
-    let result = updateSelectedData(
-        currentSelectedDataId.value,
-        closeDialog,
-        selectedDataTitle.value
-    )
-    openMessage({ message: t(result), type: 'success', showClose: true })
-}
 </script>

@@ -10,7 +10,7 @@
             <span class="dialog-footer">
                 <el-button @click="closeDialog()">
                     {{ $t("basic.right.cancel") }}</el-button>
-                <el-button type="primary" @click="handleSelectedDataWithMsg
+                <el-button type="primary" @click="processMsg(handleSelectedData, t, form.title, closeDialog, resetTitleInput)
                     ">
                     {{ $t("basic.right.confirm") }}
                 </el-button>
@@ -21,7 +21,8 @@
   
 <script setup lang="ts">
 import { useRightDataStore } from "@/store";
-import { openMessage } from "@/utils"
+import { processMsg} from "@/utils"
+
 const { t } = useI18n();
 
 const { handleSelectedData,
@@ -41,15 +42,6 @@ const closeDialog = () => {
     emit("close", 0)
 }
 
-
-const handleSelectedDataWithMsg = () => {
-    const result = handleSelectedData(form.value.title, closeDialog, resetTitleInput);
-    if (result.includes("success")) {
-        openMessage({ message: t(result), type: "success", showClose: true });
-    } else {
-        openMessage({ message: t(result), type: "error", showClose: true });
-    }
-};
 </script>
   
  
