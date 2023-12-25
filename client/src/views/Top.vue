@@ -1,6 +1,14 @@
 <template>
   <div class="flex justify-start items-center py-6 px-0 fixed top-0 w-full h-16 bg-sky-600 z-50">
-    <div class="flex justify-start items-center w-[275px] px-6 h-16">
+    <div class="flex justify-start items-center w-[275px] px-6 h-16 gap-2">
+      <el-switch size="medium" v-model="value1" :active-action-icon="View" :inactive-action-icon="Hide">
+        <!-- <template #active-action>
+          <span class="custom-active-action">L</span>
+        </template>
+        <template #inactive-action>
+          <span class="custom-inactive-action">D</span>
+        </template> -->
+      </el-switch>
       <el-select v-model="selectValue" clearable :placeholder="$t('basic.login.placeholder')" class="select"
         @change="handleLanguage(selectValue)" effect="light" filterable>
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
@@ -26,6 +34,7 @@
 import { useRightDataStore } from "@/store";
 import { useUserDataStore } from "@/store";
 import { useSettingStore } from "@/store";
+import { Hide, View } from '@element-plus/icons-vue'
 
 const { changeElementPlusLanguage } = useSettingStore();
 const inputValue = ref("");
@@ -35,6 +44,7 @@ const { isLogin } = storeToRefs(useUserDataStore());
 const { fuzzySearch } = rightDataStore;
 const { t, locale } = useI18n();
 
+const value1 = ref(true)
 const selectValue = ref("");
 const options = computed(() => [
   {
