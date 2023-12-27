@@ -39,6 +39,9 @@ export default defineConfig({
           'writeFileXLSX'
         ]
       },
+      {
+        '@vueuse/core': ['useToggle','useDark']
+      },
       'pinia',
       'vue-i18n',
     ]

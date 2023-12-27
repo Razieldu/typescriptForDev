@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-custom text-base bg-red-100 py-0 fixed">
+  <div class="ml-custom text-base bg-red-100 py-0 fixed halfDarkBg">
     <div>
       <div class="pl-1 py-2 flex">
         <el-button @click="resetSearchResult()" type="primary">
@@ -23,13 +23,13 @@
         </el-button>
       </div>
     </div>
-    <el-table v-loading="loading" highlight-current-row stripe :data="mainContentData" style="height: 76vh; width: 80vw"
+    <el-table class="darkBg" v-loading="loading" highlight-current-row stripe :data="mainContentData" style="height: 76vh; width: 80vw"
       @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" />
       <el-table-column :key="'姓名'" :label="$t('basic.right.title.name')" :prop="$t('basic.right.title.name')" width="120"
         fixed>
         <template #default="{ row, $index }">
-          <div v-if="currentEditCell[0] === '姓名' && currentEditCell[1] === $index
+          <div  v-if="currentEditCell[0] === '姓名' && currentEditCell[1] === $index
             ">
             <el-input ref="cellInput" v-model="row['姓名']"
               :placeholder="`${$t('basic.right.title.pleaseEnter')} ${$t('basic.right.title.name')}`"
@@ -65,8 +65,8 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="flex justify-center pt-3 pb-2">
-      <el-pagination class="bg-transparent" @size-change="pageSize = $event" @current-change="currentPage = $event"
+    <div class="flex justify-center pt-3 pb-2 ">
+      <el-pagination class="bg-transparent infoBg" @size-change="pageSize = $event" @current-change="currentPage = $event"
         @prev-click="currentPage -= 1" @next-click="currentPage += 1" :page-sizes="[10, 20, 30, 40]" small
         layout="sizes, prev, pager, next, jumper" :total="100" v-model:current-page="currentPage"
         v-model:page-size="pageSize" />

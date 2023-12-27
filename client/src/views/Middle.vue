@@ -1,5 +1,5 @@
 <template>
-    <div class=" fixed flex bg-red-100 top-[64px] z-50">
+    <div class=" fixed flex bg-red-100 top-[64px] z-50 halfDarkBg">
       <LeftMenu/>
       <Right/>
     </div>

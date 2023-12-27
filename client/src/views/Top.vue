@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-start items-center py-6 px-0 fixed top-0 w-full h-16 bg-sky-600 z-50">
+  <div class="flex justify-start items-center py-6 px-0 fixed top-0 w-full h-16 bg-sky-600 z-50 darkBg">
     <div class="flex justify-start items-center w-[275px] px-6 h-16 gap-2">
-      <el-switch size="medium" v-model="value1" :active-action-icon="View" :inactive-action-icon="Hide">
+      <el-switch @click="toggleDark()" v-model="value1" :active-action-icon="Sunny" :inactive-action-icon="Moon">
         <!-- <template #active-action>
           <span class="custom-active-action">L</span>
         </template>
@@ -34,8 +34,8 @@
 import { useRightDataStore } from "@/store";
 import { useUserDataStore } from "@/store";
 import { useSettingStore } from "@/store";
-import { Hide, View } from '@element-plus/icons-vue'
-
+import { Moon, Sunny } from '@element-plus/icons-vue'
+// import { useDark, useToggle } from "@vueuse/core"
 const { changeElementPlusLanguage } = useSettingStore();
 const inputValue = ref("");
 const rightDataStore = useRightDataStore();
@@ -104,6 +104,9 @@ const handleLanguage = (language: string) => {
       break
   }
 };
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
+console.log(isDark,"isDark")
 </script>
 <style scoped>
 .select {

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen flex justify-center items-center">
+  <div class="w-screen h-screen flex justify-center items-center halfDarkBg">
     <form action="">
       <div class="flex flex-col justify-center items-center h-[400px] w-[400px] gap-4 bg-white rounded-lg">
         <h1 class="text-2xl font-bold mb-5">

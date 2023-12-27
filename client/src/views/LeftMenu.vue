@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-red-100 h-screen w-[22vw]">
+  <div class="bg-red-100 h-screen w-[22vw] halfDarkBg  ">
     <el-aside style="
         height: 70vh;
         width: 18%;
@@ -9,7 +9,7 @@
         min-width: 300px;
       ">
       <el-scrollbar>
-        <el-menu style="background-color: #f1f5f9; border-color: #f1f5f9" unique-opened @open="handleOpen"
+        <el-menu class="borderNone" style="background-color: #f1f5f9; border-color: #f1f5f9" unique-opened @open="handleOpen"
           @close="handleClose">
           <el-sub-menu index="2">
             <template #title>
@@ -51,7 +51,7 @@
                   <div class="col-span-3 flex justify-center">
                     <el-checkbox v-model="eachSearchWordObject.select" label="關聯" size="small" v-if="!isFirst" />
                   </div>
-                  <div class="col-span-6 flex justify-center overflow-hidden min-w-[60%] max-w-[60%] hover:bg-red-100"
+                  <div class="eachSeachTitleItem col-span-6 flex justify-center overflow-hidden min-w-[60%] max-w-[60%] hover:bg-red-100"
                     @click="
                       searchGoalByColumn(
                         titleData[titleIndex].searchKey,

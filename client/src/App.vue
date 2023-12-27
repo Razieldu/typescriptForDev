@@ -1,6 +1,6 @@
 <template>
   <el-config-provider :locale="locale">
-    <div class="bg-red-100 h-[100vh] w-[100vw]">
+    <div class="bg-red-100 h-[100vh] w-[100vw] halfDarkBg">
       <Top />
       <router-view></router-view>
     </div>
@@ -37,10 +37,16 @@ const locale = computed(() => {
   }
 });
 
+const isDark = useDark()
+const toggle = useToggle(isDark)
+
 onMounted(() => {
   let isLogin = localStorage.getItem("login");
   if (isLogin) {
     setLogin();
+  }
+  if(localStorage.getItem("vueuse-color-scheme")==="dark"){
+    toggle()
   }
 });  
 </script>
