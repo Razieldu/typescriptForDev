@@ -1,16 +1,16 @@
 <template>
   <div class="w-screen h-screen flex justify-center items-center halfDarkBg">
-    <form action="">
-      <div class="flex flex-col justify-center items-center h-[400px] w-[400px] gap-4 bg-white rounded-lg">
+    <form  action="">
+      <div class="flex flex-col justify-center items-center h-[400px] w-[400px] gap-4 bg-white rounded-lg loginDiv ">
         <h1 class="text-2xl font-bold mb-5">
           {{ $t("basic.login.formtitle") }}
         </h1>
-        <div class="flex w-[80%] h-[50px]">
-          <el-input v-model="userAccount" :placeholder="$t('basic.login.accountPlaceholder')" type="email">
+        <div class="flex w-[80%] h-[50px] ">
+          <el-input class="loginInput" v-model="userAccount" :placeholder="$t('basic.login.accountPlaceholder')" type="email">
             {{ $t("basic.login.account") }}</el-input>
         </div>
         <div class="flex w-[80%] h-[50px]">
-          <el-input v-model="userPassword" :placeholder="$t('basic.login.passwordPlaceholder')" type="password">
+          <el-input class="loginInput" v-model="userPassword" :placeholder="$t('basic.login.passwordPlaceholder')" type="password">
             {{ $t("basic.login.password") }}</el-input>
         </div>
         <router-link to="/"><el-button @click="handleLogin(userAccount, userPassword)" size="large" type="primary">{{
@@ -19,7 +19,7 @@
     </form>
   </div>
 </template>
-<fieldset></fieldset>
+<!-- <fieldset></fieldset> -->
 
 <script lang="ts" setup>
 

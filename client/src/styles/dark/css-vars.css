@@ -1,12 +1,16 @@
 html.dark .el-button {
     border: none;
     --el-button-bg-color: var(--el-color-info);
-    --el-button-disabled-bg-color:var(--el-color-info);  
+    --el-button-disabled-bg-color: var(--el-color-info);
 }
 
+/*dialogue*/
+html.dark .el-dialog {
+ border:  2px solid rgb(207, 207, 207);
+}
 
 html.dark .borderNone {
-    border: none; 
+    border: none;
 }
 
 /*leftmenu*/
@@ -31,31 +35,43 @@ html.dark .select-trigger .el-input {
 }
 
 /*前按鈕*/
-html.dark .el-pagination .btn-prev{
-    background-color:var(--el-bg-color-page);
+html.dark .el-pagination .btn-prev {
+    background-color: var(--el-bg-color-page);
 }
+
 /*後按鈕*/
-html.dark .el-pagination .btn-next{
-    background-color:var(--el-bg-color-page);
+html.dark .el-pagination .btn-next {
+    background-color: var(--el-bg-color-page);
 }
+
 /*中間選頁部分*/
 html.dark ul.el-pager {
-    background-color:var(--el-bg-color-page);
-} 
+    background-color: var(--el-bg-color-page);
+}
 
 /*輸入前往頁面*/
-html.dark .el-pagination__jump .el-input{
+html.dark .el-pagination__jump .el-input {
     background-color: var(--el-bg-color-page);
 }
 
 
+/*登入頁面*/
 
+/*帳號密碼區塊背景顏色*/
+html.dark .loginDiv {
+    background-color: #f5f3f3;
+}
 
+/*Input文字顏色*/
+html.dark .loginInput .el-input__inner {
+    color: #1c2518
+}
 
 
 html.dark h1 {
     color: var(--el-bg-color-page);
 }
+
 
 .dark .darkBg {
     background-color: var(--el-bg-color-page);
@@ -64,4 +80,3 @@ html.dark h1 {
 .dark .halfDarkBg {
     background-color: var(--el-color-info-light-5);
 }
-

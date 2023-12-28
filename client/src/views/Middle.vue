@@ -7,6 +7,6 @@
   
   <script lang="ts" setup>
   import LeftMenu from "@/views/LeftMenu.vue";
-  import Right from "@/views/Right.vue";
+  import Right from "@/views/right/Right.vue";
   </script>
   
