@@ -2,20 +2,7 @@
   <div class="ml-custom text-base bg-red-100 py-0 fixed halfDarkBg">
     <Buttons />
     <Tables :loadingToTable="loading" :dataToTable='mainContentData' />
-    <div class="flex justify-center pt-3 pb-2 ">
-      <el-pagination 
-        class="bg-transparent infoBg" 
-        @size-change="pageSize = $event" 
-        @current-change="currentPage = $event"
-        @prev-click="currentPage -= 1" 
-        @next-click="currentPage += 1" 
-        :page-sizes="[10, 20, 30, 40]" small
-        layout="sizes, prev, pager, next, jumper" 
-        :total="100" 
-        v-model:current-page="currentPage"
-        v-model:page-size="pageSize" />
-    </div>
-    <Paginations/>
+    <Pagination v-model:page="currentPage" v-model:size="pageSize" :total="100" @pagination="mainContentData.values"/>
     <Mydialogue />
   </div>
 </template>
@@ -23,6 +10,7 @@
 <script lang="ts" setup>
 import Buttons from "./Buttons.vue"
 import Tables from "./Table.vue"
+import Pagination from "./Pagination.vue"
 import { useRightDataStore } from "@/store";
 import { DataItem } from "@/types";
 import { handlePagination } from "@/utils";
@@ -45,15 +33,15 @@ watch([currentPage, pageSize, data], ([curPage, size, newData]) => {
   mainContentData.value = handleShowData(curPage, size, newData);
 });
 onMounted(async () => {
-  const mainData = await fetchData();
+  await fetchData();
   loading.value = false;
 
-  if (mainData !== undefined) {
-    mainContentData.value = handleShowData(
-      currentPage.value,
-      pageSize.value,
-      mainData
-    );
-  }
+  // if (mainData !== undefined) {
+  //   mainContentData.value = handleShowData(
+  //     currentPage.value,
+  //     pageSize.value,
+  //     mainData
+  //   );
+  // }
 });
 </script>
