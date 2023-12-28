@@ -19,7 +19,7 @@
 const props = defineProps({
     page: { type: Number, default: 1 },
     size: { type: Number, default: 10 },
-    total: { type: Number, default: 0 },
+    total: { type: Number, default: 100 },
     layout: { type: String, default: 'total, sizes, prev, pager, next, jumper' },
     pageSizes: {
         type: Array,

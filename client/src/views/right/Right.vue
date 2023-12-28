@@ -2,7 +2,7 @@
   <div class="ml-custom text-base bg-red-100 py-0 fixed halfDarkBg">
     <Buttons />
     <Tables :loadingToTable="loading" :dataToTable='mainContentData' />
-    <Pagination v-model:page="currentPage" v-model:size="pageSize" :total="100" @pagination="mainContentData.values"/>
+    <Pagination v-model:page="currentPage" v-model:size="pageSize" :total="data.length" @pagination="mainContentData.values"/>
     <Mydialogue />
   </div>
 </template>
