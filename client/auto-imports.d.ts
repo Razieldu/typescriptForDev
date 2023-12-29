@@ -76,6 +76,7 @@ declare global {
   const useSlots: typeof import('vue')['useSlots']
   const useToggle: typeof import('@vueuse/core')['useToggle']
   const utils: typeof import('xlsx')['utils']
+  const viteEnvD: typeof import('./src/vite-env')['default']
   const watch: typeof import('vue')['watch']
   const watchEffect: typeof import('vue')['watchEffect']
   const watchPostEffect: typeof import('vue')['watchPostEffect']

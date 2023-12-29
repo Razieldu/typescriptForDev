@@ -10,7 +10,7 @@
 <script lang="ts" setup>
 import Buttons from "./Buttons.vue"
 import Tables from "./Table.vue"
-import Pagination from "./Pagination.vue"
+import Pagination from "@/component/pagination/Pagination.vue"
 import { useRightDataStore } from "@/store";
 import { DataItem } from "@/types";
 import { handlePagination } from "@/utils";

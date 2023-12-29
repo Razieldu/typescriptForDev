@@ -100,7 +100,6 @@ const handleLanguage = (language: string) => {
 };
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
-console.log(isDark, "isDark")
 </script>
 <style scoped>
 .select {

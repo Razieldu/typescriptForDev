@@ -10,7 +10,6 @@
         @current-change="handleCurrentChange" 
         small 
         />
-        
     </div>
 </template>
 
