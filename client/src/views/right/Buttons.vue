@@ -34,14 +34,15 @@ import addNewPage from "@/component/dialogue/dialogues/addNewPage.vue"
 import updateToCurrentPage from "@/component/dialogue/dialogues/updateToCurrentPage.vue";
 import addToTargetPage from "@/component/dialogue/dialogues/addToTargetPage.vue";
 import uploadFile from "@/component/dialogue/dialogues/upload.vue"
-import { DataItem } from "@/types";
+// import { DataItem } from "@/types";
 const { t } = useI18n()
 const {
+    data,
     currentSelectedDataId,
     dataUpdateToSelectPage,
 } = storeToRefs(useRightDataStore());
 
-const mainContentData: Ref<DataItem[]> = ref([]);
+// const mainContentData: Ref<DataItem[]> = ref([]);
 
 let { shouldDisableButton } = computeFn();
 const {
@@ -51,7 +52,7 @@ const {
 } = useRightDataStore();
 
 const handleExportFile = () => {
-    exportFile(mainContentData);
+    exportFile(data);
 };
 const openDialog = (target: string) => {
     const componentSwitch = (target: string) => {

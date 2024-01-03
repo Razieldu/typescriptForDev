@@ -268,6 +268,27 @@ export const useRightDataStore = defineStore("rightData", {
       return "basic.right.successBuild"
     },
 
+    buildNewPage(insertNewPageData: any, pageTitle: string,
+      resetInput: () => void, closeDialog: () => void): string {
+      if (pageTitle === "") return "標題不能為空";
+      if (this.selectedData.some(one => one.title === pageTitle)) {
+        return "標題重複"
+      }
+      console.log(insertNewPageData)
+      let newId = Math.floor(100000 * Math.random());
+      let selectedObject = {
+        title: pageTitle,
+        content: insertNewPageData.value,
+        id: `${newId}_${pageTitle}`,
+      };
+       console.log(selectedObject)
+      this.selectedData.push(selectedObject);
+      // console.log(this.selectedData)
+      resetInput();
+      closeDialog()
+      return "建立成功"
+    },
+
     showSelectedData(id: string): void {
       // console.log(id);
       this.isFirst = false;
@@ -321,7 +342,7 @@ export const useRightDataStore = defineStore("rightData", {
       isDialogVisible: (visible: boolean) => void
     ): string {
       // console.log(id);
-      if(!id) return "basic.right.emptyTarget"
+      if (!id) return "basic.right.emptyTarget"
       isDialogVisible(false);
       let targetPage = this.selectedData.filter((one) => one.id === id);
 
@@ -347,5 +368,8 @@ export const useRightDataStore = defineStore("rightData", {
       });
       return "basic.right.successAddToTargetPage"
     },
+
+
+
   },
 });

@@ -21,19 +21,8 @@
   
 <script setup lang="ts">
 import { useRightDataStore } from "@/store";
-import { processMsg} from "@/utils"
+import { processMsg } from "@/utils"
 
-const { t } = useI18n();
-
-const { handleSelectedData,
-} = useRightDataStore();
-
-const form = ref({
-    title: "",
-});
-const resetTitleInput = () => {
-    form.value.title = "";
-};
 const formLabelWidth = "180px";
 const props = defineProps(["id"])
 console.log(props.id, "props")
@@ -41,6 +30,20 @@ const emit = defineEmits(["close"])
 const closeDialog = () => {
     emit("close", 0)
 }
+
+const form = ref({
+    title: "",
+});
+const resetTitleInput = () => {
+    form.value.title = "";
+};
+
+const { t } = useI18n();
+
+const { handleSelectedData,
+} = useRightDataStore();
+
+
 
 </script>
   

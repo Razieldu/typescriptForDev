@@ -50,6 +50,7 @@ declare global {
   const onUpdated: typeof import('vue')['onUpdated']
   const provide: typeof import('vue')['provide']
   const reactive: typeof import('vue')['reactive']
+  const read: typeof import('xlsx')['read']
   const readonly: typeof import('vue')['readonly']
   const ref: typeof import('vue')['ref']
   const resolveComponent: typeof import('vue')['resolveComponent']
@@ -82,6 +83,7 @@ declare global {
   const watchPostEffect: typeof import('vue')['watchPostEffect']
   const watchSyncEffect: typeof import('vue')['watchSyncEffect']
   const writeFileXLSX: typeof import('xlsx')['writeFileXLSX']
+  const xlsx: typeof import('xlsx')
 }
 // for type re-export
 declare global {

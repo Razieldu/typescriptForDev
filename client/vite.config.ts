@@ -36,7 +36,8 @@ export default defineConfig({
       {
         'xlsx': [
           'utils',
-          'writeFileXLSX'
+          'writeFileXLSX',
+          'read'
         ]
       },
       {
