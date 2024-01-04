@@ -27,6 +27,7 @@ export default {
     addToPage: "Add to target page",
     deleteMany: "Delete Many",
     updatePage: "Update Page",
+    upload:"Upload",
 
     newPageTitle: "New Page Title",
     newPageLabel: "New Page Title",
@@ -35,6 +36,7 @@ export default {
     cancel: "Cancel",
     emptyTitle:"Empty Title",
     duplicateTitle:"Duplicate Title",
+    noData:"Find No Data",
     successBuild:"Success Build",
 
     updateCurrentPageTitle: "Update Current Page",
@@ -44,6 +46,7 @@ export default {
     addToTargetPageTitle: "Add To Target Page",
     addToTargetPageLabel: "Target Page Title",
     selectTargetPageTitle: "Target Page Title",
+    importPageTitle:"Upload File",
     successAddToTargetPage:"Success Add To Target Page",
     emptyTarget:"You should choose a page to add data",
 

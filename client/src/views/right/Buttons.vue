@@ -20,7 +20,7 @@
             <el-button v-if="currentSelectedDataId !== ''" @click="openDialog('UpdateToCurrentPage')" type="primary">
                 {{ $t("basic.right.updatePage") }}
             </el-button>
-            <el-button @click="openDialog('UploadFile')" type="primary">上傳</el-button>
+            <el-button @click="openDialog('UploadFile')" type="primary">{{ $t("basic.right.upload") }}</el-button>
         </div>
     </div>
 </template>
@@ -34,15 +34,13 @@ import addNewPage from "@/component/dialogue/dialogues/addNewPage.vue"
 import updateToCurrentPage from "@/component/dialogue/dialogues/updateToCurrentPage.vue";
 import addToTargetPage from "@/component/dialogue/dialogues/addToTargetPage.vue";
 import uploadFile from "@/component/dialogue/dialogues/upload.vue"
-// import { DataItem } from "@/types";
+
 const { t } = useI18n()
 const {
     data,
     currentSelectedDataId,
     dataUpdateToSelectPage,
 } = storeToRefs(useRightDataStore());
-
-// const mainContentData: Ref<DataItem[]> = ref([]);
 
 let { shouldDisableButton } = computeFn();
 const {
@@ -64,7 +62,7 @@ const openDialog = (target: string) => {
             case "UpdateToCurrentPage":
                 return { content: updateToCurrentPage, title: t('basic.right.updateCurrentPageTitle'), id: target + "3" }
             case "UploadFile":
-                return { content: uploadFile, title: "上傳檔案", id: target + "4" }
+                return { content: uploadFile, title: t('basic.right.importPageTitle'), id: target + "4" }
 
             default:
                 return null

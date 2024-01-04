@@ -269,24 +269,25 @@ export const useRightDataStore = defineStore("rightData", {
     },
 
     buildNewPage(insertNewPageData: any, pageTitle: string,
-      resetInput: () => void, closeDialog: () => void): string {
-      if (pageTitle === "") return "標題不能為空";
-      if (this.selectedData.some(one => one.title === pageTitle)) {
-        return "標題重複"
-      }
+      closeDialog: () => void, resetInput: () => void): string {
       console.log(insertNewPageData)
+      if (pageTitle === "") return "basic.right.emptyTitle";
+      if (insertNewPageData.length===0) return "basic.right.noData"
+      if (this.selectedData.some(one => one.title === pageTitle)) {
+        return "basic.right.duplicateTitle"
+      }
+
       let newId = Math.floor(100000 * Math.random());
       let selectedObject = {
         title: pageTitle,
-        content: insertNewPageData.value,
+        content: insertNewPageData,
         id: `${newId}_${pageTitle}`,
       };
-       console.log(selectedObject)
       this.selectedData.push(selectedObject);
       // console.log(this.selectedData)
       resetInput();
       closeDialog()
-      return "建立成功"
+      return "basic.right.successBuild"
     },
 
     showSelectedData(id: string): void {

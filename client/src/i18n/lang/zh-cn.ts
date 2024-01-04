@@ -27,14 +27,16 @@ export default {
         addToPage: "添加至指定分页",
         deleteMany: "批次删除",
         updatePage: " 更新资料分页",
+        upload:"上传",
 
-        newPageTitle: "建立新分页标题名称",
+        newPageTitle: "新分页标题名称",
         newPageLabel: "标题名称",
         enterNewPageTitlePlaceholer: "请输入...",
         confirm: "确认",
         cancel: "取消",
         emptyTitle:"标题不得为空",
         duplicateTitle:"重复标题",
+        noData:"无资料",
         successBuild:"建立成功",
 
         updateCurrentPageTitle: "更新目前分页",
@@ -44,6 +46,7 @@ export default {
         addToTargetPageTitle: "添加至指定分页",
         addToTargetPageLabel: "分页名称",
         selectTargetPageTitle: "搜寻分页标题",
+        importPageTitle:"上传档案",
         successAddToTargetPage:"成功添加至分页",
         emptyTarget:"您应该选择一个页面来添加数据",
 

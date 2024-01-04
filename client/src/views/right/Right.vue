@@ -35,13 +35,5 @@ watch([currentPage, pageSize, data], ([curPage, size, newData]) => {
 onMounted(async () => {
   await fetchData();
   loading.value = false;
-
-  // if (mainData !== undefined) {
-  //   mainContentData.value = handleShowData(
-  //     currentPage.value,
-  //     pageSize.value,
-  //     mainData
-  //   );
-  // }
 });
 </script>
