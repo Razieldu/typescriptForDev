@@ -1,11 +1,13 @@
 
-import Login from "@/views/Login.vue";
-import Middle from "@/views/Middle.vue";
+import Login from "@/views/login/Login.vue";
+import Middle from "@/views/middle/Middle.vue";
+import Profile from "@/views/profile/Profile.vue"
 import { useUserDataStore } from "@/store";
 
 const routes = [
   { path: "/login", name: "Login", component: Login },
   { path: "/", name: "App", component: Middle },
+  { path: "/profile", name: "Profile", component: Profile }
 ];
 
 const router = createRouter({

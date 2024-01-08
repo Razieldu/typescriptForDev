@@ -2,7 +2,9 @@ export default {
     top: {
         search: "検索",
         logout: "ログアウト",
-        placeholder: "入力してください..."
+        placeholder: "入力してください...",
+        profilePage: "個人情報",
+        dataPage: "メインデータ領域"
     },
     login: {
         successLogin: "ログインに成功しました",

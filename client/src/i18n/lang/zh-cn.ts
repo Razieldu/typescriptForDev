@@ -2,7 +2,9 @@ export default {
     top: {
         search: "搜寻",
         logout: "登出",
-        placeholder: "请输入..."
+        placeholder: "请输入...",
+        profilePage:"个人资讯",
+        dataPage:"資料頁"
     },
     login: {
         successLogin: "登入成功",

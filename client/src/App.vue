@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 
-import Top from "@/views/Top.vue";
+import Top from "@/views/top/Top.vue";
 import { ElConfigProvider } from "element-plus";
 import ElementZhTWS from "element-plus/es/locale/lang/zh-tw";
 import ElementEn from "element-plus/es/locale/lang/en";

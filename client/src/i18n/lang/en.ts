@@ -3,6 +3,8 @@ export default {
     search: "Search",
     logout: "Log Out",
     placeholder: "enter keyword...",
+    profilePage:"Profile Page",
+    dataPage:"Data Page"
   },
   login: {
     successLogin: "Successful Login",

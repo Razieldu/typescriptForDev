@@ -3,6 +3,8 @@ export default {
     search: "搜尋",
     logout: "登出",
     placeholder: "請輸入...",
+    profilePage:"個人資訊",
+    dataPage:"資料頁面"
   },
   login: {
     successLogin: "登入成功",

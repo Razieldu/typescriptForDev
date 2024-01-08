@@ -14,11 +14,7 @@
       <el-button @click="fuzzySearch(inputValue)" class="ml-3" type="primary">{{
         $t("basic.top.search")
       }}</el-button>
-      <div class="absolute right-5">
-        <router-link to="/login"><el-button @click="logOut" type="primary">{{
-          $t("basic.top.logout")
-        }}</el-button></router-link>
-      </div>
+      <AvatarAndMenu />
     </div>
   </div>
 </template>
@@ -29,11 +25,10 @@ import { useRightDataStore } from "@/store";
 import { useUserDataStore } from "@/store";
 import { useSettingStore } from "@/store";
 import { Moon, Sunny } from '@element-plus/icons-vue'
-
+import AvatarAndMenu from "./AvatarAndMenu.vue"
 const { changeElementPlusLanguage } = useSettingStore();
 const inputValue = ref("");
 const rightDataStore = useRightDataStore();
-const { logOut } = useUserDataStore();
 const { isLogin } = storeToRefs(useUserDataStore());
 const { fuzzySearch } = rightDataStore;
 const { t, locale } = useI18n();
