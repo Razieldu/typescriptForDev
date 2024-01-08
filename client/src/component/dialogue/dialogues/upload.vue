@@ -41,12 +41,6 @@ const resetTitleInput = () => {
 const { buildNewPage,
 } = useRightDataStore();
 
-
-
-
-
-// const uploadRef = ref<UploadInstance>()
-
 // 导入参数的初始值
 let fileRaw = ref();
 // 用来将数据赋值 传到confirm确认按钮 -- 形参
@@ -76,15 +70,8 @@ const handleChange = async (uploadFile: any, uploadFiles: any) => {
         console.error('导入 Excel 失败:', error);
     }
 };
-
-
-
 </script>
-<style>
-/* .importTitle {
-    --el-input-width: 600px !important;
-} */
-</style>
+
 
 
 
