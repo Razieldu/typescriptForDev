@@ -3,17 +3,18 @@ export default {
     search: "搜尋",
     logout: "登出",
     placeholder: "請輸入...",
-    profilePage:"個人資訊",
-    dataPage:"資料頁面"
+    profilePage: "個人資訊",
+    dataPage: "資料頁面"
   },
   login: {
     successLogin: "登入成功",
     failToLogin: "請確認帳號密碼訊息",
-    formtitle: "請進行身分驗證",
-    accountPlaceholder: "請輸入帳號",
+    formtitle: "登入",
+    accountPlaceholder: "請輸入email",
     account: "帳號",
     passwordPlaceholder: "請輸入密碼",
     password: "密碼",
+    toSignUpPage: "尚未擁有帳號? 前往註冊",
     button: "登入",
 
     option1: "繁體中文",
@@ -22,6 +23,17 @@ export default {
     option4: "日文",
     placeholder: "語言"
   },
+  signUp: {
+    successSignUp: "註冊成功",
+    failToSignUp: "請確認帳號密碼訊息",
+    formtitle: "註冊",
+    accountPlaceholder: "請輸入email",
+    account: "帳號",
+    passwordPlaceholder: "請輸入密碼",
+    password: "密碼",
+    toLoginPage: "已經擁有帳號? 前往登入",
+    button: "註冊",
+  },
   right: {
     mainPage: "主資料頁面",
     addNewData: "新增",
@@ -29,7 +41,7 @@ export default {
     addToPage: "添加至指定分頁",
     deleteMany: "批次刪除",
     updatePage: " 更新資料分頁",
-    upload:"上傳",
+    upload: "上傳",
 
 
     newPageTitle: "新分頁標題名稱",
@@ -39,7 +51,7 @@ export default {
     cancel: "取消",
     emptyTitle: "標題不得為空",
     duplicateTitle: "標題已存在",
-    noData:"查無資料",
+    noData: "查無資料",
     successBuild: "建立成功",
 
     updateCurrentPageTitle: "更新目前分頁",
@@ -49,7 +61,7 @@ export default {
     addToTargetPageTitle: "添加至指定分頁",
     addToTargetPageLabel: "分頁名稱",
     selectTargetPageTitle: "搜尋分頁標題",
-    importPageTitle:"上傳檔案",
+    importPageTitle: "上傳檔案",
     successAddToTargetPage: "成功添加至分頁",
     emptyTarget: "請選擇一個頁面來添加資料",
 

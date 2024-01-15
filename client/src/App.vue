@@ -18,9 +18,11 @@ import ElementZhCN from "element-plus/es/locale/lang/zh-cn";
 import ElementZhJA from "element-plus/es/locale/lang/ja";
 import { useSettingStore } from "@/store";
 import { useUserDataStore } from "@/store";
+import { onAuthStateChangedListener, signOutUser } from "./firebase/firebase.utils"
+
 
 const { language } = storeToRefs(useSettingStore());
-const { setLogin } = useUserDataStore();
+const { setLogin, logOut } = useUserDataStore();
 const languageState = computed(() => language.value);
 const locale = computed(() => {
   switch (languageState.value) {
@@ -29,9 +31,9 @@ const locale = computed(() => {
     case "zh-tw":
       return ElementZhTWS;
     case "zh-cn":
-      return ElementZhCN;  
-    case　"ja":
-      return ElementZhJA 
+      return ElementZhCN;
+    case "ja":
+      return ElementZhJA
     default:
       return ElementZhTWS;
   }
@@ -40,14 +42,22 @@ const locale = computed(() => {
 const isDark = useDark()
 const toggle = useToggle(isDark)
 
-onMounted(() => {
-  let isLogin = localStorage.getItem("login");
-  if (isLogin) {
-    setLogin();
+
+const checkLoginStatus = onAuthStateChangedListener(async (user: any) => {
+  if (user) {
+    setLogin(user)
+  } else {
+    logOut()
+    await signOutUser()
   }
-  if(localStorage.getItem("vueuse-color-scheme")==="dark"){
+});
+
+onMounted(() => {
+  checkLoginStatus()
+  if (localStorage.getItem("vueuse-color-scheme") === "dark") {
     toggle()
   }
+
 });  
 </script>
 

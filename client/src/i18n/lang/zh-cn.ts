@@ -9,11 +9,12 @@ export default {
     login: {
         successLogin: "登入成功",
         failToLogin: "请确认帐号密码讯息",
-        formtitle: "请进行身分验证",
-        accountPlaceholder: "请输入帐号",
+        formtitle: "登录",
+        accountPlaceholder: "请输入email",
         account: "帐号",
         passwordPlaceholder: "请输入密码",
         password: "密码",
+        toSignUpPage:"尚未拥有帐号? 前往注册",
         button: "登入",
 
         option1: "繁体中文",
@@ -22,6 +23,17 @@ export default {
         option4: "日文",
         placeholder: "语言",
     },
+    signUp: {
+        successSignUp: "注册成功",
+        failToSignUp: "请确认帐号密码讯息",
+        formtitle: "注册",
+        accountPlaceholder: "请输入email",
+        account: "帐号",
+        passwordPlaceholder: "请输入密码",
+        password: "密码",
+        toLoginPage: "已经拥有帐号? 前往登入",
+        button: "注册",
+      },
     right: {
         mainPage: "主资料页面",
         addNewData: "新增",

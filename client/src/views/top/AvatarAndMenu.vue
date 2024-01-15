@@ -17,13 +17,13 @@
                     </div>
                     <div class="flex justify-center align-center">
                         <router-link to="/"><el-dropdown-item :icon="Files">
-                                {{ $t("basic.top.dataPage")}}
+                                {{ $t("basic.top.dataPage") }}
                             </el-dropdown-item>
                         </router-link>
                     </div>
                     <div class="flex justify-center align-center">
-                        <router-link to="/login"><el-dropdown-item @click="logOut" :icon="SwitchButton">
-                                {{ $t("basic.top.logout")}}
+                        <router-link to="/login"><el-dropdown-item @click="handleLogOut" :icon="SwitchButton">
+                                {{ $t("basic.top.logout") }}
                             </el-dropdown-item>
                         </router-link>
                     </div>
@@ -44,5 +44,14 @@ import {
     User,
     SwitchButton
 } from '@element-plus/icons-vue'
-const { logOut } = useUserDataStore();
+import { signOutUser } from "@/firebase/firebase.utils";
+import router from "@/router/router";
+const { logOut } = useUserDataStore()
+const handleLogOut = async () => {
+    logOut()
+    await signOutUser()
+    setTimeout(() => {
+        router.push("/login");
+    }, 500);
+}
 </script>

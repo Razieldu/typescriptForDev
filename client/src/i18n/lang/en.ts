@@ -9,11 +9,12 @@ export default {
   login: {
     successLogin: "Successful Login",
     failToLogin: "Please check account information",
-    formtitle: "Please login",
-    accountPlaceholder: "account",
-    account: "enter account",
-    passwordPlaceholder: "password",
-    password: "enter password",
+    formtitle: "Login",
+    accountPlaceholder: "enter email",
+    account: "account",
+    passwordPlaceholder: "enter password",
+    password: "password",
+    toSignUpPage:"Don’t have an account yet? Go to register",
     button: "Log In",
 
     option1: "Traditional Chinese",
@@ -21,6 +22,17 @@ export default {
     option3: "Simplified Chinese",
     option4: "Japanese",
     placeholder:"lang"
+  },
+  signUp: {
+    successSignUp: "Successful Sign Up",
+    failToSignUp: "Please check account information",
+    formtitle: "Sign Up",
+    accountPlaceholder: "enter email",
+    account: "account",
+    passwordPlaceholder: "enter password",
+    password: "password",
+    toLoginPage: "Already have an account ? Go to login",
+    button: "Sign Up",
   },
   right: {
     mainPage: "Main Page",

@@ -6,34 +6,19 @@
             <div class="flex flex-col gap-5 w-[60%] p-4">
                 <div>
                     <p>Name</p>
-                    <el-input class="profile" />
+                    <el-input class="profile mb-1" />
                     <p class="text-xs">Your name may appear around GitHub where you contribute or are mentioned. You can
                         remove it at any time</p>
                 </div>
                 <div>
                     <p>E-mail</p>
-                    <el-input class="profile" />
+                    <el-input class="profile mb-1" />
                     <p class="text-xs">You have set your email address to private. To toggle email privacy, go to email
                         settings and uncheck "Keep my email address private."</p>
                 </div>
                 <div>
                     <p>Bio</p>
-                    <el-input class="profile bio" />
-                    <p class="text-xs">You can @mention other users and organizations to link to them.</p>
-                </div>
-                <div>
-                    <p>Bio</p>
-                    <el-input class="profile bio" />
-                    <p class="text-xs">You can @mention other users and organizations to link to them.</p>
-                </div>
-                <div>
-                    <p>Bio</p>
-                    <el-input class="profile bio" />
-                    <p class="text-xs">You can @mention other users and organizations to link to them.</p>
-                </div>
-                <div>
-                    <p>Bio</p>
-                    <el-input class="profile bio" />
+                    <el-input class="profile bio mb-1" />
                     <p class="text-xs">You can @mention other users and organizations to link to them.</p>
                 </div>
             </div>

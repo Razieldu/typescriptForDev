@@ -9,11 +9,12 @@ export default {
     login: {
         successLogin: "ログインに成功しました",
         failToLogin: "アカウントとパスワードのメッセージを確認してください",
-        formtitle: "本人確認を行ってください",
-        accountPlaceholder: "アカウント番号を入力してください",
+        formtitle: "ログイン",
+        accountPlaceholder: "メールアドレスを入力してください",
         account: "アカウント番号",
         passwordPlaceholder: " パスワードを入力してください",
         password: "パスワード",
+        toSignUpPage:"まだアカウントをお持ちでない場合は、登録に進みます",
         button: "ログイン",
 
         option1: "繁体字中国語",
@@ -22,6 +23,17 @@ export default {
         option4: "日本語",
         placeholder: "言語",
     },
+    signUp: {
+        successSignUp: "登録完了",
+        failToSignUp: "アカウントのパスワード情報を確認してください",
+        formtitle: "登録する",
+        accountPlaceholder: "メールアドレスを入力してください",
+        account: "口座番号",
+        passwordPlaceholder: "パスワードを入力してください",
+        password: "パスワード",
+        toLoginPage: "すでにアカウントをお持ちですか? ログインしてください",
+        button: "登録する",
+      },
     right: {
         mainPage: "メインデータページ ",
         addNewData: "新規",

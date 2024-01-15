@@ -1,4 +1,4 @@
 export interface userDataState {
-    isLogin: Boolean;
+    isLogin: object;
   }
   

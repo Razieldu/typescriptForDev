@@ -9,7 +9,7 @@
       </el-select>
     </div>
 
-    <div v-if="isLogin === true" class="ml-10 flex items-center gap-0">
+    <div v-if="isLogin" class="ml-10 flex items-center gap-0">
       <el-input v-model="inputValue" :placeholder="$t('basic.top.placeholder')" />
       <el-button @click="fuzzySearch(inputValue)" class="ml-3" type="primary">{{
         $t("basic.top.search")
@@ -26,6 +26,7 @@ import { useUserDataStore } from "@/store";
 import { useSettingStore } from "@/store";
 import { Moon, Sunny } from '@element-plus/icons-vue'
 import AvatarAndMenu from "./AvatarAndMenu.vue"
+
 const { changeElementPlusLanguage } = useSettingStore();
 const inputValue = ref("");
 const rightDataStore = useRightDataStore();
