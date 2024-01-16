@@ -4,14 +4,15 @@ import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPas
 import { getFirestore } from "firebase/firestore";
 // import { collection, addDoc } from "firebase/firestore";
 
+
 const firebaseConfig = {
-    apiKey: "AIzaSyBNkQlwlRrmRpOuRWNv3wli9AzplQjekUk",
-    authDomain: "vuemember.firebaseapp.com",
-    projectId: "vuemember",
-    storageBucket: "vuemember.appspot.com",
-    messagingSenderId: "520951795572",
-    appId: "1:520951795572:web:04a64ecaaaf3fbc7de2621"
-};
+    apiKey: import.meta.env.VITE_APIKEY,
+    authDomain: import.meta.env.VITE_AUTHDOMAIN,
+    projectId: import.meta.env.VITE_PROJECTID,
+    storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+    messagingSenderId: import.meta.env.VITE_MESSAGINGSENDID,
+    appId: import.meta.env.VITE_APPID
+}
 
 // Initialize Firebase 
 const app = initializeApp(firebaseConfig);
