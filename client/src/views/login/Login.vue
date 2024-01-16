@@ -11,55 +11,23 @@
             {{ $t("basic.login.account") }}</el-input>
         </div>
         <div class="flex w-[80%] h-[50px]">
-          <el-input class="loginInput" v-model="userPassword" :placeholder="$t('basic.login.passwordPlaceholder')"
-            type="password">
+          <el-input class="loginInput" v-model="userPassword" :min="6"
+            :placeholder="$t('basic.login.passwordPlaceholder')" type="password">
             {{ $t("basic.login.password") }}</el-input>
         </div>
         <router-link to="/signUp">
           <div class="text-xs">{{ $t("basic.login.toSignUpPage") }}</div>
         </router-link>
-        <el-button @click="handleLogin(userAccount, userPassword)" size="large" type="primary">{{
+        <el-button @click="handleLogin(userAccount, userPassword, t)" size="large" type="primary">{{
           $t("basic.login.button") }}</el-button>
       </div>
     </form>
   </div>
 </template>
-
-
-<script lang="ts" setup>
-
-// import { useUserDataStore } from "@/store";
-import router from "@/router/router";
-import { openMessage } from "@/utils"
-import { signInAuthUserWithEmailAndPassword } from "@/firebase/firebase.utils"
+<script  setup lang="ts">
+import { handleLogin } from "@/utils"
+const { t } = useI18n();
 const userAccount = ref<string>("");
 const userPassword = ref<string>("");
-// const { login } = useUserDataStore();
-const { t } = useI18n();
-
-const handleLogin = async (account: string, password: string) => {
-  try {
-    const authResult = await signInAuthUserWithEmailAndPassword(account, password)
-    console.log(authResult)
-    // let loginStatus: boolean | string = authResult?.user ? true : "請確認帳號密碼訊息";
-    if (authResult?.user) {
-      openMessage({ type: "success", message: t("basic.login.successLogin"), showClose: true });
-      setTimeout(() => {
-        router.push("/");
-      }, 500);
-    } else {
-      openMessage({
-        type: "error",
-        message: t("basic.login.failToLogin"),
-        showClose: true,
-      });
-    }
-  } catch (error) {
-    console.log('user sign in failed', error);
-  }
-
-}
 
 </script>
-
-<style></style>

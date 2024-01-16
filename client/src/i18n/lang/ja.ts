@@ -1,4 +1,10 @@
 export default {
+    system: {
+        invalidEmail:"無効な電子メール",
+        checkAccountAndPassword: "アカウントとパスワードのメッセージを確認してください",
+        emailAlreadyInUse: "すでに使用中のメール",
+        wrongCredential:"アカウントまたはパスワードが間違っています"
+    },
     top: {
         search: "検索",
         logout: "ログアウト",
@@ -8,7 +14,6 @@ export default {
     },
     login: {
         successLogin: "ログインに成功しました",
-        failToLogin: "アカウントとパスワードのメッセージを確認してください",
         formtitle: "ログイン",
         accountPlaceholder: "メールアドレスを入力してください",
         account: "アカウント番号",
@@ -25,7 +30,6 @@ export default {
     },
     signUp: {
         successSignUp: "登録完了",
-        failToSignUp: "アカウントのパスワード情報を確認してください",
         formtitle: "登録する",
         accountPlaceholder: "メールアドレスを入力してください",
         account: "口座番号",
@@ -33,6 +37,7 @@ export default {
         password: "パスワード",
         toLoginPage: "すでにアカウントをお持ちですか? ログインしてください",
         button: "登録する",
+        emailAlreadyInUse:"",
       },
     right: {
         mainPage: "メインデータページ ",

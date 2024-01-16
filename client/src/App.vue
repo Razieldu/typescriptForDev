@@ -22,7 +22,7 @@ import { onAuthStateChangedListener, signOutUser } from "./firebase/firebase.uti
 
 
 const { language } = storeToRefs(useSettingStore());
-const { setLogin, logOut } = useUserDataStore();
+const { setLogin, logOut,isLogin } = useUserDataStore();
 const languageState = computed(() => language.value);
 const locale = computed(() => {
   switch (languageState.value) {
@@ -57,7 +57,7 @@ onMounted(() => {
   if (localStorage.getItem("vueuse-color-scheme") === "dark") {
     toggle()
   }
-
+  console.log(isLogin)
 });  
 </script>
 

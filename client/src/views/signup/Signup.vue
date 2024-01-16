@@ -18,56 +18,17 @@
         <router-link to="/login">
           <div class="text-xs">{{ $t("basic.signUp.toLoginPage") }}</div>
         </router-link>
-       <el-button @click="handleSignUp(userAccount, userPassword)" size="large" type="primary">{{
+        <el-button @click="handleSignUp(userAccount, userPassword, t)" size="large" type="primary">{{
           $t("basic.signUp.button") }}</el-button>
       </div>
     </form>
   </div>
 </template>
-  
-  
-<script lang="ts" setup>
 
-import { useUserDataStore } from "@/store";
-import { createAuthUserWithEmailAndPassword } from "@/firebase/firebase.utils";
-import router from "@/router/router";
-import { openMessage } from "@/utils"
-
+<script  setup lang="ts">
+import { handleSignUp } from "@/utils"
+const { t } = useI18n();
 const userAccount = ref<string>("");
 const userPassword = ref<string>("");
-const { setLogin } = useUserDataStore();
-const { t } = useI18n();
-
-const handleSignUp = async (account: string, password: string) => {
-  try {
-    const authResult = await createAuthUserWithEmailAndPassword(account, password);
-    const user = authResult?.user;
-
-    let loginStatus: boolean | string = user ? true : "請確認帳號密碼訊息";
-
-    if (loginStatus === true) {
-      setLogin(user);
-      openMessage({ type: "success", message: t("basic.login.successLogin"), showClose: true });
-      setTimeout(() => {
-        router.push("/");
-      }, 500);
-    } else if (loginStatus === "請確認帳號密碼訊息") {
-      openMessage({
-        type: "error",
-        message: t("basic.login.failToLogin"),
-        showClose: true,
-      });
-    }
-  } catch (error) {
-    // 处理可能的登录失败情况
-    console.error("登录失败", error);
-    openMessage({
-      type: "error",
-      message: t("basic.login.failToLogin"),
-      showClose: true,
-    });
-  }
-};
 </script>
   
-<style></style>

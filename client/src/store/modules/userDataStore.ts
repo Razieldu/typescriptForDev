@@ -1,14 +1,14 @@
 import { userDataState } from "@/types"
 export const useUserDataStore = defineStore("userData", {
   state: (): userDataState => ({
-    isLogin: {},
+    isLogin: null,
   }),
   actions: {
     setLogin(user: any) {
       this.isLogin = user
     },
     logOut() {
-      this.isLogin = {};
+      this.isLogin = null;
     },
   },
 });

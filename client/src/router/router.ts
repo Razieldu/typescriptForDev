@@ -6,10 +6,10 @@ import Signup from "@/views/signup/Signup.vue"
 import { useUserDataStore } from "@/store";
 
 const routes = [
-  { path: "/login", name: "Login", component: Login },
-  { path: "/signUp", name: "Signup", component: Signup },
-  { path: "/", name: "App", component: Middle },
-  { path: "/profile", name: "Profile", component: Profile }
+  { path: "/login", name: "login", component: Login },
+  { path: "/signUp", name: "signUp", component: Signup },
+  { path: "/", name: "app", component: Middle },
+  { path: "/profile", name: "profile", component: Profile }
 
 ];
 
@@ -23,7 +23,7 @@ router.beforeEach((to, _, next) => {
 
   if (!userDataStore.isLogin) {
     // 用户未登录
-    if (to.name === "login" || to.name === "signup") {
+    if (to.name === "login" || to.name === "signUp") {
       // 允许导航到登录或注册页面
       next();
     } else {
@@ -32,7 +32,7 @@ router.beforeEach((to, _, next) => {
     }
   } else {
     // 用户已登录
-    if (to.name === "login" || to.name === "signup") {
+    if (to.name === "login" || to.name === "signUp") {
       // 已登录的情况下，访问登录或注册页面会重定向到主页
       next("/");
     } else {

@@ -1,4 +1,10 @@
 export default {
+  system: {
+    invalidEmail: "Email格式錯誤",
+    checkAccountAndPassword: "請確認帳號密碼訊息",
+    emailAlreadyInUse: "電子郵件已在使用",
+    wrongCredential:"帳號密碼錯誤"
+  },
   top: {
     search: "搜尋",
     logout: "登出",
@@ -8,7 +14,6 @@ export default {
   },
   login: {
     successLogin: "登入成功",
-    failToLogin: "請確認帳號密碼訊息",
     formtitle: "登入",
     accountPlaceholder: "請輸入email",
     account: "帳號",
@@ -16,6 +21,7 @@ export default {
     password: "密碼",
     toSignUpPage: "尚未擁有帳號? 前往註冊",
     button: "登入",
+
 
     option1: "繁體中文",
     option2: "英文",
@@ -25,7 +31,6 @@ export default {
   },
   signUp: {
     successSignUp: "註冊成功",
-    failToSignUp: "請確認帳號密碼訊息",
     formtitle: "註冊",
     accountPlaceholder: "請輸入email",
     account: "帳號",

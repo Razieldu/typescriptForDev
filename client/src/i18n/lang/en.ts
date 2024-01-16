@@ -1,4 +1,10 @@
 export default {
+  system: {
+    invalidEmail:"Invalid Email",
+    checkAccountAndPassword: "Please check account information",
+    emailAlreadyInUse: "Email already in use",
+    wrongCredential:"Account or Password incorrect"
+},
   top: {
     search: "Search",
     logout: "Log Out",
@@ -8,7 +14,6 @@ export default {
   },
   login: {
     successLogin: "Successful Login",
-    failToLogin: "Please check account information",
     formtitle: "Login",
     accountPlaceholder: "enter email",
     account: "account",
@@ -16,6 +21,7 @@ export default {
     password: "password",
     toSignUpPage:"Don’t have an account yet? Go to register",
     button: "Log In",
+
 
     option1: "Traditional Chinese",
     option2: "English",
@@ -25,7 +31,6 @@ export default {
   },
   signUp: {
     successSignUp: "Successful Sign Up",
-    failToSignUp: "Please check account information",
     formtitle: "Sign Up",
     accountPlaceholder: "enter email",
     account: "account",
