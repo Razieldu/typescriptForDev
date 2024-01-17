@@ -9,7 +9,7 @@ interface UserInfo {
 }
 
 // 加密密钥
-const encryptionKey: string = 'your_secret_key';
+const encryptionKey: string = 'THISISASECRETKEY';
 
 // 将用户信息加密
 export const encryptUserInfo = (userInfo: UserInfo): string => {

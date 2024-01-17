@@ -19,7 +19,6 @@ const getCurrentUser = () => {
         resolve(user);
       }
     );
-
     // 返回一个函数，该函数在需要时可以取消监听
     return removeListener;
   });

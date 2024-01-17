@@ -72,6 +72,10 @@ html.dark h1 {
     color: var(--el-bg-color-page);
 }
 
+html.dark .darkP {
+    color: var(--el-bg-color-page);
+}
+
 
 .dark .darkBg {
     background-color: var(--el-bg-color-page);

@@ -16,7 +16,7 @@
             {{ $t("basic.login.password") }}</el-input>
         </div>
         <router-link to="/signUp">
-          <div class="text-xs">{{ $t("basic.login.toSignUpPage") }}</div>
+          <div class="darkP text-xs">{{ $t("basic.login.toSignUpPage") }}</div>
         </router-link>
         <el-button @click="handleLogin(userAccount, userPassword, t)" size="large" type="primary">{{
           $t("basic.login.button") }}</el-button>

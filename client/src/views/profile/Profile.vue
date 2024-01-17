@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed top-[64px] px-60 py-20 z-50 h-[100vh] w-[100vw] bg-red-100 halfDarkBg overflow-auto ">
+    <div class="fixed top-[64px] px-60 pt-10 pb-40 z-50 h-[100vh] w-[100vw] bg-red-100 halfDarkBg overflow-auto ">
         <h1 class="text-2xl mb-4">Public profile</h1>
         <hr class="border-t border-gray-500 my-1 w-full">
         <div class="flex">

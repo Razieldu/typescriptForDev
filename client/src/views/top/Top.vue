@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-start items-center py-6 px-0 fixed top-0 w-full h-16 bg-sky-600 z-50 darkBg">
     <div class="flex justify-start items-center w-[275px] px-6 h-16 gap-2">
-      <el-switch @click="toggleDark()" v-model="value1" :active-action-icon="Sunny" :inactive-action-icon="Moon">
+      <el-switch @click="toggleDark()" v-model="lightMode" :active-action-icon="Sunny" :inactive-action-icon="Moon">
       </el-switch>
       <el-select v-model="selectValue" clearable :placeholder="$t('basic.login.placeholder')" class="select"
         @change="handleLanguage(selectValue)" effect="light" filterable>
@@ -10,10 +10,12 @@
     </div>
 
     <div v-if="isLogin" class="ml-10 flex items-center gap-0">
-      <el-input v-model="inputValue" :placeholder="$t('basic.top.placeholder')" />
-      <el-button @click="fuzzySearch(inputValue)" class="ml-3" type="primary">{{
-        $t("basic.top.search")
-      }}</el-button>
+      <div v-if="ifAtMainPage" class="flex">
+        <el-input v-model="inputValue" :placeholder="$t('basic.top.placeholder')" />
+        <el-button @click="fuzzySearch(inputValue)" class="ml-3" type="primary">{{
+          $t("basic.top.search")
+        }}</el-button>
+      </div>
       <AvatarAndMenu />
     </div>
   </div>
@@ -34,8 +36,18 @@ const { isLogin } = storeToRefs(useUserDataStore());
 const { fuzzySearch } = rightDataStore;
 const { t, locale } = useI18n();
 
-const value1 = ref(true)
+const lightMode = ref(true)
 const selectValue = ref("");
+const router = useRouter()
+const ifAtMainPage = computed(() => {
+  if (router.currentRoute.value.name === "main") {
+    return true
+  } else {
+    return false
+  }
+
+})
+
 const options = computed(() => [
   {
     value: "zh-tw",
@@ -96,6 +108,9 @@ const handleLanguage = (language: string) => {
 };
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
+if (localStorage.getItem("vueuse-color-scheme") === "dark") {
+  lightMode.value = false;
+}
 </script>
 <style scoped>
 .select {
