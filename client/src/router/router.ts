@@ -1,16 +1,10 @@
 
-import Login from "@/views/login/Login.vue";
-import Middle from "@/views/middle/Middle.vue";
-import Profile from "@/views/profile/Profile.vue"
-import Signup from "@/views/signup/Signup.vue"
-import { useUserDataStore } from "@/store";
-
+import { onAuthStateChangedListener } from "../firebase/firebase.utils"
 const routes = [
-  { path: "/login", name: "login", component: Login },
-  { path: "/signUp", name: "signUp", component: Signup },
-  { path: "/", name: "app", component: Middle },
-  { path: "/profile", name: "profile", component: Profile }
-
+  { path: "/login", name: "login", component: () => import("@/views/login/Login.vue"), },
+  { path: "/signUp", name: "signUp", component: () => import("@/views/signup/Signup.vue") },
+  { path: "/", name: "main", component: () => import("@/views/middle/Middle.vue"), meta: { requiresAuth: true } },
+  { path: "/profile", name: "profile", component: () => import("@/views/profile/Profile.vue"), meta: { requiresAuth: true } }
 ];
 
 const router = createRouter({
@@ -18,29 +12,25 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, _, next) => {
-  const userDataStore = useUserDataStore();
+const getCurrentUser = () => {
+  return new Promise((resolve) => {
+    const removeListener = onAuthStateChangedListener(
+      (user: any) => {
+        resolve(user);
+      }
+    );
 
-  if (!userDataStore.isLogin) {
-    // 用户未登录
-    if (to.name === "login" || to.name === "signUp") {
-      // 允许导航到登录或注册页面
-      next();
-    } else {
-      // 重定向到登录页
-      next("/login");
-    }
+    // 返回一个函数，该函数在需要时可以取消监听
+    return removeListener;
+  });
+};
+
+
+router.beforeEach(async (to, _, next) => {
+  if (to.meta.requiresAuth && !(await getCurrentUser())) {
+    next("/login")
   } else {
-    // 用户已登录
-    if (to.name === "login" || to.name === "signUp") {
-      // 已登录的情况下，访问登录或注册页面会重定向到主页
-      next("/");
-    } else {
-      // 允许导航到其他页面
-      next();
-    }
+    next()
   }
 });
-
-
 export default router;

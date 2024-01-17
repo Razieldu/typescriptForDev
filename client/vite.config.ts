@@ -41,8 +41,9 @@ export default defineConfig({
         ]
       },
       {
-        '@vueuse/core': ['useToggle','useDark']
+        '@vueuse/core': ['useToggle', 'useDark']
       },
+      { 'crypto-js': ['AES', 'enc'] },
       'pinia',
       'vue-i18n',
     ]

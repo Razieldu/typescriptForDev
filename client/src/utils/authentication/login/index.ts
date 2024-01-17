@@ -2,8 +2,7 @@ import router from "@/router/router";
 import { openMessage } from "@/utils"
 import { signInAuthUserWithEmailAndPassword } from "@/firebase/firebase.utils"
 import { useUserDataStore } from "@/store";
-
-
+import { saveEncryptedUserInfoToLocal } from "@/utils";
 
 export const handleLogin = async (account: string, password: string, t: Function) => {
   const { setLogin } = useUserDataStore()
@@ -21,6 +20,7 @@ export const handleLogin = async (account: string, password: string, t: Function
     if (authResult?.user) {
       console.log(authResult.user)
       setLogin(authResult.user)
+      saveEncryptedUserInfoToLocal(authResult.user)
       openMessage({ type: "success", message: t("basic.login.successLogin"), showClose: true });
       setTimeout(() => {
         router.push("/");
