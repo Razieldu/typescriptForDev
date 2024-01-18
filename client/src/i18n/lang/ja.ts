@@ -3,7 +3,12 @@ export default {
         invalidEmail:"無効な電子メール",
         checkAccountAndPassword: "アカウントとパスワードのメッセージを確認してください",
         emailAlreadyInUse: "すでに使用中のメール",
-        wrongCredential:"アカウントまたはパスワードが間違っています"
+        wrongCredential:"アカウントまたはパスワードが間違っています",
+        
+        option1: "繁體中文",
+        option2: "English",
+        option3: "简体中文",
+        option4: "日本語",
     },
     top: {
         search: "検索",
@@ -22,10 +27,6 @@ export default {
         toSignUpPage:"まだアカウントをお持ちでない場合は、登録に進みます",
         button: "ログイン",
 
-        option1: "繁体字中国語",
-        option2: "英語",
-        option3: "簡体字中国語",
-        option4: "日本語",
         placeholder: "言語",
     },
     signUp: {

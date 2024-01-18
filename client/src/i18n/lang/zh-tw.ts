@@ -3,7 +3,12 @@ export default {
     invalidEmail: "Email格式錯誤",
     checkAccountAndPassword: "請確認帳號密碼訊息",
     emailAlreadyInUse: "電子郵件已在使用",
-    wrongCredential:"帳號密碼錯誤"
+    wrongCredential:"帳號密碼錯誤",
+  
+    option1: "繁體中文",
+    option2: "English",
+    option3: "简体中文",
+    option4: "日本語",
   },
   top: {
     search: "搜尋",
@@ -23,10 +28,7 @@ export default {
     button: "登入",
 
 
-    option1: "繁體中文",
-    option2: "英文",
-    option3: "簡體中文",
-    option4: "日文",
+
     placeholder: "語言"
   },
   signUp: {

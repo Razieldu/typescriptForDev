@@ -3,7 +3,12 @@ export default {
         invalidEmail: "不合规电邮",
         checkAccountAndPassword: "請確認帳號密碼訊息",
         emailAlreadyInUse: "电子邮件已在使用",
-        wrongCredential:"帐号或密码错误"
+        wrongCredential: "帐号或密码错误",
+
+        option1: "繁體中文",
+        option2: "English",
+        option3: "简体中文",
+        option4: "日本語",
     },
     top: {
         search: "搜寻",
@@ -22,11 +27,6 @@ export default {
         toSignUpPage: "尚未拥有帐号? 前往注册",
         button: "登入",
 
-
-        option1: "繁体中文",
-        option2: "英文",
-        option3: "简体中文",
-        option4: "日文",
         placeholder: "语言",
     },
     signUp: {

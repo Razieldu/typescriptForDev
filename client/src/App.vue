@@ -19,8 +19,6 @@ import ElementZhJA from "element-plus/es/locale/lang/ja";
 import { useSettingStore } from "@/store";
 import { useUserDataStore } from "@/store";
 import { onAuthStateChangedListener, signOutUser } from "./firebase/firebase.utils"
-// import { saveEncryptedUserInfoToLocal } from "@/utils"
-// import router from "@/router/router";
 
 const { language } = storeToRefs(useSettingStore());
 const { setLogin, logOut } = useUserDataStore();

@@ -38,6 +38,22 @@ export const signOutUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = (callback: any) =>
     onAuthStateChanged(auth, callback);
 
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => {
+                console.log(unsubscribe);
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject
+        );
+    });
+};
+
+
+
 // export const addData = async () => {
 //     try {
 //         const docRef = await addDoc(collection(db, "users"), {

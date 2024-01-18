@@ -25,19 +25,22 @@
 
 import { useRightDataStore } from "@/store";
 import { useUserDataStore } from "@/store";
-import { useSettingStore } from "@/store";
 import { Moon, Sunny } from '@element-plus/icons-vue'
 import AvatarAndMenu from "./AvatarAndMenu.vue"
+import { dealWithLanguage } from "@/utils"
 
-const { changeElementPlusLanguage } = useSettingStore();
+
 const inputValue = ref("");
 const rightDataStore = useRightDataStore();
 const { isLogin } = storeToRefs(useUserDataStore());
 const { fuzzySearch } = rightDataStore;
 const { t, locale } = useI18n();
+const { handleLanguage } = dealWithLanguage(locale)
+
 
 const lightMode = ref(true)
-const selectValue = ref("");
+const selectValue = ref(localStorage.getItem("language") || "zh-tw")
+
 const router = useRouter()
 const ifAtMainPage = computed(() => {
   if (router.currentRoute.value.name === "main") {
@@ -45,72 +48,37 @@ const ifAtMainPage = computed(() => {
   } else {
     return false
   }
-
 })
 
 const options = computed(() => [
   {
     value: "zh-tw",
-    label: t("basic.login.option1"),
+    label: t("basic.system.option1"),
   },
   {
     value: "en",
-    label: t("basic.login.option2"),
+    label: t("basic.system.option2"),
   },
   {
     value: "zh-cn",
-    label: t("basic.login.option3"),
+    label: t("basic.system.option3"),
   },
   {
     value: "ja",
-    label: t("basic.login.option4"),
+    label: t("basic.system.option4"),
   },
 
 ]);
 
-const switchToEnglish = function () {
-  // @ts-ignore
-  changeElementPlusLanguage("en");
-  locale.value = "en";
-};
 
-const switchToTwChinese = function () {
-  // @ts-ignore
-  changeElementPlusLanguage("zh-tw");
-  locale.value = "zh-tw";
-};
-
-const switchToChinaChinese = function () {
-  changeElementPlusLanguage("zh-cn");
-  locale.value = "zh-cn"
-};
-
-const switchToJapanese = function () {
-  changeElementPlusLanguage("ja");
-  locale.value = "ja"
-};
-
-const handleLanguage = (language: string) => {
-  switch (language) {
-    case "zh-tw":
-      switchToTwChinese();
-      break;
-    case "en":
-      switchToEnglish();
-      break;
-    case "zh-cn":
-      switchToChinaChinese();
-      break;
-    case "ja":
-      switchToJapanese()
-      break
-  }
-};
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 if (localStorage.getItem("vueuse-color-scheme") === "dark") {
   lightMode.value = false;
 }
+onMounted(() => {
+  handleLanguage(selectValue.value)
+})
 </script>
 <style scoped>
 .select {

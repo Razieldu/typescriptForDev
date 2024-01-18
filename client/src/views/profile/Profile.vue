@@ -21,6 +21,7 @@
                     <el-input class="profile bio mb-1" />
                     <p class="text-xs">You can @mention other users and organizations to link to them.</p>
                 </div>
+                
             </div>
             
             <div class="w-[40%] p-4">

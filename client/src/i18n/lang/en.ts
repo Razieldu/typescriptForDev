@@ -3,7 +3,12 @@ export default {
     invalidEmail:"Invalid Email",
     checkAccountAndPassword: "Please check account information",
     emailAlreadyInUse: "Email already in use",
-    wrongCredential:"Account or Password incorrect"
+    wrongCredential:"Account or Password incorrect",
+
+    option1: "繁體中文",
+    option2: "English",
+    option3: "简体中文",
+    option4: "日本語",
 },
   top: {
     search: "Search",
@@ -23,10 +28,7 @@ export default {
     button: "Log In",
 
 
-    option1: "Traditional Chinese",
-    option2: "English",
-    option3: "Simplified Chinese",
-    option4: "Japanese",
+
     placeholder:"lang"
   },
   signUp: {
