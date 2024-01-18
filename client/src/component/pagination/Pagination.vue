@@ -1,18 +1,10 @@
 <template>
     <div class="flex justify-center pt-3 pb-2 ">
-        <el-pagination 
-        class="bg-transparent infoBg" 
-        v-model:current-page="curPage" 
-        v-model:page-size="pageSize"
-        :layout="layout" :total="total" 
-        :page-sizes="pageSizes" 
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange" 
-        small 
-        />
+        <el-pagination class="bg-transparent infoBg" :layout="layout" :total="total" :page-sizes="pageSizes"
+            v-model:current-page="curPage" v-model:page-size="pageSize" v-model:background="ifUseBg"
+            v-model:small="handleModelSize" v-model:hideOnSinglePage="handleHideOnSinglePage" />
     </div>
 </template>
-
 
 <script setup lang="ts">
 const props = defineProps({
@@ -23,9 +15,12 @@ const props = defineProps({
     pageSizes: {
         type: Array,
         default: () => [10, 20, 30, 40]
-    }
+    },
+    background: { type: Boolean, default: true },
+    small: { type: Boolean, default: false },
+    hideOnSinglePage: { type: Boolean, default: false }
 })
-const emit = defineEmits(['update:size', 'update:page', 'pagination'])
+const emit = defineEmits(['update:size', 'update:page', 'updateBg', 'updateModelSize', 'updateHideOnSinglePage'])
 const pageSize = computed({
     get: () => props.size,
     set: (val) => {
@@ -39,11 +34,47 @@ const curPage = computed({
     }
 })
 
-function handleSizeChange() {
-    emit('pagination')
-}
+const ifUseBg = computed({
+    get: () => props.background,
+    set: (val) => {
+        emit('updateBg', val)
+    }
+})
 
-function handleCurrentChange() {
-    emit('pagination')
-}
+const handleModelSize = computed({
+    get: () => props.small,
+    set: (val) => {
+        console.log(val)
+        emit('updateModelSize', val)
+    }
+})
+
+const handleHideOnSinglePage = computed({
+    get: () => props.hideOnSinglePage,
+    set: (val) => {
+        console.log(val)
+        emit('updateHideOnSinglePage', val)
+    }
+})
+// function handleSizeChange() {
+//     try {
+//         emit('pagination');
+//     } catch (error) {
+//         console.error('處理分頁尺寸變化時發生錯誤:', error);
+//     }
+// }
+// function handleCurrentChange() {
+//     try {
+//         emit('pagination');
+//     } catch (error) {
+//         console.error('處理分頁當前頁碼變化時發生錯誤:', error);
+//     }
+// }
 </script>
+
+
+
+
+
+    <!-- @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"      -->
