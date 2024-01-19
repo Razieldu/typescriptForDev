@@ -1,21 +1,21 @@
 export default {
   system: {
-    invalidEmail:"Invalid Email",
+    invalidEmail: "Invalid Email",
     checkAccountAndPassword: "Please check account information",
     emailAlreadyInUse: "Email already in use",
-    wrongCredential:"Account or Password incorrect",
+    wrongCredential: "Account or Password incorrect",
 
     option1: "繁體中文",
     option2: "English",
     option3: "简体中文",
     option4: "日本語",
-},
+  },
   top: {
     search: "Search",
     logout: "Log Out",
     placeholder: "enter keyword...",
-    profilePage:"Profile Page",
-    dataPage:"Data Page"
+    profilePage: "Profile Page",
+    dataPage: "Data Page"
   },
   login: {
     successLogin: "Successful Login",
@@ -24,12 +24,13 @@ export default {
     account: "account",
     passwordPlaceholder: "enter password",
     password: "password",
-    toSignUpPage:"Don’t have an account yet? Go to register",
+    toSignUpPage1: "Don’t have an account yet? Go to",
+    toSignUpPage2: "register",
     button: "Log In",
 
 
 
-    placeholder:"lang"
+    placeholder: "lang"
   },
   signUp: {
     successSignUp: "Successful Sign Up",
@@ -38,7 +39,8 @@ export default {
     account: "account",
     passwordPlaceholder: "enter password",
     password: "password",
-    toLoginPage: "Already have an account ? Go to login",
+    toLoginPage1: "Already have an account ? Go to",
+    toLoginPage2:"login",
     button: "Sign Up",
   },
   right: {
@@ -48,28 +50,28 @@ export default {
     addToPage: "Add to target page",
     deleteMany: "Delete Many",
     updatePage: "Update Page",
-    upload:"Upload",
+    upload: "Upload",
 
     newPageTitle: "New Page Title",
     newPageLabel: "New Page Title",
     enterNewPageTitlePlaceholer: "please enter",
     confirm: "Confirm",
     cancel: "Cancel",
-    emptyTitle:"Empty Title",
-    duplicateTitle:"Duplicate Title",
-    noData:"Find No Data",
-    successBuild:"Success Build",
+    emptyTitle: "Empty Title",
+    duplicateTitle: "Duplicate Title",
+    noData: "Find No Data",
+    successBuild: "Success Build",
 
     updateCurrentPageTitle: "Update Current Page",
     updateCurrentPageLabel: "New Title",
-    successUpdate:"Update Success",
+    successUpdate: "Update Success",
 
     addToTargetPageTitle: "Add To Target Page",
     addToTargetPageLabel: "Target Page Title",
     selectTargetPageTitle: "Target Page Title",
-    importPageTitle:"Upload File",
-    successAddToTargetPage:"Success Add To Target Page",
-    emptyTarget:"You should choose a page to add data",
+    importPageTitle: "Upload File",
+    successAddToTargetPage: "Success Add To Target Page",
+    emptyTarget: "You should choose a page to add data",
 
 
     deleteMode: "Del",

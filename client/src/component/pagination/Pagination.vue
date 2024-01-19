@@ -20,7 +20,7 @@ const props = defineProps({
     small: { type: Boolean, default: false },
     hideOnSinglePage: { type: Boolean, default: false }
 })
-const emit = defineEmits(['update:size', 'update:page', 'updateBg', 'updateModelSize', 'updateHideOnSinglePage'])
+const emit = defineEmits(['update:size', 'update:page', 'update:Bg', 'update:modelSize', 'update:hideOnSinglePage'])
 const pageSize = computed({
     get: () => props.size,
     set: (val) => {
@@ -37,7 +37,7 @@ const curPage = computed({
 const ifUseBg = computed({
     get: () => props.background,
     set: (val) => {
-        emit('updateBg', val)
+        emit('update:Bg', val)
     }
 })
 
@@ -45,7 +45,7 @@ const handleModelSize = computed({
     get: () => props.small,
     set: (val) => {
         console.log(val)
-        emit('updateModelSize', val)
+        emit('update:modelSize', val)
     }
 })
 
@@ -53,28 +53,11 @@ const handleHideOnSinglePage = computed({
     get: () => props.hideOnSinglePage,
     set: (val) => {
         console.log(val)
-        emit('updateHideOnSinglePage', val)
+        emit('update:hideOnSinglePage', val)
     }
 })
-// function handleSizeChange() {
-//     try {
-//         emit('pagination');
-//     } catch (error) {
-//         console.error('處理分頁尺寸變化時發生錯誤:', error);
-//     }
-// }
-// function handleCurrentChange() {
-//     try {
-//         emit('pagination');
-//     } catch (error) {
-//         console.error('處理分頁當前頁碼變化時發生錯誤:', error);
-//     }
-// }
 </script>
 
 
 
 
-
-    <!-- @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"      -->

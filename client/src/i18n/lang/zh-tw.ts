@@ -3,8 +3,8 @@ export default {
     invalidEmail: "Email格式錯誤",
     checkAccountAndPassword: "請確認帳號密碼訊息",
     emailAlreadyInUse: "電子郵件已在使用",
-    wrongCredential:"帳號密碼錯誤",
-  
+    wrongCredential: "帳號密碼錯誤",
+
     option1: "繁體中文",
     option2: "English",
     option3: "简体中文",
@@ -24,7 +24,8 @@ export default {
     account: "帳號",
     passwordPlaceholder: "請輸入密碼",
     password: "密碼",
-    toSignUpPage: "尚未擁有帳號? 前往註冊",
+    toSignUpPage1: "尚未擁有帳號? 前往",
+    toSignUpPage2: "註冊",
     button: "登入",
 
 
@@ -38,7 +39,8 @@ export default {
     account: "帳號",
     passwordPlaceholder: "請輸入密碼",
     password: "密碼",
-    toLoginPage: "已經擁有帳號? 前往登入",
+    toLoginPage1: "已經擁有帳號? 前往",
+    toLoginPage2: "登入",
     button: "註冊",
   },
   right: {

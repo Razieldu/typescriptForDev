@@ -24,7 +24,8 @@ export default {
         account: "帐号",
         passwordPlaceholder: "请输入密码",
         password: "密码",
-        toSignUpPage: "尚未拥有帐号? 前往注册",
+        toSignUpPage1: "尚未拥有帐号? 前往",
+        toSignUpPage2: "注册",
         button: "登入",
 
         placeholder: "语言",
@@ -36,7 +37,8 @@ export default {
         account: "帐号",
         passwordPlaceholder: "请输入密码",
         password: "密码",
-        toLoginPage: "已经拥有帐号? 前往登入",
+        toLoginPage1: "已经拥有帐号? 前往",
+        toLoginPage2: "登入",
         button: "注册",
     },
     right: {
