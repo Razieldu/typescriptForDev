@@ -107,7 +107,7 @@ export const useRightDataStore = defineStore("rightData", {
             searchResult.push(eachData);
           }
         }
-        searchResult.length > 0 ? (this.data = searchResult) : [];
+        this.data = searchResult.length > 0 ? searchResult : [];
       } else if (ifRelated && !this.isFirst) {
         let useData = [...this.saveData];
         for (let eachData of useData) {
@@ -272,7 +272,7 @@ export const useRightDataStore = defineStore("rightData", {
       closeDialog: () => void, resetInput: () => void): string {
       console.log(insertNewPageData)
       if (pageTitle === "") return "basic.right.emptyTitle";
-      if (insertNewPageData.length===0) return "basic.right.noData"
+      if (insertNewPageData.length === 0) return "basic.right.noData"
       if (this.selectedData.some(one => one.title === pageTitle)) {
         return "basic.right.duplicateTitle"
       }

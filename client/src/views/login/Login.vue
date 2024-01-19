@@ -18,9 +18,10 @@
         <router-link to="/signUp">
           <div class="flex gap-1 text-xs">
             <p class="darkP">{{ $t("basic.login.toSignUpPage1") }}</p>
-            <p class="text-red-500 underline cursor-pointer">{{ $t("basic.login.toSignUpPage2") }}</p>
+            <p class="text-red-500 underline cursor-pointer font-bold">{{ $t("basic.login.toSignUpPage2") }}</p>
           </div>
         </router-link>
+        
         <el-button @click="handleLogin(userAccount, userPassword, t)" size="large" type="primary">{{
           $t("basic.login.button") }}</el-button>
       </div>
