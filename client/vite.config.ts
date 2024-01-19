@@ -57,7 +57,8 @@ export default defineConfig({
       views: path.resolve(__dirname, "src/views"),
       utils: path.resolve(__dirname, "src/utils"),
       router: path.resolve(__dirname, "src/router"),
-      component: path.resolve(__dirname, "src/component")
+      component: path.resolve(__dirname, "src/component"),
+      assets:path.resolve(__dirname, "src/assets")
     },
   },
 })
