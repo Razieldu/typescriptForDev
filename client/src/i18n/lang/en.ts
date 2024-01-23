@@ -9,6 +9,7 @@ export default {
     option2: "English",
     option3: "简体中文",
     option4: "日本語",
+    langPlaceholder: "lang"
   },
   top: {
     search: "Search",
@@ -28,9 +29,9 @@ export default {
     toSignUpPage2: "register",
     button: "Log In",
 
+    gmailLogin: "Login with Gmail",
+    facebookLogin: "Login with Facebook"
 
-
-    placeholder: "lang"
   },
   signUp: {
     successSignUp: "Successful Sign Up",
@@ -40,7 +41,7 @@ export default {
     passwordPlaceholder: "enter password",
     password: "password",
     toLoginPage1: "Already have an account ? Go to",
-    toLoginPage2:"login",
+    toLoginPage2: "login",
     button: "Sign Up",
   },
   right: {

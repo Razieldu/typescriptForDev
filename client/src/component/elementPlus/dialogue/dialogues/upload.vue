@@ -20,7 +20,7 @@
 ​
 <script lang="ts" setup>
 import { useRightDataStore } from "@/store";
-import { importExcel } from "../../../utils/importExcel/index"
+import { importExcel } from "@/utils/importExcel/index"
 import { processMsg } from "@/utils"
 
 const { t } = useI18n();

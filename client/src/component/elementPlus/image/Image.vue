@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <div class="flex justify-center items-center p-1">
         <el-image :class="class" :src="imageUrl" :fit="fit" />
     </div>
 </template>
 
 <script setup lang="ts">
 import google from "@/assets/photo/google.png"
-import facebook from "@/assets/photo/facebook.jpg"
+import facebook from "@/assets/photo/facebook.png"
 const props = defineProps({
     class:{type:String},
     fit: { type: String, default: 'fill' },

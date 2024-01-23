@@ -3,7 +3,7 @@
     <div class="flex justify-start items-center w-[275px] px-6 h-16 gap-2">
       <el-switch @click="toggleDark()" v-model="lightMode" :active-action-icon="Sunny" :inactive-action-icon="Moon">
       </el-switch>
-      <el-select v-model="selectValue" clearable :placeholder="$t('basic.login.placeholder')" class="select"
+      <el-select v-model="selectValue" clearable :placeholder="$t('basic.system.langPlaceholder')" class="select"
         @change="handleLanguage(selectValue)" effect="light" filterable>
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
       </el-select>

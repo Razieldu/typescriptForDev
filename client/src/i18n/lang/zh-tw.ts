@@ -9,13 +9,14 @@ export default {
     option2: "English",
     option3: "简体中文",
     option4: "日本語",
+    langPlaceholder: "語言"
   },
   top: {
     search: "搜尋",
     logout: "登出",
     placeholder: "請輸入...",
     profilePage: "個人資訊",
-    dataPage: "資料頁面"
+    dataPage: "資料頁面",
   },
   login: {
     successLogin: "登入成功",
@@ -28,9 +29,8 @@ export default {
     toSignUpPage2: "註冊",
     button: "登入",
 
-
-
-    placeholder: "語言"
+    gmailLogin: "Gmail登入",
+    facebookLogin: "Facebook登入"
   },
   signUp: {
     successSignUp: "註冊成功",

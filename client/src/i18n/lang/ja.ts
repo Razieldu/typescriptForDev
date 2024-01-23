@@ -1,14 +1,15 @@
 export default {
     system: {
-        invalidEmail:"無効な電子メール",
+        invalidEmail: "無効な電子メール",
         checkAccountAndPassword: "アカウントとパスワードのメッセージを確認してください",
         emailAlreadyInUse: "すでに使用中のメール",
-        wrongCredential:"アカウントまたはパスワードが間違っています",
-        
+        wrongCredential: "アカウントまたはパスワードが間違っています",
+
         option1: "繁體中文",
         option2: "English",
         option3: "简体中文",
         option4: "日本語",
+        langPlaceholder: "言語",
     },
     top: {
         search: "検索",
@@ -24,11 +25,12 @@ export default {
         account: "アカウント番号",
         passwordPlaceholder: " パスワードを入力してください",
         password: "パスワード",
-        toSignUpPage1:"まだアカウントをお持ちでない場合は、に行く",
-        toSignUpPage2:"サインアップ",
+        toSignUpPage1: "まだアカウントをお持ちでない場合は、に行く",
+        toSignUpPage2: "サインアップ",
         button: "ログイン",
 
-        placeholder: "言語",
+        gmailLogin: "Gmail ログイン",
+        facebookLogin: "フェイスブックログイン"
     },
     signUp: {
         successSignUp: "登録完了",
@@ -38,10 +40,10 @@ export default {
         passwordPlaceholder: "パスワードを入力してください",
         password: "パスワード",
         toLoginPage1: "すでにアカウントをお持ちですか ？に行く",
-        toLoginPage2:"ログインする",
+        toLoginPage2: "ログインする",
         button: "登録する",
-        emailAlreadyInUse:"",
-      },
+        emailAlreadyInUse: "",
+    },
     right: {
         mainPage: "メインデータページ ",
         addNewData: "新規",

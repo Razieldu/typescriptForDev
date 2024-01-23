@@ -28,12 +28,12 @@
 <script setup lang="ts">
 import { exportFile } from "@/utils";
 import { useRightDataStore } from "@/store";
-import { addDialog } from "@/component/dialogue/index"
+import { addDialog } from "@/component/elementPlus/dialogue/index"
 import { computeFn } from "@/utils";
-import addNewPage from "@/component/dialogue/dialogues/addNewPage.vue"
-import updateToCurrentPage from "@/component/dialogue/dialogues/updateToCurrentPage.vue";
-import addToTargetPage from "@/component/dialogue/dialogues/addToTargetPage.vue";
-import uploadFile from "@/component/dialogue/dialogues/upload.vue"
+import addNewPage from "@/component/elementPlus/dialogue/dialogues/addNewPage.vue"
+import updateToCurrentPage from "@/component/elementPlus/dialogue/dialogues/updateToCurrentPage.vue";
+import addToTargetPage from "@/component/elementPlus/dialogue/dialogues/addToTargetPage.vue";
+import uploadFile from "@/component/elementPlus/dialogue/dialogues/upload.vue"
 
 const { t } = useI18n()
 const {

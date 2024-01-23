@@ -1,12 +1,18 @@
+/*el-button*/
 html.dark .el-button {
     border: none;
     --el-button-bg-color: var(--el-color-info);
     --el-button-disabled-bg-color: var(--el-color-info);
 }
 
+html.dark .el-button:hover {
+    border: none;
+    background-color: var(--el-color-info-dark-2);
+}
+
 /*dialogue*/
 html.dark .el-dialog {
- border:  2px solid rgb(207, 207, 207);
+    border: 2px solid rgb(207, 207, 207);
 }
 
 html.dark .borderNone {
@@ -29,6 +35,7 @@ html.dark .el-menu .el-menu-item .eachSeachTitleItem:hover {
 
 
 /*分頁組件*/
+
 /*選總頁數部分*/
 html.dark .select-trigger .el-input {
     background-color: var(--el-bg-color-page);
@@ -82,4 +89,12 @@ html.dark .darkP {
 
 .dark .halfDarkBg {
     background-color: var(--el-color-info-light-5);
+}
+
+.dark .loginDivGandF {
+    background-color: var(--el-color-info-dark-2);
+}
+
+.dark .loginDivGandF:hover {
+    background-color: var(--el-color-info-light-3);
 }
