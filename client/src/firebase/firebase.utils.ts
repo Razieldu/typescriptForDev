@@ -1,6 +1,6 @@
 
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 // import { collection, addDoc } from "firebase/firestore";
 
@@ -21,10 +21,10 @@ const googleProvider = new GoogleAuthProvider();
 export const auth = getAuth();
 
 export const signInWithGooglePopup = () =>
-  signInWithPopup(auth, googleProvider);
-  
+    signInWithPopup(auth, googleProvider);
+
 export const signInWithGoogleRedirect = () =>
-  signInWithRedirect(auth, googleProvider);
+    signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore(firebaseApp);
 
@@ -59,9 +59,6 @@ export const getCurrentUser = () => {
         );
     });
 };
-
-
-
 // export const addData = async () => {
 //     try {
 //         const docRef = await addDoc(collection(db, "users"), {

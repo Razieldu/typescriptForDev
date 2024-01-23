@@ -18,11 +18,12 @@ import ElementZhCN from "element-plus/es/locale/lang/zh-cn";
 import ElementZhJA from "element-plus/es/locale/lang/ja";
 import { useSettingStore } from "@/store";
 import { useUserDataStore } from "@/store";
-import { onAuthStateChangedListener, signOutUser } from "./firebase/firebase.utils"
-
+import { onAuthStateChangedListener } from "./firebase/firebase.utils"
+import { handleLogOut } from "@/utils"
 const { language } = storeToRefs(useSettingStore());
-const { setLogin, logOut } = useUserDataStore();
+const { setLogin } = useUserDataStore();
 const languageState = computed(() => language.value);
+import router from "@/router/router"
 const locale = computed(() => {
   switch (languageState.value) {
     case "en":
@@ -38,21 +39,20 @@ const locale = computed(() => {
   }
 });
 
-onMounted(() => {
+onMounted(async () => {
   onAuthStateChangedListener(async (user: any) => {
     if (user) {
-
       let data = {
         email: user.email,
-        emailVerified:user.emailVerified,
+        emailVerified: user.emailVerified,
         mataData: user.metadata,
         photoURL: user.photoURL
       }
-      console.log(data)
+      console.log(data, "data")
       setLogin(user)
+      router.push("/")
     } else {
-      logOut()
-      await signOutUser()
+      handleLogOut()
     }
   });
 });

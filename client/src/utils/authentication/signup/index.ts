@@ -2,7 +2,6 @@ import { useUserDataStore } from "@/store";
 import { createAuthUserWithEmailAndPassword } from "@/firebase/firebase.utils";
 import router from "@/router/router";
 import { openMessage } from "@/utils"
-// import { saveEncryptedUserInfoToLocal } from "@/utils";
 
 export const handleSignUp = async (account: string, password: string, t: Function) => {
   const { setLogin } = useUserDataStore();
@@ -20,7 +19,6 @@ export const handleSignUp = async (account: string, password: string, t: Functio
     const user = authResult?.user;
     if (user) {
       setLogin(user);
-      // saveEncryptedUserInfoToLocal(user)
       openMessage({ type: "success", message: t("basic.signUp.successSignUp"), showClose: true });
       setTimeout(() => {
         router.push("/");

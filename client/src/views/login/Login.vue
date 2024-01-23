@@ -23,32 +23,18 @@
             <p class="text-red-500 underline cursor-pointer font-bold">{{ $t("basic.login.toSignUpPage2") }}</p>
           </router-link>
         </div>
-        <div class="mt-1 font-bold grid  grid-rows-2 gap-2">
-          <div class="flex items-center justify-center">
-            <hr class="border-t border-gray-200 my-1 w-[90%]">
-          </div>
-          <div class="grid grid-cols-5 bg-red-400 w-[336px] cursor-pointer rounded-lg text-white loginDivGandF hover:bg-red-300">
-            <Image class="w-[25px] h-[25px]  col-span-1" :src="'google'" :fit="'fill'" />
-            <div class="flex justify-center items-center col-span-4 relative">
-              <p class="absolute left-12 text-sm ">{{ $t("basic.login.gmailLogin") }}</p>
-            </div>
-          </div>
-          <div class="grid grid-cols-5 bg-blue-400 w-[336px] cursor-pointer rounded-lg text-white loginDivGandF hover:bg-blue-300 ">
-            <Image class="w-[25px] h-[25px]  col-span-1" :src="'facebook'" :fit="'fill'" />
-            <div class="flex justify-center items-center col-span-4 relative">
-              <p class="absolute left-12 text-sm ">{{ $t("basic.login.facebookLogin") }}</p>
-            </div>
-          </div>
-        </div>
+        <LoginWith />
       </div>
     </form>
   </div>
 </template>
 <script  setup lang="ts">
 import { handleLogin } from "@/utils"
-import Image from "@/component/elementPlus/image/Image.vue";
+import LoginWith from "@/component/loginWith/LoginWith.vue";
+// import { onAuthStateChangedListener, signOutUser } from "@/firebase/firebase.utils"
+// import { useUserDataStore } from "@/store";
+// const { setLogin, logOut } = useUserDataStore();
 const { t } = useI18n();
 const userAccount = ref<string>("");
 const userPassword = ref<string>("");
-
 </script>

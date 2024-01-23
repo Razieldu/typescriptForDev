@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import google from "@/assets/photo/google.png"
-import facebook from "@/assets/photo/facebook.png"
+import facebook from "@/assets/photo/facebookNew.png"
 const props = defineProps({
     class:{type:String},
     fit: { type: String, default: 'fill' },
