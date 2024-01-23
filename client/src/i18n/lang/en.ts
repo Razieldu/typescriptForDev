@@ -30,7 +30,8 @@ export default {
     button: "Log In",
 
     gmailLogin: "Login with Gmail",
-    facebookLogin: "Login with Facebook"
+    facebookLogin: "Login with Facebook",
+    githubLogin: "Login with Github"
 
   },
   signUp: {

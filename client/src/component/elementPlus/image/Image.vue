@@ -7,8 +7,9 @@
 <script setup lang="ts">
 import google from "@/assets/photo/google.png"
 import facebook from "@/assets/photo/facebookNew.png"
+import github from "@/assets/photo/github.svg"
 const props = defineProps({
-    class:{type:String},
+    class: { type: String },
     fit: { type: String, default: 'fill' },
     src: { type: String }
 })
@@ -18,6 +19,8 @@ const imageUrl = computed(() => {
             return google
         case "facebook":
             return facebook
+        case "github":
+            return github
         default:
             return props.src;
     }

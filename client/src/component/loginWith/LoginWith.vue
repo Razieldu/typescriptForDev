@@ -10,19 +10,26 @@
                 <p class="absolute left-12 text-sm ">{{ $t("basic.login.gmailLogin") }}</p>
             </div>
         </div>
-        <div class="grid grid-cols-5 bg-blue-400/90 w-[336px] cursor-pointer rounded-lg text-white loginDivGandF hover:bg-blue-200"
-            @click="signInWithGoogleRedirect">
-            <Image class="w-[25px] h-[25px]  col-span-1" :src="'facebook'" :fit="'fill'" />
+        <div class="grid grid-cols-5 bg-gray-400/90 w-[336px] cursor-pointer rounded-lg text-white loginDivGandF hover:bg-gray-200"
+            @click="signInWithGithubPopup">
+            <Image class="w-[25px] h-[25px]  col-span-1" :src="'github'" :fit="'fill'" />
             <div class="flex justify-center items-center col-span-4 relative">
-                <p class="absolute left-12 text-sm ">{{ $t("basic.login.facebookLogin") }}</p>
+                <p class="absolute left-12 text-sm ">{{ $t("basic.login.githubLogin") }}</p>
             </div>
         </div>
+        <!-- <div class="grid grid-cols-5 bg-blue-400/90 w-[336px] cursor-pointer rounded-lg text-white loginDivGandF hover:bg-blue-200"
+            @click="signInWithGithubPopup">
+            <Image class="w-[25px] h-[25px]  col-span-1" :src="'facebook'" :fit="'fill'" />
+            <div class="flex justify-center items-center col-span-4 relative">
+                <p class="absolute left-12 text-sm ">{{ $t("basic.login.githubLogin") }}</p>
+            </div>
+        </div> -->
     </div>
 </template>
 
 <script setup  lang="ts">
 import Image from "@/component/elementPlus/image/Image.vue";
-import { signInWithGooglePopup, signInWithGoogleRedirect } from "@/firebase/firebase.utils"
+import { signInWithGooglePopup ,signInWithGithubPopup} from "@/firebase/firebase.utils"
 
 // const props = defineProps({
 //     loginOrSignUp: { type: String }

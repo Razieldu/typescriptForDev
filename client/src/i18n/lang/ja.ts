@@ -30,7 +30,8 @@ export default {
         button: "ログイン",
 
         gmailLogin: "Gmail ログイン",
-        facebookLogin: "フェイスブックログイン"
+        facebookLogin: "フェイスブックログイン",
+        githubLogin: "Github ログイン"
     },
     signUp: {
         successSignUp: "登録完了",

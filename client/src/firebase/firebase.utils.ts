@@ -1,6 +1,6 @@
 
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect, GithubAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 // import { collection, addDoc } from "firebase/firestore";
 
@@ -18,6 +18,8 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
+const githubProvider = new GithubAuthProvider()
+
 export const auth = getAuth();
 
 export const signInWithGooglePopup = () =>
@@ -25,6 +27,10 @@ export const signInWithGooglePopup = () =>
 
 export const signInWithGoogleRedirect = () =>
     signInWithRedirect(auth, googleProvider);
+
+export const signInWithGithubPopup = () => {
+    signInWithPopup(auth, githubProvider)
+}
 
 export const db = getFirestore(firebaseApp);
 
