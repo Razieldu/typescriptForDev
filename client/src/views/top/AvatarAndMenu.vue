@@ -3,7 +3,7 @@
         <el-dropdown trigger="click">
             <span class="el-dropdown-link">
                 <div class="flex justify-center align-center">
-                    <el-avatar :src="'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'" />
+                    <el-avatar :src="photo" />
                 </div>
             </span>
             <template #dropdown>
@@ -43,5 +43,8 @@ import {
     User,
     SwitchButton
 } from '@element-plus/icons-vue'
+import { useUserDataStore } from "@/store";
+const { isLogin } = useUserDataStore()
+const photo = isLogin?.photoURL || "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
 
 </script>

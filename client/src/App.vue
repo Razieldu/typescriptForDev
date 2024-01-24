@@ -42,14 +42,7 @@ const locale = computed(() => {
 onMounted(async () => {
   onAuthStateChangedListener(async (user: any) => {
     if (user) {
-      let data = {
-        email: user.email,
-        emailVerified: user.emailVerified,
-        mataData: user.metadata,
-        photoURL: user.photoURL,
-        signInProvider:user.providerId
-      }
-      console.log(data, "data")
+      console.log(user, "data")
       setLogin(user)
       router.push("/")
     } else {
