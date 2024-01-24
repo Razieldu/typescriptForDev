@@ -28,9 +28,7 @@ export const signInWithGooglePopup = () =>
 export const signInWithGoogleRedirect = () =>
     signInWithRedirect(auth, googleProvider);
 
-export const signInWithGithubPopup = () => {
-    signInWithPopup(auth, githubProvider)
-}
+export const signInWithGithubPopup = () =>  signInWithPopup(auth, githubProvider)
 
 export const db = getFirestore(firebaseApp);
 

@@ -46,7 +46,8 @@ onMounted(async () => {
         email: user.email,
         emailVerified: user.emailVerified,
         mataData: user.metadata,
-        photoURL: user.photoURL
+        photoURL: user.photoURL,
+        signInProvider:user.providerId
       }
       console.log(data, "data")
       setLogin(user)

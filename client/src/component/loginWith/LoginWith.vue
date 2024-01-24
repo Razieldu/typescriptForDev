@@ -42,6 +42,4 @@ import { signInWithGooglePopup ,signInWithGithubPopup} from "@/firebase/firebase
 //     },
 //     signUp: { gamil: "", facebook: "" }
 // })
-
-
 </script>
