@@ -44,6 +44,10 @@ export default {
     toLoginPage1: "Already have an account ? Go to",
     toLoginPage2: "login",
     button: "Sign Up",
+
+    gmailSignUp: "Sign Up with Gmail",
+    facebookSignUp: "Sign Up with Facebook",
+    githubSignUp: "Sign Up with Github"
   },
   right: {
     mainPage: "Main Page",

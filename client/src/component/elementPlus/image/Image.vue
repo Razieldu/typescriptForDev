@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import google from "@/assets/photo/google.png"
+import google from "@/assets/photo/google.svg"
 import facebook from "@/assets/photo/facebookNew.png"
 import github from "@/assets/photo/github.svg"
 const props = defineProps({
@@ -13,6 +13,9 @@ const props = defineProps({
     fit: { type: String, default: 'fill' },
     src: { type: String }
 })
+
+
+
 const imageUrl = computed(() => {
     switch (props.src) {
         case "google":
@@ -25,4 +28,6 @@ const imageUrl = computed(() => {
             return props.src;
     }
 });
+
+
 </script>

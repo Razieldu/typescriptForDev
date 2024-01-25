@@ -20,10 +20,12 @@ import { useSettingStore } from "@/store";
 import { useUserDataStore } from "@/store";
 import { onAuthStateChangedListener } from "./firebase/firebase.utils"
 import { handleLogOut } from "@/utils"
+
 const { language } = storeToRefs(useSettingStore());
 const { setLogin } = useUserDataStore();
 const languageState = computed(() => language.value);
 import router from "@/router/router"
+
 const locale = computed(() => {
   switch (languageState.value) {
     case "en":

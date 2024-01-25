@@ -43,7 +43,10 @@ export default {
         toLoginPage1: "すでにアカウントをお持ちですか ？に行く",
         toLoginPage2: "ログインする",
         button: "登録する",
-        emailAlreadyInUse: "",
+        
+        gmailSignUp: "Gmail でサインアップ",
+        facebookSignUp:"Facebook でサインアップ",
+        githubSignUp: "Github でサインアップ"
     },
     right: {
         mainPage: "メインデータページ ",

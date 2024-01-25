@@ -43,6 +43,10 @@ export default {
         toLoginPage1: "已经拥有帐号? 前往",
         toLoginPage2: "登入",
         button: "注册",
+
+        gmailSignUp: "Gmail注册",
+        facebookSignUp: "Facebook注册",
+        githubSignUp: "Github注册"
     },
     right: {
         mainPage: "主资料页面",
