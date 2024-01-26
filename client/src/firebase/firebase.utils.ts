@@ -79,15 +79,10 @@ export const getCurrentUser = () => {
 
 export const db = getFirestore(firebaseApp);
 
-export const createUserDocumentFromAuth = async (
-    userAuth: any
-) => {
-
+export const createUserDocumentFromAuth = async (userAuth: any) => {
     if (!userAuth) return;
     const userDocRef = doc(db, 'users', userAuth.uid);
-
     const userSnapshot = await getDoc(userDocRef);
-
     if (!userSnapshot.exists()) {
         const { displayName, email, uid, photoURL, providerData, emailVerified, phoneNumber } = userAuth
         let userData = {
@@ -106,7 +101,6 @@ export const createUserDocumentFromAuth = async (
             console.log('error creating the user', error);
         }
     }
-
     return userSnapshot
 };
 
@@ -117,6 +111,20 @@ export const updateUserPhoto = async (uid: string, photoNewURL: string) => {
     } catch (error) {
         console.error(error)
     }
+}
+
+export const getUserPhoto = async (uid: string) => {
+    let photoURL = ""
+    try {
+        const userRef = doc(db, "users", uid);
+        const userSnap = await getDoc(userRef)
+        if (userSnap.exists()) {
+            photoURL = userSnap.data().photoURL
+        }
+    } catch (error) {
+        console.log("No such document!");
+    }
+    return photoURL
 }
 
 
@@ -147,7 +155,6 @@ export const getPhoto = async (uid: string, photoName: string) => {
     let resultURL = "";
     try {
         const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${photoName}`));
-        console.log(url)
         resultURL = url;
     } catch (error) {
         console.error(error);

@@ -26,7 +26,7 @@
 
             <div class="w-[40%] p-4">
                 <h1 class="text-2xl mb-4">Profile Picture</h1>
-                <el-image class="rounded-full w-[200px] h-[200px]" :src="isLogin?.photoURL" lazy />
+                <el-image class="rounded-full w-[200px] h-[200px]" :src="photo" lazy />
                 <div class="flex justify-center items-center w-[100%]">
                     <el-upload :on-change="handleChange" :auto-upload="false" :show-file-list="false">
                         <template #trigger>
@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import { useUserDataStore } from "@/store"
 import { uploadImageToStorage, getPhoto,updateUserPhoto } from "@/firebase/firebase.utils";
-const { isLogin } = useUserDataStore()
+const { isLogin,userNewPhoto } = useUserDataStore()
 
 const handleChange = async (uploadFile: any, _uploadFiles: any) => {
     console.log(uploadFile.raw, isLogin?.uid, "確認")
@@ -59,7 +59,7 @@ const handleChange = async (uploadFile: any, _uploadFiles: any) => {
         }
     }
 }
-
+const photo = userNewPhoto || (isLogin ? isLogin.photoURL : null);
 </script>
 <style>
 .el-input.profile {

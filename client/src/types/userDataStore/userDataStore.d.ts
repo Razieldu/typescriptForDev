@@ -1,5 +1,6 @@
 export interface userDataState {
   isLogin: null | FirebaseUser;
+  userNewPhoto:string
 }
 
 
