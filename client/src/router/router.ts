@@ -15,11 +15,11 @@ const routes:RouteRecordRaw[] = [
       preloadImagesIfNeeded(to, next);
     },
   },
-  {
-    path: "/signUp", name: "signUp", component: () => import("@/views/signup/Signup.vue"), meta: { preloadImages: true }, beforeEnter: (to: RouteLocationNormalized, _from, next: NavigationGuardNext) => {
-      preloadImagesIfNeeded(to, next);
-    },
-  },
+  // {
+  //   path: "/signUp", name: "signUp", component: () => import("@/views/signup/Signup.vue"), meta: { preloadImages: true }, beforeEnter: (to: RouteLocationNormalized, _from, next: NavigationGuardNext) => {
+  //     preloadImagesIfNeeded(to, next);
+  //   },
+  // },
   { path: "/", name: "main", component: () => import("@/views/middle/Middle.vue"), meta: { requiresAuth: true } },
   { path: "/profile", name: "profile", component: () => import("@/views/profile/Profile.vue"), meta: { requiresAuth: true } }
 ];

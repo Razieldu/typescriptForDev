@@ -10,7 +10,7 @@ export interface FirebaseUser {
   isAnonymous: boolean;
   photoURL: string;
   providerData: ProviderData[];
-  stsTokenManager: {
+  stsTokenManager?: {
     refreshToken: string;
     accessToken: string;
     expirationTime: number;

@@ -1,8 +1,8 @@
 <template>
-  <div class="w-screen h-screen flex justify-center items-center halfDarkBg ">
+  <div class="w-screen h-screen flex justify-center items-center halfDarkBg">
     <form action="">
       <div class="flex flex-col justify-center items-center h-[480px] w-[420px] gap-3 bg-white rounded-lg loginDiv ">
-        <h1 class="text-2xl font-bold mb-5">
+        <h1 class="text-3xl font-bold mb-5">
           {{ $t("basic.login.formtitle") }}
         </h1>
         <!-- <div class="flex w-[80%] h-[50px] ">
@@ -17,12 +17,12 @@
         </div> -->
         <!-- <el-button @click="handleLogin(userAccount, userPassword, t)" size="large" type="primary">{{
           $t("basic.login.button") }}</el-button> -->
-        <div class="flex gap-1 text-xs mt-3">
+        <!-- <div class="flex gap-1 text-xs mt-3">
           <p class="darkP">{{ $t("basic.login.toSignUpPage1") }}</p>
           <router-link to="/signUp">
             <p class="text-red-500 underline cursor-pointer font-bold">{{ $t("basic.login.toSignUpPage2") }}</p>
           </router-link>
-        </div>
+        </div> -->
         <LoginWith :login-or-sign-up="'login'" />
       </div>
     </form>

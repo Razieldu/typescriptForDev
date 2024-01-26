@@ -2,7 +2,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect, GithubAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-// import { collection, addDoc } from "firebase/firestore";
+import { doc, serverTimestamp, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { transformTime } from "@/utils";
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_APIKEY,
@@ -22,15 +24,23 @@ const githubProvider = new GithubAuthProvider()
 
 export const auth = getAuth();
 
-export const signInWithGooglePopup = () =>
-    signInWithPopup(auth, googleProvider);
+export const signInWithGooglePopup = async () => {
+    try {
+        const result = await signInWithPopup(auth, googleProvider);
+        let user = result?.user
+        await createUserDocumentFromAuth(user)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 export const signInWithGoogleRedirect = () =>
     signInWithRedirect(auth, googleProvider);
 
-export const signInWithGithubPopup = () =>  signInWithPopup(auth, githubProvider)
+export const signInWithGithubPopup = () => signInWithPopup(auth, githubProvider)
 
-export const db = getFirestore(firebaseApp);
+
 
 export const createAuthUserWithEmailAndPassword = async (email: string, password: string) => {
     if (!email || !password) return;
@@ -63,15 +73,84 @@ export const getCurrentUser = () => {
         );
     });
 };
-// export const addData = async () => {
-//     try {
-//         const docRef = await addDoc(collection(db, "users"), {
-//             first: "Ada",
-//             last: "Lovelace",
-//             born: 1815
-//         });
-//         console.log("Document written with ID: ", docRef.id);
-//     } catch (e) {
-//         console.error("Error adding document: ", e);
-//     }
-// }
+
+
+////fireStore
+
+export const db = getFirestore(firebaseApp);
+
+export const createUserDocumentFromAuth = async (
+    userAuth: any
+) => {
+
+    if (!userAuth) return;
+    const userDocRef = doc(db, 'users', userAuth.uid);
+
+    const userSnapshot = await getDoc(userDocRef);
+
+    if (!userSnapshot.exists()) {
+        const { displayName, email, uid, photoURL, providerData, emailVerified, phoneNumber } = userAuth
+        let userData = {
+            displayName,
+            emailVerified,
+            email,
+            phoneNumber,
+            photoURL,
+            uid,
+            providerData,
+            timestamp: serverTimestamp()
+        }
+        try {
+            await setDoc(userDocRef, userData);
+        } catch (error) {
+            console.log('error creating the user', error);
+        }
+    }
+
+    return userSnapshot
+};
+
+export const updateUserPhoto = async (uid: string, photoNewURL: string) => {
+    try {
+        const userRef = doc(db, "users", uid);
+        await updateDoc(userRef, { photoURL: photoNewURL })
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+
+////fireStorage
+export const storage = getStorage();
+
+export const uploadImageToStorage = async (file: any, uid: string) => {
+    try {
+        let time = new Date();
+        const result = transformTime(time);
+        const mountainImagesRef = ref(storage, `userPhoto/${uid}/${result}`);
+
+        await new Promise((resolve, reject) => {
+            uploadBytes(mountainImagesRef, file).then((snapshot: any) => {
+                console.log('Uploaded a blob or file!', snapshot);
+                resolve(result);  // 在 uploadBytes 完成後，將 result 傳遞給 resolve
+            }).catch(reject);  // 如果有錯誤，將錯誤傳遞給 reject
+        });
+
+        return result;  // 在 Promise 完成後再返回 result
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
+export const getPhoto = async (uid: string, photoName: string) => {
+    let resultURL = "";
+    try {
+        const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${photoName}`));
+        console.log(url)
+        resultURL = url;
+    } catch (error) {
+        console.error(error);
+    }
+    return resultURL;
+};

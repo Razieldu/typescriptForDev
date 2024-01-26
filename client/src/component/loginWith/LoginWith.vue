@@ -3,25 +3,25 @@
         <div class="flex items-center justify-center">
             <hr class="border-t border-gray-200 my-1 w-[90%]">
         </div>
-        <div class="grid grid-cols-5 bg-red-400/90 w-[336px] cursor-pointer rounded-lg text-white loginDivGandF hover:bg-red-200"
+        <div class="flex bg-white w-[336px] h-[35px] cursor-pointer rounded-lg text-white loginDivGandF hover:bg-gray-200 relative googleLoginArea "
             @click="signInWithGooglePopup">
-            <Image class="w-[25px] h-[25px]  col-span-1" :src="'google'" :fit="'fill'" />
-            <div class="flex justify-center items-center col-span-4 relative">
-                <p class="absolute left-12 text-sm ">{{ $t(useType?.gmail) }}</p>
+            <Image class="w-[25px] h-[30px] absolute left-1" :src="'google'" :fit="'fill'" />
+            <div class="flex justify-center items-center w-[336px] h-[35px] absolute text-black">
+                <p class="text-sm ">{{ $t(useType?.gmail) }}</p>
             </div>
         </div>
-        <!-- <div class="grid grid-cols-5 bg-gray-400/90 w-[336px] cursor-pointer rounded-lg text-white loginDivGandF hover:bg-gray-200"
+        <!-- <div class="flex bg-gray-400/90 w-[336px] h-[35px] cursor-pointer rounded-lg text-white loginDivGandF hover:bg-gray-200 relative"
             @click="signInWithGithubPopup">
-            <Image class="w-[25px] h-[25px]  col-span-1" :src="'github'" :fit="'fill'" />
-            <div class="flex justify-center items-center col-span-4 relative">
-                <p class="absolute left-12 text-sm ">{{ $t(useType?.github) }}</p>
+            <Image class="w-[25px] h-[25px] absolute left-1" :src="'github'" :fit="'fill'" />
+            <div class="flex justify-center items-center w-[336px] h-[35px] absolute">
+                <p class="text-sm ">{{ $t(useType?.github) }}</p>
             </div>
-        </div>
-        <div class="grid grid-cols-5 bg-blue-400/90 w-[336px] cursor-pointer rounded-lg text-white loginDivGandF hover:bg-blue-200"
+        </div> -->
+        <!-- <div class="flex bg-blue-400/90 w-[336px] h-[35px] cursor-pointer rounded-lg text-white loginDivGandF hover:bg-blue-200 relative"
             @click="signInWithGithubPopup">
-            <Image class="w-[25px] h-[25px]  col-span-1" :src="'facebook'" :fit="'fill'" />
-            <div class="flex justify-center items-center col-span-4 relative">
-                <p class="absolute left-12 text-sm ">{{ $t(useType?.facebook) }}</p>
+            <Image  class="w-[25px] h-[25px] absolute left-1" :src="'facebook'" :fit="'fill'" />
+            <div class="flex justify-center items-center w-[336px] h-[35px] absolute">
+                <p class="text-sm ">{{ $t(useType?.facebook) }}</p>
             </div>
         </div> -->
     </div>
@@ -30,7 +30,7 @@
 <script setup  lang="ts">
 import Image from "@/component/elementPlus/image/Image.vue";
 // import { signInWithGooglePopup, signInWithGithubPopup } from "@/firebase/firebase.utils"
-import { signInWithGooglePopup} from "@/firebase/firebase.utils"
+import { signInWithGooglePopup } from "@/firebase/firebase.utils"
 const props = defineProps({
     loginOrSignUp: { type: String }
 })
@@ -45,5 +45,10 @@ const useType = computed(() => {
             return { gmail: "", github: "", facebook: "" }
     }
 });
-
 </script>
+<style>
+div.googleLoginArea {
+    border: 1px solid var(--el-border-color);
+
+}
+</style>

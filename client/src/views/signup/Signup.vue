@@ -2,7 +2,7 @@
   <div class="w-screen h-screen flex justify-center items-center halfDarkBg">
     <form action="">
       <div class="flex flex-col justify-center items-center h-[480px] w-[420px] gap-3 bg-white rounded-lg loginDiv ">
-        <h1 class="text-2xl font-bold mb-5">
+        <h1 class="text-3xl font-bold mb-5">
           {{ $t("basic.signUp.formtitle") }}
         </h1>
         <!-- <div class="flex w-[80%] h-[50px] ">

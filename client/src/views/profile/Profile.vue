@@ -21,18 +21,46 @@
                     <el-input class="profile bio mb-1" />
                     <p class="text-xs">You can @mention other users and organizations to link to them.</p>
                 </div>
-                
+
             </div>
-            
+
             <div class="w-[40%] p-4">
                 <h1 class="text-2xl mb-4">Profile Picture</h1>
-                 <el-image class="rounded-full w-[200px] h-[200px]" :src=" 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg'" lazy/>
+                <el-image class="rounded-full w-[200px] h-[200px]" :src="isLogin?.photoURL" lazy />
+                <div class="flex justify-center items-center w-[100%]">
+                    <el-upload :on-change="handleChange" :auto-upload="false" :show-file-list="false">
+                        <template #trigger>
+                            <el-button :size="'small'" class="text-2xs" type="info" plain>update</el-button>
+                        </template>
+                    </el-upload>
+                </div>
+
             </div>
         </div>
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserDataStore } from "@/store"
+import { uploadImageToStorage, getPhoto,updateUserPhoto } from "@/firebase/firebase.utils";
+const { isLogin } = useUserDataStore()
+
+const handleChange = async (uploadFile: any, _uploadFiles: any) => {
+    console.log(uploadFile.raw, isLogin?.uid, "確認")
+    let targetUserUid = isLogin?.uid
+    if (targetUserUid) {
+        try {
+            let fileName = await uploadImageToStorage(uploadFile.raw, targetUserUid)
+            let newPhotoURL = await getPhoto(targetUserUid, fileName)
+            await updateUserPhoto(targetUserUid,newPhotoURL)
+            console.log(newPhotoURL)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+}
+
+</script>
 <style>
 .el-input.profile {
     margin-top: 4px;
