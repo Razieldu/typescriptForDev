@@ -6,7 +6,7 @@ export const useUserDataStore = defineStore("userData", {
     isLogin: null,
     currentPhotoURL: "",
     userChoosePhotoFileName: "",
-    userGooglePhotoURL:"",
+    // userGooglePhotoURL:"",
   }),
   actions: {
     setLogin(user: any) {

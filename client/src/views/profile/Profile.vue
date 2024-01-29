@@ -30,7 +30,7 @@
                 <div class="flex justify-center items-center w-[100%]">
                     <el-upload :on-change="handleChange" :auto-upload="false" :show-file-list="false">
                         <template #trigger>
-                            <el-button :size="'small'" class="text-2xs" type="info" plain>update</el-button>
+                            <el-button :size="'small'" class="uploadButton text-2xs" type="info" plain>update</el-button>
                         </template>
                     </el-upload>
                 </div>

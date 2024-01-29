@@ -74,6 +74,17 @@ html.dark .loginInput .el-input__inner {
     color: #1c2518
 }
 
+/*profile*/
+html.dark .uploadButton {
+    color: white
+}
+
+html.dark .uploadButton:hover {
+    background-color: var(--el-color-info-dark-2);
+    color: white
+}
+
+
 
 html.dark h1 {
     color: var(--el-bg-color-page);
