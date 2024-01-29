@@ -44,7 +44,11 @@ import {
     SwitchButton
 } from '@element-plus/icons-vue'
 import { useUserDataStore } from "@/store";
-const { isLogin,userNewPhoto } = useUserDataStore()
-const photo = userNewPhoto || (isLogin ? isLogin.photoURL : null);
+const { isLogin, userChoosePhotoURL } = storeToRefs(useUserDataStore())
+let photo = ref(userChoosePhotoURL || (isLogin ? isLogin?.value?.photoURL : null))
+
+watch(userChoosePhotoURL, (newVal) => {
+     photo.value = newVal
+})
 
 </script>

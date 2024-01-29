@@ -5,7 +5,7 @@ import { getFirestore } from "firebase/firestore";
 import { doc, serverTimestamp, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { transformTime } from "@/utils";
-
+import { useUserDataStore } from "@/store";
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_APIKEY,
     authDomain: import.meta.env.VITE_AUTHDOMAIN,
@@ -132,9 +132,11 @@ export const getUserPhoto = async (uid: string) => {
 export const storage = getStorage();
 
 export const uploadImageToStorage = async (file: any, uid: string) => {
+    const { setUserChoosePhotoName } = useUserDataStore()
     try {
         let time = new Date();
         const result = transformTime(time);
+        setUserChoosePhotoName(result)
         const mountainImagesRef = ref(storage, `userPhoto/${uid}/${result}`);
 
         await new Promise((resolve, reject) => {
@@ -151,13 +153,30 @@ export const uploadImageToStorage = async (file: any, uid: string) => {
 }
 
 
+// export const getPhoto = async (uid: string, photoName: string) => {
+//     let resultURL = "";
+//     try {
+//         const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${photoName}`));
+//         resultURL = url;
+//     } catch (error) {
+//         console.error(error);
+//     }
+//     return resultURL;
+// };
+
 export const getPhoto = async (uid: string, photoName: string) => {
+    const { isLogin, userChoosePhotoURL } = useUserDataStore()
     let resultURL = "";
     try {
         const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${photoName}`));
         resultURL = url;
-    } catch (error) {
-        console.error(error);
+    } catch (error: any) {
+        console.error("FirebaseError:", error);
+        // if (error.message.includes("storage/object-not-found")) {
+        //     await updateUserPhoto(uid, "")
+        // }
     }
+    console.log(isLogin?.photoURL)
+    console.log(userChoosePhotoURL)
     return resultURL;
 };

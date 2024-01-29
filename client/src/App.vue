@@ -22,8 +22,8 @@ import { onAuthStateChangedListener, getUserPhoto } from "./firebase/firebase.ut
 import { handleLogOut } from "@/utils"
 
 const { language } = storeToRefs(useSettingStore());
-const { setLogin, updatePhoto} = useUserDataStore();
-const {userNewPhoto,isLogin } = storeToRefs(useUserDataStore())
+const { setLogin, setUserChoosePhotoURL } = useUserDataStore();
+const { isLogin } = storeToRefs(useUserDataStore())
 const languageState = computed(() => language.value);
 import router from "@/router/router"
 
@@ -45,7 +45,7 @@ const locale = computed(() => {
 onMounted(async () => {
   onAuthStateChangedListener(async (user: any) => {
     if (user) {
-      console.log(user, "onAuthStateChange")
+      // console.log(user, "onAuthStateChange")
       setLogin(user)
       router.push("/")
     } else {
@@ -56,7 +56,8 @@ onMounted(async () => {
   if (isLogin.value) {
     try {
       let updatePhotoURL = await getUserPhoto(isLogin.value.uid);
-      updatePhoto(updatePhotoURL)
+      console.log(updatePhotoURL, "確認")
+      setUserChoosePhotoURL(updatePhotoURL)
       console.log(updatePhotoURL)
     } catch (error) {
       console.error(error);
@@ -69,20 +70,19 @@ watch(isLogin, async (newVal, _oldVal) => {
   // 在这里执行相应的操作，例如重新渲染组件
   if (newVal) {
     let updatePhotoURL = await getUserPhoto(newVal.uid);
-    console.log(updatePhotoURL)
-    updatePhoto(updatePhotoURL);
-    console.log('isLogin 已更新:', newVal);
+    // console.log(updatePhotoURL)
+    setUserChoosePhotoURL(updatePhotoURL);
+    // console.log('isLogin 已更新:', newVal);
   }
 });
 
-// 监听 userNewPhoto 的变化
-watch(userNewPhoto, async (newVal, _oldVal) => {
-  // 在这里执行相应的操作，例如重新渲染组件
-  if (newVal) {
-    let updatePhotoURL = await getUserPhoto(isLogin?.value.uid);
-    console.log(updatePhotoURL)
-    updatePhoto(updatePhotoURL);
-    console.log('userNewPhoto 已更新:', newVal);
-  }
-});
+// watch(userChoosePhotoURL, async (newVal, _oldVal) => {
+//   // 在这里执行相应的操作，例如重新渲染组件
+//   if (newVal) {
+//     let updatePhotoURL = await getUserPhoto(isLogin?.value?.uid);
+//     console.log(updatePhotoURL)
+//     setUserChoosePhotoURL(updatePhotoURL);
+//     console.log('userNewPhoto 已更新:', newVal);
+//   }
+// });
 </script>

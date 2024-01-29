@@ -42,24 +42,32 @@
 
 <script setup lang="ts">
 import { useUserDataStore } from "@/store"
-import { uploadImageToStorage, getPhoto,updateUserPhoto } from "@/firebase/firebase.utils";
-const { isLogin,userNewPhoto } = useUserDataStore()
+import { uploadImageToStorage, getPhoto, updateUserPhoto } from "@/firebase/firebase.utils";
+const { isLogin, userChoosePhotoURL } = storeToRefs(useUserDataStore())
+const { setUserChoosePhotoURL } = useUserDataStore()
 
 const handleChange = async (uploadFile: any, _uploadFiles: any) => {
-    console.log(uploadFile.raw, isLogin?.uid, "確認")
-    let targetUserUid = isLogin?.uid
+    console.log(uploadFile.raw, isLogin?.value?.uid, "確認")
+    let targetUserUid = isLogin?.value?.uid
     if (targetUserUid) {
         try {
-            let fileName = await uploadImageToStorage(uploadFile.raw, targetUserUid)
-            let newPhotoURL = await getPhoto(targetUserUid, fileName)
-            await updateUserPhoto(targetUserUid,newPhotoURL)
-            console.log(newPhotoURL)
+            let fileName: string | undefined = await uploadImageToStorage(uploadFile.raw, targetUserUid)
+            if (fileName !== undefined) {
+                let newPhotoURL = await getPhoto(targetUserUid, fileName)
+                setUserChoosePhotoURL(newPhotoURL)
+                await updateUserPhoto(targetUserUid, newPhotoURL)
+                console.log(newPhotoURL)
+            }
         } catch (error) {
             console.error(error);
         }
     }
 }
-const photo = userNewPhoto || (isLogin ? isLogin.photoURL : null);
+let photo = ref(userChoosePhotoURL || (isLogin ? isLogin?.value?.photoURL : null))
+
+watch(userChoosePhotoURL, (newVal) => {
+    photo.value = newVal
+})
 </script>
 <style>
 .el-input.profile {
