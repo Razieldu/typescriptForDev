@@ -26,7 +26,7 @@
 
             <div class="w-[40%] p-4">
                 <h1 class="text-2xl mb-4">Profile Picture</h1>
-                <el-image class="rounded-full w-[200px] h-[200px]" :src="photo" lazy />
+                <el-image class="rounded-full w-[200px] h-[200px]" :src="photo.value" lazy />
                 <div class="flex justify-center items-center w-[100%]">
                     <el-upload :on-change="handleChange" :auto-upload="false" :show-file-list="false">
                         <template #trigger>
@@ -42,9 +42,9 @@
 
 <script setup lang="ts">
 import { useUserDataStore } from "@/store"
-import { uploadImageToStorage, getPhoto, updateUserPhoto } from "@/firebase/firebase.utils";
-const { isLogin, userChoosePhotoURL } = storeToRefs(useUserDataStore())
-const { setUserChoosePhotoURL } = useUserDataStore()
+import { uploadImageToStorage, getPhoto, updateUserPhotoDoc } from "@/firebase/firebase.utils";
+const { isLogin, currentPhotoURL,userChoosePhotoFileName } = storeToRefs(useUserDataStore())
+const { setCurrentPhotoURL } = useUserDataStore()
 
 const handleChange = async (uploadFile: any, _uploadFiles: any) => {
     console.log(uploadFile.raw, isLogin?.value?.uid, "確認")
@@ -54,8 +54,8 @@ const handleChange = async (uploadFile: any, _uploadFiles: any) => {
             let fileName: string | undefined = await uploadImageToStorage(uploadFile.raw, targetUserUid)
             if (fileName !== undefined) {
                 let newPhotoURL = await getPhoto(targetUserUid, fileName)
-                setUserChoosePhotoURL(newPhotoURL)
-                await updateUserPhoto(targetUserUid, newPhotoURL)
+                setCurrentPhotoURL(newPhotoURL)
+                await updateUserPhotoDoc(targetUserUid, newPhotoURL,userChoosePhotoFileName.value)
                 console.log(newPhotoURL)
             }
         } catch (error) {
@@ -63,11 +63,10 @@ const handleChange = async (uploadFile: any, _uploadFiles: any) => {
         }
     }
 }
-let photo = ref(userChoosePhotoURL || (isLogin ? isLogin?.value?.photoURL : null))
+const photo = computed(() => {
+  return currentPhotoURL || (isLogin.value ? isLogin.value.photoURL : null);
+});
 
-watch(userChoosePhotoURL, (newVal) => {
-    photo.value = newVal
-})
 </script>
 <style>
 .el-input.profile {

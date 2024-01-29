@@ -4,8 +4,9 @@ import { userDataState } from "@/types"
 export const useUserDataStore = defineStore("userData", {
   state: (): userDataState => ({
     isLogin: null,
-    userChoosePhotoURL: "",
-    userChoosePhotoFileName: ""
+    currentPhotoURL: "",
+    userChoosePhotoFileName: "",
+    userGooglePhotoURL:"",
   }),
   actions: {
     setLogin(user: any) {
@@ -14,8 +15,8 @@ export const useUserDataStore = defineStore("userData", {
     logOut() {
       this.isLogin = null;
     },
-    setUserChoosePhotoURL(newPhotoURL: string) {
-      this.userChoosePhotoURL = newPhotoURL
+    setCurrentPhotoURL(newPhotoURL: string) {
+      this.currentPhotoURL = newPhotoURL
     },
     setUserChoosePhotoName(name: string) {
       this.userChoosePhotoFileName = name

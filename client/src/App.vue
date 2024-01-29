@@ -18,11 +18,11 @@ import ElementZhCN from "element-plus/es/locale/lang/zh-cn";
 import ElementZhJA from "element-plus/es/locale/lang/ja";
 import { useSettingStore } from "@/store";
 import { useUserDataStore } from "@/store";
-import { onAuthStateChangedListener, getUserPhoto } from "./firebase/firebase.utils"
+import { onAuthStateChangedListener, getUserPhotoDoc, checkChoosePhoto } from "./firebase/firebase.utils"
 import { handleLogOut } from "@/utils"
 
 const { language } = storeToRefs(useSettingStore());
-const { setLogin, setUserChoosePhotoURL } = useUserDataStore();
+const { setLogin, setCurrentPhotoURL } = useUserDataStore();
 const { isLogin } = storeToRefs(useUserDataStore())
 const languageState = computed(() => language.value);
 import router from "@/router/router"
@@ -55,10 +55,13 @@ onMounted(async () => {
 
   if (isLogin.value) {
     try {
-      let updatePhotoURL = await getUserPhoto(isLogin.value.uid);
-      console.log(updatePhotoURL, "確認")
-      setUserChoosePhotoURL(updatePhotoURL)
-      console.log(updatePhotoURL)
+      let updatePhotoURL = await getUserPhotoDoc(isLogin.value.uid);
+      let ifHasChoosePhoto = await checkChoosePhoto(isLogin.value.uid)
+      // console.log(updatePhotoURL, "確認")
+      if (updatePhotoURL && ifHasChoosePhoto) {
+        setCurrentPhotoURL(updatePhotoURL)
+      }
+      // console.log(updatePhotoURL)
     } catch (error) {
       console.error(error);
       // 在处理错误的情况下进行相应的处理
@@ -69,20 +72,16 @@ onMounted(async () => {
 watch(isLogin, async (newVal, _oldVal) => {
   // 在这里执行相应的操作，例如重新渲染组件
   if (newVal) {
-    let updatePhotoURL = await getUserPhoto(newVal.uid);
+    let updatePhotoURL = await getUserPhotoDoc(newVal.uid);
+    let ifHasChoosePhoto = await checkChoosePhoto(newVal?.uid)
     // console.log(updatePhotoURL)
-    setUserChoosePhotoURL(updatePhotoURL);
+    if (updatePhotoURL && ifHasChoosePhoto) {
+      setCurrentPhotoURL(updatePhotoURL)
+    } else {
+      setCurrentPhotoURL(newVal.photoURL)
+    }
     // console.log('isLogin 已更新:', newVal);
   }
 });
 
-// watch(userChoosePhotoURL, async (newVal, _oldVal) => {
-//   // 在这里执行相应的操作，例如重新渲染组件
-//   if (newVal) {
-//     let updatePhotoURL = await getUserPhoto(isLogin?.value?.uid);
-//     console.log(updatePhotoURL)
-//     setUserChoosePhotoURL(updatePhotoURL);
-//     console.log('userNewPhoto 已更新:', newVal);
-//   }
-// });
 </script>

@@ -90,7 +90,9 @@ export const createUserDocumentFromAuth = async (userAuth: any) => {
             emailVerified,
             email,
             phoneNumber,
-            photoURL,
+            googlePhotoURL: photoURL,
+            userChoosePhotoURL: "",
+            currentPhotoName: "",
             uid,
             providerData,
             timestamp: serverTimestamp()
@@ -104,26 +106,29 @@ export const createUserDocumentFromAuth = async (userAuth: any) => {
     return userSnapshot
 };
 
-export const updateUserPhoto = async (uid: string, photoNewURL: string) => {
+export const updateUserPhotoDoc = async (uid: string, photoNewURL: string, photoName: string) => {
     try {
         const userRef = doc(db, "users", uid);
-        await updateDoc(userRef, { photoURL: photoNewURL })
+        await updateDoc(userRef, { userChoosePhotoURL: photoNewURL, currentPhotoName: photoName })
     } catch (error) {
         console.error(error)
     }
 }
 
-export const getUserPhoto = async (uid: string) => {
+export const getUserPhotoDoc = async (uid: string) => {
     let photoURL = ""
     try {
         const userRef = doc(db, "users", uid);
         const userSnap = await getDoc(userRef)
         if (userSnap.exists()) {
-            photoURL = userSnap.data().photoURL
+            let googlePhoto = userSnap.data().googlePhotoURL
+            let userChoosePhoto = userSnap.data().userChoosePhotoURL
+            photoURL = userChoosePhoto || googlePhoto
         }
     } catch (error) {
         console.log("No such document!");
     }
+    console.log(photoURL)
     return photoURL
 }
 
@@ -137,10 +142,12 @@ export const uploadImageToStorage = async (file: any, uid: string) => {
         let time = new Date();
         const result = transformTime(time);
         setUserChoosePhotoName(result)
-        const mountainImagesRef = ref(storage, `userPhoto/${uid}/${result}`);
+        const userRef = doc(db, "users", uid);
+        await updateDoc(userRef, { currentPhotoName: result })
+        const imagesRef = ref(storage, `userPhoto/${uid}/${result}`);
 
         await new Promise((resolve, reject) => {
-            uploadBytes(mountainImagesRef, file).then((snapshot: any) => {
+            uploadBytes(imagesRef, file).then((snapshot: any) => {
                 console.log('Uploaded a blob or file!', snapshot);
                 resolve(result);  // 在 uploadBytes 完成後，將 result 傳遞給 resolve
             }).catch(reject);  // 如果有錯誤，將錯誤傳遞給 reject
@@ -152,20 +159,8 @@ export const uploadImageToStorage = async (file: any, uid: string) => {
     }
 }
 
-
-// export const getPhoto = async (uid: string, photoName: string) => {
-//     let resultURL = "";
-//     try {
-//         const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${photoName}`));
-//         resultURL = url;
-//     } catch (error) {
-//         console.error(error);
-//     }
-//     return resultURL;
-// };
-
 export const getPhoto = async (uid: string, photoName: string) => {
-    const { isLogin, userChoosePhotoURL } = useUserDataStore()
+    // const { isLogin, userChoosePhotoURL } = useUserDataStore()
     let resultURL = "";
     try {
         const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${photoName}`));
@@ -176,7 +171,25 @@ export const getPhoto = async (uid: string, photoName: string) => {
         //     await updateUserPhoto(uid, "")
         // }
     }
-    console.log(isLogin?.photoURL)
-    console.log(userChoosePhotoURL)
+    // console.log(isLogin?.photoURL)
+    // console.log(userChoosePhotoURL)
     return resultURL;
 };
+
+export const checkChoosePhoto = async (uid: string) => {
+    try {
+        const userRef = doc(db, "users", uid);
+        const userSnap = await getDoc(userRef)
+        let fileName;
+        if (userSnap.exists()) {
+            fileName = userSnap.data().currentPhotoName
+        }
+        return await getDownloadURL(ref(storage, `userPhoto/${uid}/${fileName}`));
+    } catch (error: any) {
+        console.error("FirebaseError:", error);
+        if (error.message.includes("storage/object-not-found")) {
+            await updateUserPhotoDoc(uid, "", "")
+        }
+    }
+
+}

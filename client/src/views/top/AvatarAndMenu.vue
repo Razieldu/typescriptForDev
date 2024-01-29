@@ -3,7 +3,7 @@
         <el-dropdown trigger="click">
             <span class="el-dropdown-link">
                 <div class="flex justify-center align-center">
-                    <el-avatar :src="photo" lazy />
+                    <el-avatar :src="photo.value" lazy />
                 </div>
             </span>
             <template #dropdown>
@@ -44,11 +44,14 @@ import {
     SwitchButton
 } from '@element-plus/icons-vue'
 import { useUserDataStore } from "@/store";
-const { isLogin, userChoosePhotoURL } = storeToRefs(useUserDataStore())
-let photo = ref(userChoosePhotoURL || (isLogin ? isLogin?.value?.photoURL : null))
+const { isLogin, currentPhotoURL } = storeToRefs(useUserDataStore())
+// let photo = ref(userChoosePhotoURL || (isLogin ? isLogin?.value?.photoURL : null))
 
-watch(userChoosePhotoURL, (newVal) => {
-     photo.value = newVal
-})
+// watch(userChoosePhotoURL, (newVal) => {
+//      photo.value = newVal
+// })
+const photo = computed(() => {
+  return currentPhotoURL || (isLogin.value ? isLogin.value.photoURL : null);
+});
 
 </script>

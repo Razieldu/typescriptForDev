@@ -1,7 +1,8 @@
 export interface userDataState {
   isLogin: null | FirebaseUser;
-  userChoosePhotoURL:string;
+  currentPhotoURL:string;
   userChoosePhotoFileName:string;
+  userGooglePhotoURL:string;
 }
 
 
