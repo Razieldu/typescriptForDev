@@ -95,6 +95,7 @@ export const createUserDocumentFromAuth = async (userAuth: any) => {
             currentPhotoName: "",
             uid,
             providerData,
+            biography:"",
             timestamp: serverTimestamp()
         }
         try {
@@ -106,7 +107,7 @@ export const createUserDocumentFromAuth = async (userAuth: any) => {
     return userSnapshot
 };
 
-export const updateUserPhotoDoc = async (uid: string, photoNewURL: string, photoName: string) => {
+export const updateUserChoosePhotoInfo = async (uid: string, photoNewURL: string, photoName: string) => {
     try {
         const userRef = doc(db, "users", uid);
         await updateDoc(userRef, { userChoosePhotoURL: photoNewURL, currentPhotoName: photoName })
@@ -159,24 +160,20 @@ export const uploadImageToStorage = async (file: any, uid: string) => {
     }
 }
 
-export const getPhoto = async (uid: string, photoName: string) => {
-    // const { isLogin, userChoosePhotoURL } = useUserDataStore()
+export const getPhotoLocationURL = async (uid: string, photoName: string) => {
     let resultURL = "";
+
     try {
         const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${photoName}`));
         resultURL = url;
     } catch (error: any) {
         console.error("FirebaseError:", error);
-        // if (error.message.includes("storage/object-not-found")) {
-        //     await updateUserPhoto(uid, "")
-        // }
     }
-    // console.log(isLogin?.photoURL)
-    // console.log(userChoosePhotoURL)
+
     return resultURL;
 };
 
-export const checkChoosePhoto = async (uid: string) => {
+export const checkUserChoosePhotoIfExist = async (uid: string) => {
     try {
         const userRef = doc(db, "users", uid);
         const userSnap = await getDoc(userRef)
@@ -188,7 +185,7 @@ export const checkChoosePhoto = async (uid: string) => {
     } catch (error: any) {
         console.error("FirebaseError:", error);
         if (error.message.includes("storage/object-not-found")) {
-            await updateUserPhotoDoc(uid, "", "")
+            await updateUserChoosePhotoInfo(uid, "", "")
         }
     }
 

@@ -18,7 +18,7 @@ import ElementZhCN from "element-plus/es/locale/lang/zh-cn";
 import ElementZhJA from "element-plus/es/locale/lang/ja";
 import { useSettingStore } from "@/store";
 import { useUserDataStore } from "@/store";
-import { onAuthStateChangedListener, getUserPhotoDoc, checkChoosePhoto } from "./firebase/firebase.utils"
+import { onAuthStateChangedListener, getUserPhotoDoc, checkUserChoosePhotoIfExist } from "./firebase/firebase.utils"
 import { handleLogOut } from "@/utils"
 
 const { language } = storeToRefs(useSettingStore());
@@ -53,30 +53,30 @@ onMounted(async () => {
     }
   });
 
-  if (isLogin.value) {
-    try {
-      let updatePhotoURL = await getUserPhotoDoc(isLogin.value.uid);
-      let ifHasChoosePhoto = await checkChoosePhoto(isLogin.value.uid)
-      // console.log(updatePhotoURL, "確認")
-      if (updatePhotoURL && ifHasChoosePhoto) {
-        setCurrentPhotoURL(updatePhotoURL)
-      }
-      // console.log(updatePhotoURL)
-    } catch (error) {
-      console.error(error);
-      // 在处理错误的情况下进行相应的处理
-    }
-  }
+  // if (isLogin.value) {
+  //   try {
+  //     let updatePhotoURL = await getUserPhotoDoc(isLogin.value.uid);
+  //     let ifHasChoosePhoto = await checkChoosePhoto(isLogin.value.uid)
+  //     // console.log(updatePhotoURL, "確認")
+  //     if (updatePhotoURL && ifHasChoosePhoto) {
+  //       setCurrentPhotoURL(updatePhotoURL)
+  //     }
+  //     // console.log(updatePhotoURL)
+  //   } catch (error) {
+  //     console.error(error);
+  //     // 在处理错误的情况下进行相应的处理
+  //   }
+  // }
 });
 
 watch(isLogin, async (newVal, _oldVal) => {
   // 在这里执行相应的操作，例如重新渲染组件
   if (newVal) {
-    let updatePhotoURL = await getUserPhotoDoc(newVal.uid);
-    let ifHasChoosePhoto = await checkChoosePhoto(newVal?.uid)
+    let currentPhotoURL = await getUserPhotoDoc(newVal.uid);
+    let ifHasChoosePhoto = await checkUserChoosePhotoIfExist(newVal?.uid)
     // console.log(updatePhotoURL)
-    if (updatePhotoURL && ifHasChoosePhoto) {
-      setCurrentPhotoURL(updatePhotoURL)
+    if (currentPhotoURL && ifHasChoosePhoto) {
+      setCurrentPhotoURL(currentPhotoURL)
     } else {
       setCurrentPhotoURL(newVal.photoURL)
     }
