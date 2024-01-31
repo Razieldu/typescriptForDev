@@ -67,7 +67,6 @@ export const getCurrentUser = () => {
         const unsubscribe = onAuthStateChanged(
             auth,
             (userAuth) => {
-                console.log(unsubscribe);
                 unsubscribe();
                 resolve(userAuth);
             },
@@ -131,7 +130,6 @@ export const getUserPhotoDoc = async (uid: string) => {
     } catch (error) {
         console.log("No such document!");
     }
-    console.log(photoURL)
     return photoURL
 }
 
@@ -227,7 +225,6 @@ export const listUserChoosePhotoes = async (uid: string) => {
             const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${fileName}`));
             resultUrls.push(url)
         }
-        console.log(resultUrls)
         setUserChoosePhotoList(resultUrls)
     } catch (error) {
         console.error(error);
