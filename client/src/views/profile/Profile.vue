@@ -42,11 +42,12 @@
 
             <div class="w-[40%] p-4">
                 <h1 class="text-2xl mb-4 font-bold">Profile Picture</h1>
-                <el-image class="rounded-full w-[200px] h-[200px]" :src="photo.value" lazy />
+                <el-image :zoom-rate="1.2" :max-scale="7" :min-scale="0.2" :preview-src-list="srcList"
+                    :switch="console.log('hello')" class="rounded-full w-[200px] h-[200px]" :src=" photo.value " lazy />
                 <div class="flex justify-center items-center w-[100%]">
-                    <el-upload :on-change="handleUpdatePhoto" :auto-upload="false" :show-file-list="false">
+                    <el-upload :on-change=" handleUpdatePhoto " :auto-upload=" false" :show-file-list=" false">
                         <template #trigger>
-                            <el-button :size="'small'" class="uploadButton text-2xs" type="info" plain>update</el-button>
+                            <el-button :size=" 'small'" class="uploadButton text-2xs" type="info" plain>update</el-button>
                         </template>
                     </el-upload>
                 </div>
@@ -59,7 +60,7 @@
 <script setup lang="ts">
 import { useUserDataStore } from "@/store"
 import { uploadImageToStorage, getPhotoLocationURL, updateUserChoosePhotoInfo } from "@/firebase/firebase.utils";
-const { isLogin, currentPhotoURL, userChoosePhotoFileName } = storeToRefs(useUserDataStore())
+const { isLogin, currentPhotoURL, userChoosePhotoFileName, list } = storeToRefs(useUserDataStore())
 const { setCurrentPhotoURL } = useUserDataStore()
 
 const handleUpdatePhoto = async (uploadFile: any, _uploadFiles: any) => {
@@ -82,6 +83,11 @@ const handleUpdatePhoto = async (uploadFile: any, _uploadFiles: any) => {
 const photo = computed(() => {
     return currentPhotoURL
 });
+
+const srcList = computed(() => {
+    return list.value
+})
+
 
 </script>
 <style>

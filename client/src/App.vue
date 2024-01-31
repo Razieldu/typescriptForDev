@@ -18,7 +18,7 @@ import ElementZhCN from "element-plus/es/locale/lang/zh-cn";
 import ElementZhJA from "element-plus/es/locale/lang/ja";
 import { useSettingStore } from "@/store";
 import { useUserDataStore } from "@/store";
-import { onAuthStateChangedListener, getUserPhotoDoc, checkUserChoosePhotoIfExist } from "./firebase/firebase.utils"
+import { onAuthStateChangedListener, getUserPhotoDoc, checkUserChoosePhotoIfExist, listUserChoosePhotoes } from "./firebase/firebase.utils"
 import { handleLogOut } from "@/utils"
 
 const { language } = storeToRefs(useSettingStore());
@@ -48,6 +48,7 @@ onMounted(async () => {
       // console.log(user, "onAuthStateChange")
       setLogin(user)
       router.push("/")
+      listUserChoosePhotoes(user.uid)
     } else {
       handleLogOut()
     }
@@ -65,8 +66,9 @@ onMounted(async () => {
   //   } catch (error) {
   //     console.error(error);
   //     // 在处理错误的情况下进行相应的处理
-  //   }
+  //   
   // }
+
 });
 
 watch(isLogin, async (newVal, _oldVal) => {

@@ -1,11 +1,13 @@
 
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect, GithubAuthProvider } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { doc, serverTimestamp, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { addDoc, getFirestore } from "firebase/firestore";
+import { doc, serverTimestamp, getDoc, setDoc, updateDoc, writeBatch, collection } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
 import { transformTime } from "@/utils";
 import { useUserDataStore } from "@/store";
+
+
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_APIKEY,
     authDomain: import.meta.env.VITE_AUTHDOMAIN,
@@ -95,7 +97,7 @@ export const createUserDocumentFromAuth = async (userAuth: any) => {
             currentPhotoName: "",
             uid,
             providerData,
-            biography:"",
+            biography: "",
             timestamp: serverTimestamp()
         }
         try {
@@ -132,6 +134,28 @@ export const getUserPhotoDoc = async (uid: string) => {
     console.log(photoURL)
     return photoURL
 }
+
+export const sendToFirestore = async () => {
+    try {
+        // 使用 fetch 獲取本地 JSON 檔案
+        const response = await fetch("../../data.json");
+        // 確保 response.ok 為 true，表示成功取得檔案
+        if (!response.ok) {
+            throw new Error('Failed to fetch local JSON file');
+        }
+        // 解析 JSON 內容
+        const localData = await response.json();
+
+        // 將每個文檔的寫入添加到集合中
+        const collectionRef = collection(db, 'mainData');
+        localData.forEach(async (element: any) => {
+            const docRef = await addDoc(collectionRef, element);
+            console.log("Document written with ID: ", docRef.id);
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
 
 
 ////fireStorage
@@ -173,6 +197,24 @@ export const getPhotoLocationURL = async (uid: string, photoName: string) => {
     return resultURL;
 };
 
+export const listUserChoosePhotoes = async (uid: string) => {
+    const { setUserChoosePhotoList } = useUserDataStore()
+    let resultUrls: string[] = []
+    const listRef = ref(storage, `userPhoto/${uid}`);
+    try {
+        const res = await listAll(listRef);
+        for (const eachPhoto of res.items) {
+            let pathArray = eachPhoto.fullPath.split("/")
+            let fileName = pathArray[pathArray.length - 1]
+            const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${fileName}`));
+            resultUrls.push(url)
+        }
+        console.log(resultUrls)
+        setUserChoosePhotoList(resultUrls)
+    } catch (error) {
+        console.error(error);
+    }
+}
 export const checkUserChoosePhotoIfExist = async (uid: string) => {
     try {
         const userRef = doc(db, "users", uid);
@@ -188,5 +230,4 @@ export const checkUserChoosePhotoIfExist = async (uid: string) => {
             await updateUserChoosePhotoInfo(uid, "", "")
         }
     }
-
 }

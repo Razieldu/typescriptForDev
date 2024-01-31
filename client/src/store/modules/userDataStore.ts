@@ -6,6 +6,7 @@ export const useUserDataStore = defineStore("userData", {
     isLogin: null,
     currentPhotoURL: "",
     userChoosePhotoFileName: "",
+    list: []
     // userGooglePhotoURL:"",
   }),
   actions: {
@@ -20,6 +21,9 @@ export const useUserDataStore = defineStore("userData", {
     },
     setUserChoosePhotoName(name: string) {
       this.userChoosePhotoFileName = name
+    },
+    setUserChoosePhotoList(listPhotoes: string[]) {
+      this.list = [...listPhotoes]
     }
   },
 });
