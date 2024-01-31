@@ -1,8 +1,8 @@
 import { useLeftDataStore } from "@/store";
+import { getAllDocsFromFirestore, updateMemberData, addMemberData } from "@/firebase/firebase.utils";
 import {
   RightDataStore,
   ApiResponse,
-  MemberData,
   DataItem,
 } from "@/types";
 
@@ -18,78 +18,14 @@ export const useRightDataStore = defineStore("rightData", {
   }),
 
   actions: {
-    async fetchData(): Promise<ApiResponse | undefined> {
+    async fetchData() {
       try {
-        //測試用
-        const response = await fetch("http://localhost:3000/proxy", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (response.ok) {
-          const result = await response.json();
-          this.data = JSON.parse(JSON.stringify(result.Data));
-          this.saveData = JSON.parse(JSON.stringify(result.Data));
-          // console.log(this.data);
-          // console.log(this.saveData);
-          return this.data;
-        } else {
-          throw new Error("Request failed.");
-        }
+        this.data = JSON.parse(JSON.stringify(await getAllDocsFromFirestore()))
+        this.saveData = JSON.parse(JSON.stringify(await getAllDocsFromFirestore()))
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     },
-
-    ///更新資料庫會員資料
-    async updateMemberData(memberNewData: MemberData | null) {
-      try {
-        ///測試用
-        const response = await fetch("http://localhost:3000/proxy3", {
-          method: "POST",
-          body: JSON.stringify(memberNewData),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (response.ok) {
-          const result = await response.json();
-          console.log(result);
-          return result;
-        } else {
-          throw new Error("Request failed.");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    ///添加新會員資料到資料庫
-    async addMemberData(
-      memberNewData: MemberData
-    ): Promise<string | undefined> {
-      try {
-        //測試用
-        const response = await fetch("http://localhost:3000/proxy4", {
-          method: "POST",
-          body: JSON.stringify(memberNewData),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (response.ok) {
-          const result = await response.json();
-          console.log(result);
-          return result.m_id;
-        } else {
-          throw new Error("Request failed.");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
     ///處理左方特定字詞,對特定欄位進行搜尋
     searchGoalByColumn(
       titleValue: string,
@@ -198,35 +134,26 @@ export const useRightDataStore = defineStore("rightData", {
         });
       }
     },
-    async handleAddNewData(): Promise<void> {
-      console.log("添加");
+    async handleAddNewData() {
       const newObj = {} as DataItem; // 创建一个空对象
       this.data = [newObj, ...this.data]; // 在数据列表开头添加新对象
       this.saveData = [newObj, ...this.saveData]; // 在保存数据列表开头添加新对象
-
       try {
-        const result = await this.addMemberData(newObj); // 发送添加数据的请求
-        console.log(result);
-
-        // 更新第一个对象的m_id属性
+        const result = await addMemberData(); // 发送添加数据的请求
         if (result !== undefined) {
           this.data[0].m_id = result;
           this.saveData[0].m_id = result;
         }
-        console.log(this.data[0]);
-        console.log(this.saveData[0]);
       } catch (error) {
         console.log(error);
       }
     },
 
     async handleUpdateData(row: DataItem): Promise<void> {
-      console.log(row);
       let objToServer = null;
       this.data = this.data.map((one) => {
         if (one.m_id === row.m_id) {
           let updateObj = { ...one, ...row };
-          // console.log(updateObj);
           return updateObj;
         }
         return one;
@@ -239,9 +166,7 @@ export const useRightDataStore = defineStore("rightData", {
         }
         return one;
       });
-      // console.log(objToServer, "給後端");
-      let result = await this.updateMemberData(objToServer);
-      console.log(result);
+      updateMemberData(objToServer, row.m_id);
     },
 
     handleSelectedData(
