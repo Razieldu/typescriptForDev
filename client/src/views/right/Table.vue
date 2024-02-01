@@ -9,7 +9,7 @@
                     ">
                     <el-input ref="cellInput" v-model="row['姓名']"
                         :placeholder="`${$t('basic.right.title.pleaseEnter')} ${$t('basic.right.title.name')}`"
-                        @blur="currentEditCell = []" @change="handleUpdateData(row)" />
+                        @blur="currentEditCell = []" @change="handleUpdateData(row,uid!)" />
                 </div>
                 <div v-else @click="handleCellEdit('姓名', $index)">
                     {{ row["姓名"] || $t("basic.right.title.noName") }}
