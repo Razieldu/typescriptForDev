@@ -13,6 +13,8 @@ jobs:
         run:  pwd
       - name: Check DIR
         run:  ls -a  
+      - name: to Client
+        run:  cd client
       - name: Install Dependencies
         run: npm install
       - name: Build
