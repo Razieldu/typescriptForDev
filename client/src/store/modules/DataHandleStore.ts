@@ -18,10 +18,10 @@ export const useRightDataStore = defineStore("rightData", {
   }),
 
   actions: {
-    async fetchData() {
+    async fetchData(uid: string) {
       try {
-        this.data = JSON.parse(JSON.stringify(await getAllDocsFromFirestore()))
-        this.saveData = JSON.parse(JSON.stringify(await getAllDocsFromFirestore()))
+        this.data = JSON.parse(JSON.stringify(await getAllDocsFromFirestore(uid)))
+        this.saveData = JSON.parse(JSON.stringify(await getAllDocsFromFirestore(uid)))
       } catch (error) {
         console.log(error)
       }
@@ -149,24 +149,26 @@ export const useRightDataStore = defineStore("rightData", {
       }
     },
 
-    async handleUpdateData(row: DataItem): Promise<void> {
-      let objToServer = null;
-      this.data = this.data.map((one) => {
-        if (one.m_id === row.m_id) {
-          let updateObj = { ...one, ...row };
-          return updateObj;
-        }
-        return one;
-      });
-      this.saveData = this.saveData.map((one) => {
-        if (one.m_id === row.m_id) {
-          let updateObj = { ...one, ...row };
-          objToServer = updateObj;
-          return updateObj;
-        }
-        return one;
-      });
-      updateMemberData(objToServer, row.m_id);
+    async handleUpdateData(row: DataItem, uid: string): Promise<void> {
+      if (uid !== undefined) {
+        let objToServer = null;
+        this.data = this.data.map((one) => {
+          if (one.m_id === row.m_id) {
+            let updateObj = { ...one, ...row };
+            return updateObj;
+          }
+          return one;
+        });
+        this.saveData = this.saveData.map((one) => {
+          if (one.m_id === row.m_id) {
+            let updateObj = { ...one, ...row };
+            objToServer = updateObj;
+            return updateObj;
+          }
+          return one;
+        });
+        updateMemberData(objToServer, row.m_id, uid);
+      }
     },
 
     handleSelectedData(

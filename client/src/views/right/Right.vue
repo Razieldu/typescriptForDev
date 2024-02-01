@@ -12,7 +12,7 @@
 import Buttons from "./Buttons.vue"
 import Tables from "./Table.vue"
 import Pagination from "@/component/elementPlus/pagination/Pagination.vue"
-import { useRightDataStore } from "@/store";
+import { useRightDataStore, useUserDataStore } from "@/store";
 import { DataItem } from "@/types";
 import { handlePagination } from "@/utils";
 import Mydialogue from "@/component/elementPlus/dialogue/index.vue"
@@ -28,13 +28,15 @@ const {
   data
 } = storeToRefs(useRightDataStore());
 
-
+const { isLogin } = storeToRefs(useUserDataStore())
 watch(data, (newData) => (mainContentData.value = newData));
 watch([currentPage, pageSize, data], ([curPage, size, newData]) => {
   mainContentData.value = handleShowData(curPage, size, newData);
 });
 onMounted(async () => {
-  await fetchData();
-  loading.value = false;
+  if (isLogin.value) {
+    await fetchData(isLogin?.value?.uid);
+    loading.value = false;
+  }
 });
 </script>

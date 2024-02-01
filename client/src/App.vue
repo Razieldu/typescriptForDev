@@ -53,7 +53,6 @@ onMounted(async () => {
       handleLogOut()
     }
   });
-
   // if (isLogin.value) {
   //   try {
   //     let updatePhotoURL = await getUserPhotoDoc(isLogin.value.uid);

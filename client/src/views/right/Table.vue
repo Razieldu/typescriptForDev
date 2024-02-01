@@ -24,7 +24,7 @@
                     ">
                     <el-input ref="cellInput" v-model="row[eachObj.key]"
                         :placeholder="`${$t('basic.right.title.pleaseEnter')} ${$t(eachObj.title)}`"
-                        @blur="currentEditCell = []" @change="handleUpdateData(row)" />
+                        @blur="currentEditCell = []" @change="handleUpdateData(row, uid!)" />
                 </div>
                 <div v-else @click="handleCellEdit(eachObj.key, $index)">
                     {{ row[eachObj.key] || $t("basic.right.title.noName") }}
@@ -46,7 +46,7 @@
 <script setup lang="ts">
 import { ContentTitleItem } from "@/types";
 import { rowEditFunction } from "@/utils";
-import { useRightDataStore } from "@/store";
+import { useRightDataStore, useUserDataStore } from "@/store";
 
 const contentTitle: Ref<ContentTitleItem[]> = ref([
     { title: "basic.right.title.email", key: "Email" },
@@ -66,11 +66,17 @@ const contentTitle: Ref<ContentTitleItem[]> = ref([
     { title: "basic.right.title.fax2", key: "傳真2" },
 ]);
 
-const props = defineProps(["loadingToTable","dataToTable"])
- 
+const props = defineProps(["loadingToTable", "dataToTable"])
+
 const {
     currentSelectedDataId,
 } = storeToRefs(useRightDataStore());
+
+const {
+    isLogin,
+} = storeToRefs(useUserDataStore())
+
+const uid = isLogin?.value?.uid
 
 const {
     handleRowDelete,
