@@ -9,12 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check DIR
-        run: ls -a
-      - name: ToRightPlace
-        run: cd client
-      - name: Check Current Directory
-        run: pwd
       - name: Install Dependencies
         run: npm install
       - name: Build
@@ -24,3 +18,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VUEMEMBER }}'
           projectId: vuemember
+          entryPoint: ./client
