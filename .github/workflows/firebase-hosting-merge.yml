@@ -11,9 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: 'Build'
+      - name: Clean Cache
         working-directory: ./client
-        run: 'npm run build'
+        run: |
+         npm cache clean --force  
+      - name: CI Install 
+        working-directory: ./client
+        run: |
+         npm ci
+      - name: NPM Install
+        working-directory: ./client
+        run: |
+         npm install      
+      - name: Production Build
+        working-directory: ./client
+        run: |
+         npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
