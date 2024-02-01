@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect, GithubAuthProvider } from "firebase/auth";
 import { addDoc, getFirestore } from "firebase/firestore";
-import { doc, serverTimestamp, getDoc, setDoc, updateDoc, writeBatch, collection } from "firebase/firestore";
+import { doc, serverTimestamp, getDoc, setDoc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
 import { transformTime } from "@/utils";
 import { useUserDataStore } from "@/store";
@@ -67,7 +67,6 @@ export const getCurrentUser = () => {
         const unsubscribe = onAuthStateChanged(
             auth,
             (userAuth) => {
-                console.log(unsubscribe);
                 unsubscribe();
                 resolve(userAuth);
             },
@@ -131,22 +130,16 @@ export const getUserPhotoDoc = async (uid: string) => {
     } catch (error) {
         console.log("No such document!");
     }
-    console.log(photoURL)
     return photoURL
 }
 
 export const sendToFirestore = async () => {
     try {
-        // 使用 fetch 獲取本地 JSON 檔案
         const response = await fetch("../../data.json");
-        // 確保 response.ok 為 true，表示成功取得檔案
         if (!response.ok) {
             throw new Error('Failed to fetch local JSON file');
         }
-        // 解析 JSON 內容
         const localData = await response.json();
-
-        // 將每個文檔的寫入添加到集合中
         const collectionRef = collection(db, 'mainData');
         localData.forEach(async (element: any) => {
             const docRef = await addDoc(collectionRef, element);
@@ -157,7 +150,30 @@ export const sendToFirestore = async () => {
     }
 };
 
+///從firestore取得資料並把id作為m_id回傳資料到前端
+export const getAllDocsFromFirestore = async () => {
+    let data: any = []
+    const querySnapshot = await getDocs(collection(db, "mainData"));
+    querySnapshot.forEach((doc) => {
+        let tempObj = {
+            ...doc.data(),
+            m_id: doc.id
+        }
+        data.push(tempObj)
+    });
+    return data
+}
 
+export const updateMemberData = (newMember: any, id: string) => {
+    const useRef = doc(db, 'mainData', `${id}`);
+    setDoc(useRef, newMember);
+}
+
+export const addMemberData = async () => {
+    const collectionRef = collection(db, 'mainData');
+    const docRef = await addDoc(collectionRef, {});
+    return docRef.id;
+}
 ////fireStorage
 export const storage = getStorage();
 
@@ -209,7 +225,6 @@ export const listUserChoosePhotoes = async (uid: string) => {
             const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${fileName}`));
             resultUrls.push(url)
         }
-        console.log(resultUrls)
         setUserChoosePhotoList(resultUrls)
     } catch (error) {
         console.error(error);

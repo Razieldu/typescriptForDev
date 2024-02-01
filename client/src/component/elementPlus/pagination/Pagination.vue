@@ -44,7 +44,6 @@ const ifUseBg = computed({
 const handleModelSize = computed({
     get: () => props.small,
     set: (val) => {
-        console.log(val)
         emit('update:modelSize', val)
     }
 })
@@ -52,7 +51,6 @@ const handleModelSize = computed({
 const handleHideOnSinglePage = computed({
     get: () => props.hideOnSinglePage,
     set: (val) => {
-        console.log(val)
         emit('update:hideOnSinglePage', val)
     }
 })
