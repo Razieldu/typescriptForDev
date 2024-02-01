@@ -13,8 +13,8 @@ jobs:
         run: ls -a
       - name: ToRightPlace
         run: cd client
-      - name: Check DIR
-        run: ls -a  
+      - name: Check Current Directory
+        run: pwd
       - name: Install Dependencies
         run: npm install
       - name: Build
