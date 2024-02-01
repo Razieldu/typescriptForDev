@@ -30,4 +30,12 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VUEMEMBER }}'
           projectId: vuemember
+          entryPoint: ./client 
+        env:
+          VITE_APIKEY: ${{secrets.VITE_APIKEY}}
+          VITE_AUTHDOMAIN: ${{secrets.VITE_AUTHDOMAIN}}
+          VITE_PROJECTID: ${{secrets.VITE_PROJECTID}}
+          VITE_STORAGEBUCKET: ${{secrets.VITE_STORAGEBUCKET}}
+          VITE_MESSAGINGSENDID: ${{secrets.VITE_MESSAGINGSENDID}}
+          VITE_APPID: ${{secrets.VITE_APPID}}  
    
