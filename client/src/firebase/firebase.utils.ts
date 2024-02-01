@@ -101,6 +101,7 @@ export const createUserDocumentFromAuth = async (userAuth: any) => {
         }
         try {
             await setDoc(userDocRef, userData);
+            await setUserMemberData(userAuth.uid)
         } catch (error) {
             console.log('error creating the user', error);
         }
@@ -133,7 +134,7 @@ export const getUserPhotoDoc = async (uid: string) => {
     return photoURL
 }
 
-export const sendToFirestore = async () => {
+export const sendToFirestoreWithCollection = async () => {
     try {
         const response = await fetch("../../data.json");
         if (!response.ok) {
@@ -150,10 +151,30 @@ export const sendToFirestore = async () => {
     }
 };
 
+export const sendToFirestoreWithDoc = async () => {
+    try {
+        const response = await fetch("../../data.json");
+        if (!response.ok) {
+            throw new Error('Failed to fetch local JSON file');
+        }
+        const localData = await response.json();
+
+        localData.forEach(async (element: any, index: number) => {
+            const docRefs = doc(db, 'mainData', `${index + 1}`);
+            await setDoc(docRefs, element);
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
 ///從firestore取得資料並把id作為m_id回傳資料到前端
-export const getAllDocsFromFirestore = async () => {
+export const getAllDocsFromFirestore = async (uid: string) => {
     let data: any = []
-    const querySnapshot = await getDocs(collection(db, "mainData"));
+    const userDocRef = doc(db, 'usersMemberData', uid);
+    const mainContentDataCollectionRef = collection(userDocRef, 'mainContentData')
+    const querySnapshot = await getDocs(mainContentDataCollectionRef);
     querySnapshot.forEach((doc) => {
         let tempObj = {
             ...doc.data(),
@@ -164,9 +185,16 @@ export const getAllDocsFromFirestore = async () => {
     return data
 }
 
-export const updateMemberData = (newMember: any, id: string) => {
-    const useRef = doc(db, 'mainData', `${id}`);
-    setDoc(useRef, newMember);
+export const updateMemberData = async (newMember: any, dataId: string, uid: string) => {
+    const userDocRef = doc(db, 'usersMemberData', `${uid}`);
+    const mainContentDataCollectionRef = collection(userDocRef, 'mainContentData')
+    const querySnapshot = await getDocs(mainContentDataCollectionRef);
+    querySnapshot.forEach(async (doc) => {
+        if (doc.id === dataId) {
+            await setDoc(doc.ref, newMember);
+        }
+    });
+
 }
 
 export const addMemberData = async () => {
@@ -174,6 +202,26 @@ export const addMemberData = async () => {
     const docRef = await addDoc(collectionRef, {});
     return docRef.id;
 }
+
+export const checKifUserExist = async (uid: string) => {
+    let exists = false
+    const userRef = doc(db, "users", uid);
+    const userSnap = await getDoc(userRef)
+    if (userSnap.exists()) {
+        exists = true
+    }
+    return exists
+}
+
+export const setUserMemberData = async (uid: string) => {
+    const querySnapshot = await getDocs(collection(db, "mainData"));
+    const memberDataDoc = doc(db, 'usersMemberData', uid)
+    const memberCollection = collection(memberDataDoc, "mainContentData")
+    querySnapshot.forEach(async (doc) => {
+        await addDoc(memberCollection, doc.data());
+    });
+}
+
 ////fireStorage
 export const storage = getStorage();
 
