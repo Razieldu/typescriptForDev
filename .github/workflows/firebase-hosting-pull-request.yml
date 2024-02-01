@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Check DIR
+        run: ls -a
       - name: Install Dependencies
         run: npm install
       - name: Build
