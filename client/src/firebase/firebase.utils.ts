@@ -5,8 +5,8 @@ import { addDoc, getFirestore } from "firebase/firestore";
 import { doc, serverTimestamp, getDoc, setDoc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
 import { transformTime } from "@/utils";
-import { useUserDataStore } from "@/store";
-
+import { useUserDataStore, useRightDataStore } from "@/store";
+import { openMessage } from "@/utils"
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_APIKEY,
@@ -22,15 +22,20 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
+googleProvider.setCustomParameters({
+    prompt: 'select_account'
+});
+
 const githubProvider = new GithubAuthProvider()
 
 export const auth = getAuth();
 
-export const signInWithGooglePopup = async () => {
+export const signInWithGooglePopup = async (t: Function) => {
     try {
         const result = await signInWithPopup(auth, googleProvider);
         let user = result?.user
         await createUserDocumentFromAuth(user)
+        openMessage({ type: "success", message: `${user.displayName}${t("basic.login.successLogin")}`, showClose: true })
     } catch (error) {
         console.log(error)
     }
@@ -82,6 +87,7 @@ export const db = getFirestore(firebaseApp);
 
 export const createUserDocumentFromAuth = async (userAuth: any) => {
     if (!userAuth) return;
+    const { fetchData, setLoading, setFirstTimeLogin } = useRightDataStore()
     const userDocRef = doc(db, 'users', userAuth.uid);
     const userSnapshot = await getDoc(userDocRef);
     if (!userSnapshot.exists()) {
@@ -102,6 +108,9 @@ export const createUserDocumentFromAuth = async (userAuth: any) => {
         try {
             await setDoc(userDocRef, userData);
             await setUserMemberData(userAuth.uid)
+            fetchData(userAuth.uid)
+            setLoading(false)
+            setFirstTimeLogin(false)
         } catch (error) {
             console.log('error creating the user', error);
         }
@@ -267,12 +276,13 @@ export const listUserChoosePhotoes = async (uid: string) => {
     const listRef = ref(storage, `userPhoto/${uid}`);
     try {
         const res = await listAll(listRef);
-        for (const eachPhoto of res.items) {
+        const urlPromises = res.items.map(async (eachPhoto) => {
             let pathArray = eachPhoto.fullPath.split("/")
             let fileName = pathArray[pathArray.length - 1]
-            const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${fileName}`));
-            resultUrls.push(url)
-        }
+            return getDownloadURL(ref(storage, `userPhoto/${uid}/${fileName}`));
+        });
+        const urls = await Promise.all(urlPromises);
+        resultUrls = [...urls];
         setUserChoosePhotoList(resultUrls)
     } catch (error) {
         console.error(error);

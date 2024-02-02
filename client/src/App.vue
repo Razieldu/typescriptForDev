@@ -7,7 +7,6 @@
   </el-config-provider>
 </template>
 
-
 <script lang="ts" setup>
 
 import Top from "@/views/top/Top.vue";
@@ -16,9 +15,8 @@ import ElementZhTWS from "element-plus/es/locale/lang/zh-tw";
 import ElementEn from "element-plus/es/locale/lang/en";
 import ElementZhCN from "element-plus/es/locale/lang/zh-cn";
 import ElementZhJA from "element-plus/es/locale/lang/ja";
-import { useSettingStore } from "@/store";
-import { useUserDataStore } from "@/store";
-import { onAuthStateChangedListener, getUserPhotoDoc, checkUserChoosePhotoIfExist, listUserChoosePhotoes } from "./firebase/firebase.utils"
+import { useSettingStore, useUserDataStore } from "@/store";
+import { onAuthStateChangedListener, getUserPhotoDoc, checkUserChoosePhotoIfExist } from "./firebase/firebase.utils"
 import { handleLogOut } from "@/utils"
 
 const { language } = storeToRefs(useSettingStore());
@@ -48,25 +46,11 @@ onMounted(async () => {
       // console.log(user, "onAuthStateChange")
       setLogin(user)
       router.push("/")
-      listUserChoosePhotoes(user.uid)
     } else {
       handleLogOut()
     }
   });
-  // if (isLogin.value) {
-  //   try {
-  //     let updatePhotoURL = await getUserPhotoDoc(isLogin.value.uid);
-  //     let ifHasChoosePhoto = await checkChoosePhoto(isLogin.value.uid)
-  //     // console.log(updatePhotoURL, "確認")
-  //     if (updatePhotoURL && ifHasChoosePhoto) {
-  //       setCurrentPhotoURL(updatePhotoURL)
-  //     }
-  //     // console.log(updatePhotoURL)
-  //   } catch (error) {
-  //     console.error(error);
-  //     // 在处理错误的情况下进行相应的处理
-  //   
-  // }
+
 });
 
 
@@ -76,14 +60,11 @@ watch(isLogin, async (newVal, _oldVal) => {
   if (newVal) {
     let currentPhotoURL = await getUserPhotoDoc(newVal.uid);
     let ifHasChoosePhoto = await checkUserChoosePhotoIfExist(newVal?.uid)
-    // console.log(updatePhotoURL)
     if (currentPhotoURL && ifHasChoosePhoto) {
       setCurrentPhotoURL(currentPhotoURL)
     } else {
       setCurrentPhotoURL(newVal.photoURL)
     }
-    // console.log('isLogin 已更新:', newVal);
   }
 });
-
 </script>
