@@ -5,7 +5,7 @@ import { addDoc, getFirestore } from "firebase/firestore";
 import { doc, serverTimestamp, getDoc, setDoc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
 import { transformTime } from "@/utils";
-import { useUserDataStore } from "@/store";
+import { useUserDataStore, useRightDataStore } from "@/store";
 
 
 const firebaseConfig = {
@@ -82,6 +82,7 @@ export const db = getFirestore(firebaseApp);
 
 export const createUserDocumentFromAuth = async (userAuth: any) => {
     if (!userAuth) return;
+    const { fetchData, setLoading, setFirstTimeLogin } = useRightDataStore()
     const userDocRef = doc(db, 'users', userAuth.uid);
     const userSnapshot = await getDoc(userDocRef);
     if (!userSnapshot.exists()) {
@@ -102,6 +103,9 @@ export const createUserDocumentFromAuth = async (userAuth: any) => {
         try {
             await setDoc(userDocRef, userData);
             await setUserMemberData(userAuth.uid)
+            fetchData(userAuth.uid)
+            setLoading(false)
+            setFirstTimeLogin(false)
         } catch (error) {
             console.log('error creating the user', error);
         }

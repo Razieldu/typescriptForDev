@@ -18,25 +18,26 @@ import { handlePagination } from "@/utils";
 import Mydialogue from "@/component/elementPlus/dialogue/index.vue"
 
 const mainContentData: Ref<DataItem[]> = ref([]);
-const loading = ref(true);
+// const loading = ref(true);
 let { currentPage, pageSize, handleShowData } = handlePagination(1, 10);
 
 const {
-  fetchData,
+  fetchData, setLoading
 } = useRightDataStore();
 const {
-  data
+  data, loading, firstTimeLogin
 } = storeToRefs(useRightDataStore());
 
 const { isLogin } = storeToRefs(useUserDataStore())
+
 watch(data, (newData) => (mainContentData.value = newData));
 watch([currentPage, pageSize, data], ([curPage, size, newData]) => {
   mainContentData.value = handleShowData(curPage, size, newData);
 });
 onMounted(async () => {
-  if (isLogin.value) {
+  if (isLogin.value && firstTimeLogin) {
     await fetchData(isLogin?.value?.uid);
-    loading.value = false;
+    setLoading(false)
   }
 });
 </script>

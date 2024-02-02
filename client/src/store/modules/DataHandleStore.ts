@@ -8,6 +8,8 @@ import {
 
 export const useRightDataStore = defineStore("rightData", {
   state: (): RightDataStore => ({
+    firstTimeLogin:true,
+    loading: true,
     data: [],
     saveData: [],
     isFirst: true,
@@ -18,10 +20,17 @@ export const useRightDataStore = defineStore("rightData", {
   }),
 
   actions: {
+    setFirstTimeLogin(value:boolean){
+    this.firstTimeLogin = value
+    },
+    setLoading(value:boolean) {
+      this.loading = value
+    },
     async fetchData(uid: string) {
       try {
-        this.data = JSON.parse(JSON.stringify(await getAllDocsFromFirestore(uid)))
-        this.saveData = JSON.parse(JSON.stringify(await getAllDocsFromFirestore(uid)))
+        const fetchedData = await getAllDocsFromFirestore(uid);
+        this.data = JSON.parse(JSON.stringify(fetchedData));
+        this.saveData = JSON.parse(JSON.stringify(fetchedData));
       } catch (error) {
         console.log(error)
       }

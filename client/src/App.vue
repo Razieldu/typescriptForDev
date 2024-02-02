@@ -16,14 +16,14 @@ import ElementZhTWS from "element-plus/es/locale/lang/zh-tw";
 import ElementEn from "element-plus/es/locale/lang/en";
 import ElementZhCN from "element-plus/es/locale/lang/zh-cn";
 import ElementZhJA from "element-plus/es/locale/lang/ja";
-import { useSettingStore } from "@/store";
-import { useUserDataStore } from "@/store";
+import { useSettingStore, useUserDataStore, useRightDataStore } from "@/store";
 import { onAuthStateChangedListener, getUserPhotoDoc, checkUserChoosePhotoIfExist } from "./firebase/firebase.utils"
 import { handleLogOut } from "@/utils"
 
 const { language } = storeToRefs(useSettingStore());
 const { setLogin, setCurrentPhotoURL } = useUserDataStore();
 const { isLogin } = storeToRefs(useUserDataStore())
+const {data,saveData} = storeToRefs(useRightDataStore())
 const languageState = computed(() => language.value);
 import router from "@/router/router"
 
@@ -70,5 +70,8 @@ watch(isLogin, async (newVal, _oldVal) => {
     }
   }
 });
-
+watchEffect(()=>{
+  console.log('data', data.value);
+  console.log('saveData', saveData.value);
+})
 </script>
