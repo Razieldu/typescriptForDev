@@ -4,7 +4,7 @@
             <hr class="border-t border-gray-200 my-1 w-[90%]">
         </div>
         <div class="flex bg-white w-[336px] h-[35px] cursor-pointer rounded-lg text-white loginDivGandF hover:bg-gray-200 relative googleLoginArea "
-            @click="signInWithGooglePopup">
+            @click="signInWithGooglePopup(t)">
             <Image class="w-[25px] h-[30px] absolute left-1" :src="'google'" :fit="'fill'" />
             <div class="flex justify-center items-center w-[336px] h-[35px] absolute text-black">
                 <p class="text-sm ">{{ $t(useType?.gmail) }}</p>
@@ -34,6 +34,8 @@ import { signInWithGooglePopup } from "@/firebase/firebase.utils"
 const props = defineProps({
     loginOrSignUp: { type: String }
 })
+
+const { t } = useI18n()
 
 const useType = computed(() => {
     switch (props.loginOrSignUp) {

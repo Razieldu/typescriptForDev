@@ -6,7 +6,7 @@ import { doc, serverTimestamp, getDoc, setDoc, updateDoc, collection, getDocs } 
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
 import { transformTime } from "@/utils";
 import { useUserDataStore, useRightDataStore } from "@/store";
-
+import { openMessage } from "@/utils"
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_APIKEY,
@@ -22,15 +22,20 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
+googleProvider.setCustomParameters({
+    prompt: 'select_account'
+});
+
 const githubProvider = new GithubAuthProvider()
 
 export const auth = getAuth();
 
-export const signInWithGooglePopup = async () => {
+export const signInWithGooglePopup = async (t: Function) => {
     try {
         const result = await signInWithPopup(auth, googleProvider);
         let user = result?.user
         await createUserDocumentFromAuth(user)
+        openMessage({ type: "success", message: `${user.displayName}${t("basic.login.successLogin")}`, showClose: true })
     } catch (error) {
         console.log(error)
     }

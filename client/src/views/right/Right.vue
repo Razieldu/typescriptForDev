@@ -3,7 +3,7 @@
     <Buttons />
     <Tables :loadingToTable="loading" :dataToTable='mainContentData' />
     <Pagination v-model:page="currentPage" v-model:size="pageSize" :total="data.length" :background="true" :small="true"
-      :hideOnSinglePage="true" />
+      />
     <Mydialogue />
   </div>
 </template>
