@@ -267,12 +267,13 @@ export const listUserChoosePhotoes = async (uid: string) => {
     const listRef = ref(storage, `userPhoto/${uid}`);
     try {
         const res = await listAll(listRef);
-        for (const eachPhoto of res.items) {
+        const urlPromises = res.items.map(async (eachPhoto) => {
             let pathArray = eachPhoto.fullPath.split("/")
             let fileName = pathArray[pathArray.length - 1]
-            const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${fileName}`));
-            resultUrls.push(url)
-        }
+            return getDownloadURL(ref(storage, `userPhoto/${uid}/${fileName}`));
+        });
+        const urls = await Promise.all(urlPromises);
+        resultUrls = [...urls];
         setUserChoosePhotoList(resultUrls)
     } catch (error) {
         console.error(error);
