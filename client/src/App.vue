@@ -16,7 +16,7 @@ import ElementEn from "element-plus/es/locale/lang/en";
 import ElementZhCN from "element-plus/es/locale/lang/zh-cn";
 import ElementZhJA from "element-plus/es/locale/lang/ja";
 import { useSettingStore, useUserDataStore } from "@/store";
-import { onAuthStateChangedListener, getUserPhotoDoc, checkUserChoosePhotoIfExist } from "./firebase/firebase.utils"
+import { onAuthStateChangedListener, getUserPhotoDoc, checkUserChoosePhotoIfExist,listUserChoosePhotoes } from "./firebase/firebase.utils"
 import { handleLogOut } from "@/utils"
 
 const { language } = storeToRefs(useSettingStore());
@@ -43,14 +43,13 @@ const locale = computed(() => {
 onMounted(async () => {
   onAuthStateChangedListener(async (user: any) => {
     if (user) {
-      // console.log(user, "onAuthStateChange")
+      console.log(user, "onAuthStateChange")
       setLogin(user)
       router.push("/")
     } else {
       handleLogOut()
     }
   });
-
 });
 
 
@@ -60,6 +59,8 @@ watch(isLogin, async (newVal, _oldVal) => {
   if (newVal) {
     let currentPhotoURL = await getUserPhotoDoc(newVal.uid);
     let ifHasChoosePhoto = await checkUserChoosePhotoIfExist(newVal?.uid)
+    await listUserChoosePhotoes(newVal.uid)
+
     if (currentPhotoURL && ifHasChoosePhoto) {
       setCurrentPhotoURL(currentPhotoURL)
     } else {
