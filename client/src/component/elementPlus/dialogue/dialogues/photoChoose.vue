@@ -58,8 +58,8 @@ const handleDeletePhoto = async (url: string) => {
     }
 }
 
-watch(list,(newVal)=>{
-
+watch(list, (newVal) => {
+    console.log(newVal)
 })
 </script>
 
