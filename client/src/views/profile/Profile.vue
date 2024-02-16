@@ -45,24 +45,42 @@
                 <el-image :zoom-rate="1.2" :max-scale="7" :min-scale="0.2" :preview-src-list="list"
                     class="rounded-full w-[200px] h-[200px]" :src="currentPhotoURL" />
                 <div class="flex justify-center items-center w-[100%]">
+                    <el-button @click="handleOpen" :size="'small'" class="uploadButton text-2xs" type="info" plain>預覽所有圖片</el-button>
                     <el-upload :on-change="handleUpdatePhoto" :auto-upload="false" :show-file-list="false">
                         <template #trigger>
                             <el-button :size="'small'" class="uploadButton text-2xs" type="info" plain>update</el-button>
                         </template>
                     </el-upload>
                 </div>
-
             </div>
         </div>
+        <Mydialogue/>
     </div>
 </template>
 
 <script setup lang="ts">
 import { useUserDataStore } from "@/store"
-import { uploadImageToStorage, getPhotoLocationURL, updateUserChoosePhotoInfo,listUserChoosePhotoes } from "@/firebase/firebase.utils";
+import { uploadImageToStorage, getPhotoLocationURL, updateUserChoosePhotoInfo, listUserChoosePhotoes } from "@/firebase/firebase.utils";
+import PhotoChoose from "@/component/elementPlus/dialogue/dialogues/photoChoose.vue"
+import Mydialogue from "@/component/elementPlus/dialogue/index.vue"
+import { addDialog } from "@/component/elementPlus/dialogue/index"
 const { isLogin, currentPhotoURL, userChoosePhotoFileName, list } = storeToRefs(useUserDataStore())
 const { setCurrentPhotoURL } = useUserDataStore()
 
+const handleOpen = ()=>{
+    addDialog({
+            title: '所有圖片預覽',
+            width: "700px",
+            props: {
+                id: "所有圖片預覽5"
+            },
+            component: markRaw(PhotoChoose),
+            callBack: (data: any) => {
+                //当弹窗任务结束后，调用父页面的回掉函数。（比如我新增完成了需要刷新列表页面）
+                console.log("回调函数", data)
+            }
+        })
+}
 const handleUpdatePhoto = async (uploadFile: any, _uploadFiles: any) => {
     console.log(uploadFile.raw, isLogin?.value?.uid, "確認")
     let targetUserUid = isLogin?.value?.uid

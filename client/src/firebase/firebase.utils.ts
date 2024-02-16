@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect, GithubAuthProvider } from "firebase/auth";
 import { addDoc, getFirestore } from "firebase/firestore";
 import { doc, serverTimestamp, getDoc, setDoc, updateDoc, collection, getDocs } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
 import { transformTime } from "@/utils";
 import { useUserDataStore, useRightDataStore } from "@/store";
 import { openMessage } from "@/utils"
@@ -303,4 +303,12 @@ export const checkUserChoosePhotoIfExist = async (uid: string) => {
             await updateUserChoosePhotoInfo(uid, "", "")
         }
     }
+}
+
+export const deletePhoto =  async (uid: string, fileName: string) => {
+    const desertRef = ref(storage, `userPhoto/${uid}/${fileName}`);
+    deleteObject(desertRef).then(() => {
+    }).catch((error) => {
+        console.log(error)
+    });
 }
