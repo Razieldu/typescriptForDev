@@ -1,11 +1,10 @@
 <template>
-    <div>
-        <div class="flex flex-row gap-2" v-if="list.length > 0">
-            <div class="cursor-pointer w-[100px] h-[100px]" v-for="(url, index) in list" :key="index">
-                <div class="w-[90%] h-[90%]">
-                    <el-image :src="url" @click="chooseCurrentPhoto(url)" />
-                </div>
-                <div class="flex justify-end ">
+    <div class="">
+        <div class="flex flex-row gap-2 flex-wrap justify-evenly items-center max-h-[300px] overflow-auto " v-if="list.length > 0">
+            <div class="cursor-pointer w-[150x] h-[150px] mb-8 group " v-for="(url, index) in list" :key="index">
+                
+                <el-image class="w-[150px] h-[150px]  hover:bg-gray-300" :fit="'scale-down'" :src="url" @click="chooseCurrentPhoto(url)" />
+                <div class="flex justify-end  group-hover:bg-gray-300 ">
                     <el-button @click="handleDeletePhoto(url)" :size="'small'" type="danger" :icon="Delete" circle />
                 </div>
             </div>
@@ -50,9 +49,13 @@ const handleDeletePhoto = async (url: string) => {
         const extractedNumber1 = url.split("%2F")
         const extractedNumber2 = extractedNumber1[extractedNumber1.length - 1].split("?")
         let fileName = extractedNumber2[0]
-        if (fileName === userChoosePhotoFileName.value) return
+        // if (fileName === userChoosePhotoFileName.value) return
         let tempList = [...list.value]
         let filterdList = tempList.filter(eachUrl => eachUrl !== url)
+        if (filterdList.length === 0) {
+            setUserChoosePhotoName("")
+            await updateUserChoosePhotoInfo(targetUserUid, "", "")
+        }
         setUserChoosePhotoList(filterdList)
         await deletePhoto(targetUserUid, fileName)
     }

@@ -69,7 +69,7 @@ const { setCurrentPhotoURL } = useUserDataStore()
 
 const handleOpen = ()=>{
     addDialog({
-            title: '所有圖片預覽',
+            title: '個人圖片預覽',
             width: "700px",
             props: {
                 id: "所有圖片預覽5"
