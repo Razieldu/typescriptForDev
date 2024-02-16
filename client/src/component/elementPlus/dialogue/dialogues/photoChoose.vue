@@ -1,13 +1,10 @@
 <template>
     <div class="">
-        <div class="flex flex-row gap-2 flex-wrap justify-evenly items-center max-h-[300px] overflow-auto " v-if="list.length > 0">
-            <div class="cursor-pointer w-[150x] h-[150px] mb-8 group " v-for="(url, index) in list" :key="index">
-                
-                <el-image class="w-[150px] h-[150px]  hover:bg-gray-300" :fit="'scale-down'" :src="url" @click="chooseCurrentPhoto(url)" />
-                <div class="flex justify-end  group-hover:bg-gray-300 ">
-                    <el-button @click="handleDeletePhoto(url)" :size="'small'" type="danger" :icon="Delete" circle />
-                </div>
-            </div>
+        <div class="flex flex-row  flex-wrap justify-between items-center max-h-[300px] overflow-auto " v-if="list.length > 0">
+            <div class="cursor-pointer w-[150px] h-[150px] mb-3 group relative" v-for="(url, index) in list" :key="index" >
+                  <el-image class="w-[150px] h-[150px]  group-hover:bg-gray-300"  :fit="'scale-down'" :src="url" @click="chooseCurrentPhoto(url)" />
+                    <el-button class="absolute bottom-0 right-0 group-hover" @click="handleDeletePhoto(url)" :size="'small'" type="danger" :icon="Delete" circle />
+                  </div>
         </div>
         <div class="flex justify-end mt-10">
             <span class="dialog-footer">
