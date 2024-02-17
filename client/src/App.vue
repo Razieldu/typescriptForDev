@@ -59,13 +59,12 @@ watch(isLogin, async (newVal, _oldVal) => {
   if (newVal) {
     let currentPhotoURL = await getUserPhotoDoc(newVal.uid);
     let ifHasChoosePhoto = await checkUserChoosePhotoIfExist(newVal?.uid)
-    await listUserChoosePhotoes(newVal.uid)
-
     if (currentPhotoURL && ifHasChoosePhoto) {
       setCurrentPhotoURL(currentPhotoURL)
     } else {
       setCurrentPhotoURL(newVal.photoURL)
     }
+    await listUserChoosePhotoes(newVal.uid)
   }
 });
 </script>
