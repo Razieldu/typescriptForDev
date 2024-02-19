@@ -231,6 +231,24 @@ export const setUserMemberData = async (uid: string) => {
     });
 }
 
+export const saveLeftMenuToFirestore = async (uid: string) => {
+    try {
+        const response = await fetch("../../leftmenu.json");
+        if (!response.ok) {
+            throw new Error('Failed to fetch local JSON file');
+        }
+        const localData = await response.json();
+        const memberDataDoc = doc(db, 'usersMemberData', uid);
+        localData.forEach(async (subArray: any, index: number) => {
+            subArray.forEach(async (item: any, indexS: number) => {
+                const memberLeftDoc = doc(memberDataDoc, "leftMenuData", `${index}`);
+                await addDoc(collection(memberLeftDoc, `${indexS}`), item)
+            });
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
 ////fireStorage
 export const storage = getStorage();
 
@@ -305,7 +323,7 @@ export const checkUserChoosePhotoIfExist = async (uid: string) => {
     }
 }
 
-export const deletePhoto =  async (uid: string, fileName: string) => {
+export const deletePhoto = async (uid: string, fileName: string) => {
     const desertRef = ref(storage, `userPhoto/${uid}/${fileName}`);
     deleteObject(desertRef).then(() => {
     }).catch((error) => {
