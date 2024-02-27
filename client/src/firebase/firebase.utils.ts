@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect, GithubAuthProvider } from "firebase/auth";
 import { addDoc, getFirestore } from "firebase/firestore";
-import { doc, serverTimestamp, getDoc, setDoc, updateDoc, collection, getDocs, query } from "firebase/firestore";
+import { doc, serverTimestamp, getDoc, setDoc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
 import { transformTime } from "@/utils";
 import { useUserDataStore, useRightDataStore } from "@/store";
@@ -249,9 +249,9 @@ export const saveLeftMenuToFirestore = async (uid: string) => {
     }
 };
 
-export const getLeftMenuData = async (uid:string)=>{
-    
-}
+// export const getLeftMenuData = async (uid:string)=>{
+
+// }
 ////fireStorage
 export const storage = getStorage();
 
