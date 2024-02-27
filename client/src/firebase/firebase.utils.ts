@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect, GithubAuthProvider } from "firebase/auth";
 import { addDoc, getFirestore } from "firebase/firestore";
-import { doc, serverTimestamp, getDoc, setDoc, updateDoc, collection, getDocs } from "firebase/firestore";
+import { doc, serverTimestamp, getDoc, setDoc, updateDoc, collection, getDocs, query } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
 import { transformTime } from "@/utils";
 import { useUserDataStore, useRightDataStore } from "@/store";
@@ -109,6 +109,7 @@ export const createUserDocumentFromAuth = async (userAuth: any) => {
             await setDoc(userDocRef, userData);
             await setUserMemberData(userAuth.uid)
             fetchData(userAuth.uid)
+            saveLeftMenuToFirestore(userAuth.uid)
             setLoading(false)
             setFirstTimeLogin(false)
         } catch (error) {
@@ -238,17 +239,19 @@ export const saveLeftMenuToFirestore = async (uid: string) => {
             throw new Error('Failed to fetch local JSON file');
         }
         const localData = await response.json();
+        console.log(localData)
         const memberDataDoc = doc(db, 'usersMemberData', uid);
-        localData.forEach(async (subArray: any, index: number) => {
-            subArray.forEach(async (item: any, indexS: number) => {
-                const memberLeftDoc = doc(memberDataDoc, "leftMenuData", `${index}`);
-                await addDoc(collection(memberLeftDoc, `${indexS}`), item)
-            });
-        });
+        const leftCollection = collection(memberDataDoc, "leftMenuData")
+        await addDoc(leftCollection, localData)
+
     } catch (error) {
         console.error('Error:', error);
     }
 };
+
+export const getLeftMenuData = async (uid:string)=>{
+    
+}
 ////fireStorage
 export const storage = getStorage();
 
@@ -277,7 +280,6 @@ export const uploadImageToStorage = async (file: any, uid: string) => {
 
 export const getPhotoLocationURL = async (uid: string, photoName: string) => {
     let resultURL = "";
-
     try {
         const url = await getDownloadURL(ref(storage, `userPhoto/${uid}/${photoName}`));
         resultURL = url;

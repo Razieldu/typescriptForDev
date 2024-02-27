@@ -8,8 +8,8 @@ export const handleLogOut = async () => {
     logOut()
     setLoading(true)
     setFirstTimeLogin(true)
-    await signOutUser()
     setTimeout(() => {
         router.push("/login");
+        signOutUser()
     }, 100);
 }

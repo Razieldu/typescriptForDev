@@ -33,6 +33,7 @@ watch(data, (newData) => (mainContentData.value = newData));
 watch([currentPage, pageSize, data], ([curPage, size, newData]) => {
   mainContentData.value = handleShowData(curPage, size, newData);
 });
+
 onMounted(async () => {
   if (isLogin.value && firstTimeLogin) {
     await fetchData(isLogin?.value?.uid);

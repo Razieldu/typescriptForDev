@@ -21,7 +21,7 @@ const routes: RouteRecordRaw[] = [
   //     preloadImagesIfNeeded(to, next);
   //   },
   // },
-  { path: "/", name: "main", component: () => import("@/views/middle/Middle.vue"), meta: { requiresAuth: true },},
+  { path: "/", name: "main", component: () => import("@/views/middle/Middle.vue"), meta: { requiresAuth: true }, },
   { path: "/profile", name: "profile", component: () => import("@/views/profile/Profile.vue"), meta: { requiresAuth: true }, }
 ];
 
@@ -58,11 +58,14 @@ router.beforeEach(async (to, _, next) => {
     next("/login")
   } else {
     const { setCurrentPhotoURL } = useUserDataStore()
-    onAuthStateChangedListener(async (user: any) => {
-      const userUid = user?.uid
-      let currentPhotoURL = await getUserPhotoDoc(userUid);
-      setCurrentPhotoURL(currentPhotoURL)
-    })
+    const { currentPhotoURL } = storeToRefs(useUserDataStore())
+    if (currentPhotoURL.value === "" && to.path !== "/login") {
+      onAuthStateChangedListener(async (user: any) => {
+        const userUid = user?.uid
+        let currentPhotoURL = await getUserPhotoDoc(userUid);
+        setCurrentPhotoURL(currentPhotoURL)
+      })
+    }
     next()
   }
 });

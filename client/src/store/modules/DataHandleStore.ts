@@ -8,7 +8,7 @@ import {
 
 export const useRightDataStore = defineStore("rightData", {
   state: (): RightDataStore => ({
-    firstTimeLogin:true,
+    firstTimeLogin: true,
     loading: true,
     data: [],
     saveData: [],
@@ -20,10 +20,10 @@ export const useRightDataStore = defineStore("rightData", {
   }),
 
   actions: {
-    setFirstTimeLogin(value:boolean){
-    this.firstTimeLogin = value
+    setFirstTimeLogin(value: boolean) {
+      this.firstTimeLogin = value
     },
-    setLoading(value:boolean) {
+    setLoading(value: boolean) {
       this.loading = value
     },
     async fetchData(uid: string) {
