@@ -249,9 +249,28 @@ export const saveLeftMenuToFirestore = async (uid: string) => {
     }
 };
 
-// export const getLeftMenuData = async (uid:string)=>{
-
-// }
+export const getLeftMenuData = async (uid: string) => {
+    try {
+        let returnData: any[] = []
+        let data: any;
+        let collectiontemp = await getDocs(collection(db, "usersMemberData", uid, "leftMenuData"))
+        collectiontemp.forEach((doc) => {
+            data = doc.data()
+        })
+        for (let key in data) {
+            let target = data[key]
+            let temp = []
+            for (let key in target) {
+                let dealedObject = { ...target[key], selected: false }
+                temp.push(dealedObject)
+            }
+            returnData.push(temp)
+        }
+        return returnData
+    } catch (error) {
+        console.error("Error getting left menu data:", error);
+    }
+}
 ////fireStorage
 export const storage = getStorage();
 

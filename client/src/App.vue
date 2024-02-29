@@ -16,7 +16,7 @@ import ElementEn from "element-plus/es/locale/lang/en";
 import ElementZhCN from "element-plus/es/locale/lang/zh-cn";
 import ElementZhJA from "element-plus/es/locale/lang/ja";
 import { useSettingStore, useUserDataStore } from "@/store";
-import { onAuthStateChangedListener, getUserPhotoDoc, checkUserChoosePhotoIfExist, listUserChoosePhotoes } from "./firebase/firebase.utils"
+import { onAuthStateChangedListener, getUserPhotoDoc, checkUserChoosePhotoIfExist, listUserChoosePhotoes,getLeftMenuData } from "./firebase/firebase.utils"
 import { handleLogOut } from "@/utils"
 
 const { language } = storeToRefs(useSettingStore());
@@ -45,6 +45,7 @@ onMounted(async () => {
 
     if (user) {
       console.log(user, "onAuthStateChange")
+      getLeftMenuData(user.uid)
       setLogin(user)
       router.push("/")
     } else {

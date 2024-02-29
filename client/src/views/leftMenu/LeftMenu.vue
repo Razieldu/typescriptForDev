@@ -9,8 +9,8 @@
         min-width: 300px;
       ">
       <el-scrollbar>
-        <el-menu class="borderNone" style="background-color: #f1f5f9; border-color: #f1f5f9" unique-opened @open="handleOpen"
-          @close="handleClose">
+        <el-menu class="borderNone" style="background-color: #f1f5f9; border-color: #f1f5f9" unique-opened
+          @open="handleOpen" @close="handleClose">
           <el-sub-menu index="2">
             <template #title>
               <el-icon>
@@ -41,8 +41,8 @@
                   !menuButtonStateValue[titleIndex];
 
                 inputValue[titleIndex] = '';
-                " class="addButton" type="danger" size="small">{{ menuButtonStateValue[titleIndex] ? 
-                $t(addButtonContentValue[1]): $t(addButtonContentValue[0])}}
+                " class="addButton" type="danger" size="small">{{ menuButtonStateValue[titleIndex] ?
+  $t(addButtonContentValue[1]) : $t(addButtonContentValue[0]) }}
                 </el-button>
               </div>
               <el-menu-item v-for="(eachSearchWordObject, index) in data[titleIndex]" :key="index"
@@ -51,7 +51,8 @@
                   <div class="col-span-3 flex justify-center">
                     <el-checkbox v-model="eachSearchWordObject.select" label="關聯" size="small" v-if="!isFirst" />
                   </div>
-                  <div class="eachSeachTitleItem col-span-6 flex justify-center overflow-hidden min-w-[60%] max-w-[60%] hover:bg-red-100"
+                  <div
+                    class="eachSeachTitleItem col-span-6 flex justify-center overflow-hidden min-w-[60%] max-w-[60%] hover:bg-red-100"
                     @click="
                       searchGoalByColumn(
                         titleData[titleIndex].searchKey,
@@ -80,14 +81,14 @@
 import { Delete } from "@element-plus/icons-vue";
 import { useLeftDataStore } from "@/store";
 import { useRightDataStore } from "@/store";
+import { useUserDataStore } from "@/store";
 import { Title } from "@/types"
 
-const leftDataStore = useLeftDataStore();
-const DataHandleStore = useRightDataStore();
-const { data } = storeToRefs(leftDataStore);
-const { deleteData, handleAddSearchTitle } = leftDataStore;
-const { searchGoalByColumn, showSelectedData } = DataHandleStore;
-const { selectedData, isFirst } = storeToRefs(DataHandleStore);
+const { data } = storeToRefs(useLeftDataStore());
+const { deleteData, handleAddSearchTitle, handSetLeftMenuDataState } = useLeftDataStore();
+const { searchGoalByColumn, showSelectedData } = useRightDataStore();
+const { selectedData, isFirst } = storeToRefs(useRightDataStore());
+const { isLogin } = useUserDataStore()
 const titles: Ref<Title[]> = ref([
   { name: "basic.left.menu.name", color: "grey", index: "1-1", searchKey: "姓名" },
   { name: "basic.left.menu.email", color: "silver", index: "1-2", searchKey: "Email" },
@@ -125,6 +126,9 @@ onMounted(() => {
   for (let i = 0; i < titleData.length; i++) {
     menuButtonStateValue.push(false);
     inputValue.push("");
+  }
+  if (isLogin) {
+    handSetLeftMenuDataState(isLogin?.uid)
   }
   // console.log(inputValue);
 });
