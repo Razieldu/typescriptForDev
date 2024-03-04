@@ -15,12 +15,13 @@ import ElementZhTWS from "element-plus/es/locale/lang/zh-tw";
 import ElementEn from "element-plus/es/locale/lang/en";
 import ElementZhCN from "element-plus/es/locale/lang/zh-cn";
 import ElementZhJA from "element-plus/es/locale/lang/ja";
-import { useSettingStore, useUserDataStore } from "@/store";
-import { onAuthStateChangedListener, getUserPhotoDoc, checkUserChoosePhotoIfExist, listUserChoosePhotoes,getLeftMenuData } from "./firebase/firebase.utils"
+import { useSettingStore, useUserDataStore,useLeftDataStore } from "@/store";
+import { onAuthStateChangedListener, getUserPhotoDoc, checkUserChoosePhotoIfExist, listUserChoosePhotoes } from "./firebase/firebase.utils"
 import { handleLogOut } from "@/utils"
 
 const { language } = storeToRefs(useSettingStore());
 const { setLogin, setCurrentPhotoURL } = useUserDataStore();
+const { handSetLeftMenuDataState } = useLeftDataStore()
 const { isLogin } = storeToRefs(useUserDataStore())
 const languageState = computed(() => language.value);
 import router from "@/router/router"
@@ -42,10 +43,9 @@ const locale = computed(() => {
 
 onMounted(async () => {
   onAuthStateChangedListener(async (user: any) => {
-
     if (user) {
       console.log(user, "onAuthStateChange")
-      getLeftMenuData(user.uid)
+      handSetLeftMenuDataState(user.uid)
       setLogin(user)
       router.push("/")
     } else {

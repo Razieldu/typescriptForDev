@@ -37,12 +37,14 @@
                   v-if="menuButtonStateValue[titleIndex]"></el-input>
                 <el-button @click="
                   handleAddSearchTitle(titleIndex, inputValue[titleIndex]);
-                menuButtonStateValue[titleIndex] =
-                  !menuButtonStateValue[titleIndex];
-
+                if (isLogin) {
+                  addNewSearch(isLogin?.uid, String(titleIndex), inputValue[titleIndex])
+                }
+                menuButtonStateValue[titleIndex] = !menuButtonStateValue[titleIndex];
                 inputValue[titleIndex] = '';
-                " class="addButton" type="danger" size="small">{{ menuButtonStateValue[titleIndex] ?
-  $t(addButtonContentValue[1]) : $t(addButtonContentValue[0]) }}
+                console.log(data)
+                  " class="addButton" type="danger" size="small">{{ menuButtonStateValue[titleIndex] ?
+    $t(addButtonContentValue[1]) : $t(addButtonContentValue[0]) }}
                 </el-button>
               </div>
               <el-menu-item v-for="(eachSearchWordObject, index) in data[titleIndex]" :key="index"
@@ -83,7 +85,7 @@ import { useLeftDataStore } from "@/store";
 import { useRightDataStore } from "@/store";
 import { useUserDataStore } from "@/store";
 import { Title } from "@/types"
-
+import { addNewSearch } from "../../firebase/firebase.utils"
 const { data } = storeToRefs(useLeftDataStore());
 const { deleteData, handleAddSearchTitle, handSetLeftMenuDataState } = useLeftDataStore();
 const { searchGoalByColumn, showSelectedData } = useRightDataStore();
@@ -122,6 +124,7 @@ watch(
   },
   { deep: true }
 );
+
 onMounted(() => {
   for (let i = 0; i < titleData.length; i++) {
     menuButtonStateValue.push(false);
@@ -130,7 +133,7 @@ onMounted(() => {
   if (isLogin) {
     handSetLeftMenuDataState(isLogin?.uid)
   }
-  // console.log(inputValue);
+  console.log(inputValue);
 });
 </script>
 

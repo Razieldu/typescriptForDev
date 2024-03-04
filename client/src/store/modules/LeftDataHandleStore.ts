@@ -10,7 +10,7 @@ export const useLeftDataStore = defineStore("leftData", {
     async handSetLeftMenuDataState(uid: string) {
       let dataFromFirestore = await getLeftMenuData(uid)
       if (dataFromFirestore !== undefined){
-        this.data = [...dataFromFirestore]
+        this.data = JSON.parse(JSON.stringify(dataFromFirestore))
       }
     },
     handleNewData(index: number, newData: string): void {

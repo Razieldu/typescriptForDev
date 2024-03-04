@@ -5,7 +5,7 @@ import { addDoc, getFirestore } from "firebase/firestore";
 import { doc, serverTimestamp, getDoc, setDoc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
 import { transformTime } from "@/utils";
-import { useUserDataStore, useRightDataStore } from "@/store";
+import { useUserDataStore, useRightDataStore, useLeftDataStore } from "@/store";
 import { openMessage } from "@/utils"
 
 const firebaseConfig = {
@@ -88,6 +88,7 @@ export const db = getFirestore(firebaseApp);
 export const createUserDocumentFromAuth = async (userAuth: any) => {
     if (!userAuth) return;
     const { fetchData, setLoading, setFirstTimeLogin } = useRightDataStore()
+    const { handSetLeftMenuDataState } = useLeftDataStore()
     const userDocRef = doc(db, 'users', userAuth.uid);
     const userSnapshot = await getDoc(userDocRef);
     if (!userSnapshot.exists()) {
@@ -108,8 +109,9 @@ export const createUserDocumentFromAuth = async (userAuth: any) => {
         try {
             await setDoc(userDocRef, userData);
             await setUserMemberData(userAuth.uid)
-            fetchData(userAuth.uid)
-            saveLeftMenuToFirestore(userAuth.uid)
+            await fetchData(userAuth.uid)
+            await saveLeftMenuToFirestore(userAuth.uid)
+            await handSetLeftMenuDataState(userAuth.uid)
             setLoading(false)
             setFirstTimeLogin(false)
         } catch (error) {
@@ -240,9 +242,8 @@ export const saveLeftMenuToFirestore = async (uid: string) => {
         }
         const localData = await response.json();
         console.log(localData)
-        const memberDataDoc = doc(db, 'usersMemberData', uid);
-        const leftCollection = collection(memberDataDoc, "leftMenuData")
-        await addDoc(leftCollection, localData)
+        const memberDataDoc = doc(db, 'usersMemberData', uid, "leftMenuData", "datas");
+        await setDoc(memberDataDoc, localData)
 
     } catch (error) {
         console.error('Error:', error);
@@ -261,7 +262,8 @@ export const getLeftMenuData = async (uid: string) => {
             let target = data[key]
             let temp = []
             for (let key in target) {
-                let dealedObject = { ...target[key], selected: false }
+                let nameTemp = target[key].name
+                let dealedObject = { ...target[key], select: false, searchKey: nameTemp }
                 temp.push(dealedObject)
             }
             returnData.push(temp)
@@ -270,6 +272,20 @@ export const getLeftMenuData = async (uid: string) => {
     } catch (error) {
         console.error("Error getting left menu data:", error);
     }
+}
+export const addNewSearch = async (uid: string, index1: string, inputValue: string) => {
+    if (inputValue === "") return
+    let data: any;
+    let collectiontemp = await getDocs(collection(db, "usersMemberData", uid, "leftMenuData"))
+    collectiontemp.forEach((doc) => {
+        data = doc.data()
+    })
+    let newIndex = Object.keys(data[index1]).length
+    console.log(index1, newIndex, data[index1])
+    let newObject = { id: `${index1}${newIndex}`, name: inputValue }
+    data[index1][newIndex] = newObject
+    const memberDataDoc = doc(db, 'usersMemberData', uid, "leftMenuData", "datas");
+    await setDoc(memberDataDoc, data)
 }
 ////fireStorage
 export const storage = getStorage();
