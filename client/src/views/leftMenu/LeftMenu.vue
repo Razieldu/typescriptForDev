@@ -65,8 +65,12 @@
                     <p class="text-s">{{ eachSearchWordObject.name }}</p>
                   </div>
                   <div class="deleteButton col-span-1 place-items-center flex justify-center">
-                    <el-button type="danger" :icon="Delete" size="small" circle
-                      @click="deleteData(titleIndex, eachSearchWordObject.id)" />
+                    <el-button type="danger" :icon="Delete" size="small" circle @click="
+                    deleteData(titleIndex, eachSearchWordObject.id);
+                    if (isLogin) {
+                      deleteSearchItem(isLogin?.uid, eachSearchWordObject.id, String(titleIndex))
+                    }
+                    " />
                   </div>
                 </div>
               </el-menu-item>
@@ -85,7 +89,7 @@ import { useLeftDataStore } from "@/store";
 import { useRightDataStore } from "@/store";
 import { useUserDataStore } from "@/store";
 import { Title } from "@/types"
-import { addNewSearch } from "../../firebase/firebase.utils"
+import { addNewSearch, deleteSearchItem } from "../../firebase/firebase.utils"
 const { data } = storeToRefs(useLeftDataStore());
 const { deleteData, handleAddSearchTitle, handSetLeftMenuDataState } = useLeftDataStore();
 const { searchGoalByColumn, showSelectedData } = useRightDataStore();
@@ -133,7 +137,6 @@ onMounted(() => {
   if (isLogin) {
     handSetLeftMenuDataState(isLogin?.uid)
   }
-  console.log(inputValue);
 });
 </script>
 

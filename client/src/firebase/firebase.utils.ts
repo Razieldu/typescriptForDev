@@ -7,6 +7,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } f
 import { transformTime } from "@/utils";
 import { useUserDataStore, useRightDataStore, useLeftDataStore } from "@/store";
 import { openMessage } from "@/utils"
+import { compose } from "element-plus/es/components/table/src/util";
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_APIKEY,
@@ -280,13 +281,47 @@ export const addNewSearch = async (uid: string, index1: string, inputValue: stri
     collectiontemp.forEach((doc) => {
         data = doc.data()
     })
+    console.log(data)
     let newIndex = Object.keys(data[index1]).length
-    console.log(index1, newIndex, data[index1])
-    let newObject = { id: `${index1}${newIndex}`, name: inputValue }
+    // console.log(data[index1])
+    // console.log("index1",index1)
+    // console.log("newIndex",newIndex)
+    let newId = `${Math.random() * 100000}${inputValue}`
+    let newObject = { id: `${newId}`, name: inputValue }
     data[index1][newIndex] = newObject
     const memberDataDoc = doc(db, 'usersMemberData', uid, "leftMenuData", "datas");
     await setDoc(memberDataDoc, data)
 }
+
+export const deleteSearchItem = async (uid: string, id: string, index: string) => {
+    let data: any;
+    let collectiontemp = await getDocs(collection(db, "usersMemberData", uid, "leftMenuData"))
+    collectiontemp.forEach((doc) => {
+        data = doc.data()
+    })
+    let resultObject: { [key: string]: any } = {}
+    let targetObject = JSON.parse(JSON.stringify(data[index]))
+    let keys = []
+    let values = []
+    for (let key in targetObject) {
+        let tempObject = targetObject[key]
+        if (tempObject.id === id) {
+            continue
+        } else {
+            keys.push(key)
+            values.push(tempObject)
+        }
+    }
+    for(let i=0;i<keys.length;i++){
+        resultObject[i]=values[i]
+    }
+    data[index] = resultObject
+    const memberDataDoc = doc(db, 'usersMemberData', uid, "leftMenuData", "datas");
+    await setDoc(memberDataDoc, data)
+}
+
+
+
 ////fireStorage
 export const storage = getStorage();
 
