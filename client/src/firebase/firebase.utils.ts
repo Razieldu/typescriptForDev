@@ -7,7 +7,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL, listAll, deleteObject } f
 import { transformTime } from "@/utils";
 import { useUserDataStore, useRightDataStore, useLeftDataStore } from "@/store";
 import { openMessage } from "@/utils"
-import { compose } from "element-plus/es/components/table/src/util";
+
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_APIKEY,
