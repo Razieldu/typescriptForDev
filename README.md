@@ -35,12 +35,12 @@ https://vuemember.web.app/login
 
 ### 登入頁面(Sign-up Page)
 
-![PROJECT PHOTO](https://github.com/Razieldu/typescriptForDev/raw/useFirestore/pagephoto/vuemember.web.app_login.png)
+![PROJECT PHOTO](https://github.com/Razieldu/typescriptForDev/raw/useFirestore/pagePhoto/vuemember.web.app_login.png)
 
 
 ### 主頁面(Main Page)
 
-![PROJECT PHOTO](https://github.com/Razieldu/typescriptForDev/raw/useFirestore/pagephoto/vuemember.web.app_.png)
+![PROJECT PHOTO](https://github.com/Razieldu/typescriptForDev/raw/useFirestore/pagePhoto/vuemember.web.app_.png)
 
 
 <!-- ## 參考視頻(Project Video)
