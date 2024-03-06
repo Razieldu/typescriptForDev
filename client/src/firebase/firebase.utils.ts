@@ -312,8 +312,8 @@ export const deleteSearchItem = async (uid: string, id: string, index: string) =
             values.push(tempObject)
         }
     }
-    for(let i=0;i<keys.length;i++){
-        resultObject[i]=values[i]
+    for (let i = 0; i < keys.length; i++) {
+        resultObject[i] = values[i]
     }
     data[index] = resultObject
     const memberDataDoc = doc(db, 'usersMemberData', uid, "leftMenuData", "datas");

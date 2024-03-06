@@ -42,7 +42,6 @@
                 }
                 menuButtonStateValue[titleIndex] = !menuButtonStateValue[titleIndex];
                 inputValue[titleIndex] = '';
-                console.log(data)
                   " class="addButton" type="danger" size="small">{{ menuButtonStateValue[titleIndex] ?
     $t(addButtonContentValue[1]) : $t(addButtonContentValue[0]) }}
                 </el-button>
@@ -95,6 +94,7 @@ const { deleteData, handleAddSearchTitle, handSetLeftMenuDataState } = useLeftDa
 const { searchGoalByColumn, showSelectedData } = useRightDataStore();
 const { selectedData, isFirst } = storeToRefs(useRightDataStore());
 const { isLogin } = useUserDataStore()
+
 const titles: Ref<Title[]> = ref([
   { name: "basic.left.menu.name", color: "grey", index: "1-1", searchKey: "姓名" },
   { name: "basic.left.menu.email", color: "silver", index: "1-2", searchKey: "Email" },
