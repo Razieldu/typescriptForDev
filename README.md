@@ -1,6 +1,6 @@
-![Vue](https://img.shields.io/badge/-React%5E18.0.0-blue)
-![VueRouter](https://img.shields.io/badge/-React--router%5E6.3.0-ff69b4)
-![FireStore](https://img.shields.io/badge/-FirebaseAuthRESTAPI-RED)
+![Vue](https://img.shields.io/badge/-Vue%5E18.0.0-blue)
+![VueRouter](https://img.shields.io/badge/-Vue--router%5E6.3.0-ff69b4)
+![FireStore](https://img.shields.io/badge/-Firebase-RED)
 
 
 ## 專案名稱(Project's Title)
@@ -35,13 +35,13 @@ https://vuemember.web.app/login
 
 ### 登入頁面(Sign-up Page)
 
-![PROJECT PHOTO](https://github.com/Razieldu/KoreaDramaix/raw/main/projectPhoto/page2.png)
+![PROJECT PHOTO](https://github.com/Razieldu/typescriptForDev/raw/main/pagephoto/vuemember.web.app_login.png)
 
 ### 主頁面(Main Page)
 
-![PROJECT PHOTO](https://github.com/Razieldu/KoreaDramaix/raw/main/projectPhoto/page3.png)
+![PROJECT PHOTO](https://github.com/Razieldu/typescriptForDev/raw/main/pagephoto/vuemember.web.app_.png)
 
 
-## 參考視頻(Project Video)
+<!-- ## 參考視頻(Project Video)
 
-待補
+待補 -->
