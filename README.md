@@ -10,15 +10,17 @@ Member Management
 ## 專案敘述(Project Description)
 
 
-Vue, Vue-Router搭建，並使用firebase來hosting網頁,圖片儲存,帳號登入登出,帳號相關資料儲存<br>
+Vite,Vue,Vue-Router,Pinia進行狀態管理,TypeScript型別驗證，並使用firebase來架設網頁,圖片儲存,帳號登入登出,帳號相關資料儲存<br>
 
 **語言切換的部分** :i18n<br>
 
-**CSS** :Taiwaid<br>
+**CSS** :Taiwind CSS<br>
 
-**UI** :elememt-plus<br>
+**UI** :element-plus<br>
 
-**註冊功能** :Firebase Authentication 
+**登入功能** :Firebase Authentication 
+
+**資料庫**: Firebase Storage(儲存圖片), Firestore Database(會員基本資料)
 
 ---
 
