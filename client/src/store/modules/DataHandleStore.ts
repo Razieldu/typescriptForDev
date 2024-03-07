@@ -143,12 +143,12 @@ export const useRightDataStore = defineStore("rightData", {
         });
       }
     },
-    async handleAddNewData() {
+    async handleAddNewData(uid:string) {
       const newObj = {} as DataItem; // 创建一个空对象
       this.data = [newObj, ...this.data]; // 在数据列表开头添加新对象
       this.saveData = [newObj, ...this.saveData]; // 在保存数据列表开头添加新对象
       try {
-        const result = await addMemberData(); // 发送添加数据的请求
+        const result = await addMemberData(uid); // 发送添加数据的请求
         if (result !== undefined) {
           this.data[0].m_id = result;
           this.saveData[0].m_id = result;

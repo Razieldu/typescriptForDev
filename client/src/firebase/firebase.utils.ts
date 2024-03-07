@@ -210,9 +210,10 @@ export const updateMemberData = async (newMember: any, dataId: string, uid: stri
 
 }
 
-export const addMemberData = async () => {
-    const collectionRef = collection(db, 'mainData');
-    const docRef = await addDoc(collectionRef, {});
+export const addMemberData = async (uid:string) => {
+    const userDocRef = doc(db, 'usersMemberData', `${uid}`);
+    const mainContentDataCollectionRef = collection(userDocRef, 'mainContentData')
+    const docRef = await addDoc(mainContentDataCollectionRef, {});
     return docRef.id;
 }
 

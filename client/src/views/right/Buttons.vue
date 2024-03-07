@@ -4,12 +4,15 @@
             <el-button @click="resetSearchResult()" type="primary">
                 {{ $t("basic.right.mainPage") }}
             </el-button>
-            <el-button @click="handleAddNewData()" type="primary">{{
-                $t("basic.right.addNewData")
-            }}</el-button>
+            <el-button @click="  if (isLogin) {
+                handleAddNewData(isLogin?.uid)
+            };
+                " type="primary">{{
+            $t("basic.right.addNewData")
+    }}</el-button>
             <el-button @click="handleExportFile" type="primary">Excel</el-button>
             <el-button @click="openDialog('AddNewPage')" type="primary">{{
-                $t("basic.right.buildPage")
+                    $t("basic.right.buildPage")
             }}</el-button>
             <el-button @click="openDialog('AddTargetPage')" type="primary" :disabled="shouldDisableButton">
                 {{ $t("basic.right.addToPage") }}
@@ -27,7 +30,7 @@
 
 <script setup lang="ts">
 import { exportFile } from "@/utils";
-import { useRightDataStore } from "@/store";
+import { useRightDataStore, useUserDataStore } from "@/store";
 import { addDialog } from "@/component/elementPlus/dialogue/index"
 import { computeFn } from "@/utils";
 import addNewPage from "@/component/elementPlus/dialogue/dialogues/addNewPage.vue"
@@ -41,6 +44,8 @@ const {
     currentSelectedDataId,
     dataUpdateToSelectPage,
 } = storeToRefs(useRightDataStore());
+
+const { isLogin } = useUserDataStore()
 
 let { shouldDisableButton } = computeFn();
 const {
